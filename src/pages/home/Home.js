@@ -12,36 +12,7 @@ const Home = () => {
     }, [])
     return (
         <>
-            <title>Trang Chủ</title>
-            <link rel="apple-touch-icon" sizes="57x57" href="https://playerduo.net/favicons/apple-icon-57x57.png"/>
-            <link rel="apple-touch-icon" sizes="60x60" href="https://playerduo.net/favicons/apple-icon-60x60.png"/>
-            <link rel="apple-touch-icon" sizes="72x72" href="https://playerduo.net/favicons/apple-icon-72x72.png"/>
-            <link rel="apple-touch-icon" sizes="76x76" href="https://playerduo.net/favicons/apple-icon-76x76.png"/>
-            <link rel="apple-touch-icon" sizes="114x114" href="https://playerduo.net/favicons/apple-icon-114x114.png"/>
-            <link rel="apple-touch-icon" sizes="120x120" href="https://playerduo.net/favicons/apple-icon-120x120.png"/>
-            <link rel="apple-touch-icon" sizes="144x144" href="https://playerduo.net/favicons/apple-icon-144x144.png"/>
-            <link rel="apple-touch-icon" sizes="152x152" href="https://playerduo.net/favicons/apple-icon-152x152.png"/>
-            <link rel="apple-touch-icon" sizes="180x180" href="https://playerduo.net/favicons/apple-icon-180x180.png"/>
-            <link rel="icon" type="image/png" sizes="192x192" href="../resources/raw/android-icon-192x192.png"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="../resources/raw/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="96x96" href="../resources/raw/favicon-96x96.png"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="../resources/raw/favicon-16x16.png"/>
-            <link rel="manifest" href="https://playerduo.net/manifest.json"/>
-            <meta name="msapplication-TileColor" content="#ffffff"/>
-            <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png"/>
-            <meta name="theme-color" content="#ffffff"/>
-            <link rel="shortcut icon" href="../resources/raw/favicon.ico"/>
-            <link href="../resources/all.css" rel="stylesheet"/>
-            <link href="../resources/css.css" rel="stylesheet"/>
-            <title>PlayerDuo - Thuê người chơi</title>
-            <link href="../resources/8.97b85fe3.chunk.css" rel="stylesheet" />
-            <link href="../resources/main.3e229f12.chunk.css" rel="stylesheet" />
-            <link rel="stylesheet" type="text/css" href="../resources/0.cbdbec7b.chunk.css" />
-            <link rel="stylesheet" type="text/css" href="../resources/4.2ddfb1d3.chunk.css" />
-            <link rel="stylesheet" type="text/css" href="../resources/15.7bac9b00.chunk.css" />
-            <link rel="stylesheet" href="../resources/css-home.css" />
-            <noscript>Bạn cần có cho phép Javascript hoạt động để chạy ứng dụng PlayerDuo.</noscript>
-            <div id="root">
+            <div id="root" style={{marginTop:70}}>
                 <div className="hidden">
                     <audio src="../resources/raw/notification-sound.805a8904.mp3" />
                     <audio src="../resources/raw/notification-group-sound.4c7ac55b.mp3" />
