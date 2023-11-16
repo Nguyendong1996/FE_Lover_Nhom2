@@ -1,11 +1,5 @@
 import React, {useEffect} from 'react';
-// import {useDispatch, useSelector} from "react-redux";
-// import NewCcdVs from "./NewCCDVs";
 import SidebarSupplies from "./SidebarSupplies";
-// import Top6ServiceCCDV from "./Top6ServiceCCDV";
-// import TopMaleAndFemale from "./TopMaleAndFemale";
-// import CcdVsByChosenSupplies from "./CCDVsByChosenSupplies";
-
 const Home = () => {
 
     useEffect(() => {
