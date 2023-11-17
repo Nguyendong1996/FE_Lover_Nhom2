@@ -3,7 +3,18 @@ import {useNavigate, useParams} from "react-router";
 import {findByIdLover} from "../../services/ProfileLoverService";
 import {findImagesByIdLover} from "../../services/ImageService";
 import {createBill} from "../../services/BillService";
+import Modal from 'react-modal';
 
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
 
 export function InfoLover() {
     const [profileLover, setProfileLover] = useState({})
@@ -17,6 +28,23 @@ export function InfoLover() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+
+    let subtitle;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        subtitle.style.color = '#f00';
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     const [bill, setBill] = useState({
         time: "",
         accountUser: {
@@ -196,13 +224,33 @@ export function InfoLover() {
                                     className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
                                 </div>
                                 <div className="text-center">
-                                    <button>Thuê</button>
+                                    <button onClick={openModal}>Thuê</button>
                                     <button className="btn-my-style white">Donate</button>
                                     <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        {/*start modal*/}
+                        <Modal
+                            isOpen={modalIsOpen}
+                            onAfterOpen={afterOpenModal}
+                            onRequestClose={closeModal}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
+                            <button onClick={closeModal}>close</button>
+                            <div>I am a modal</div>
+                            <form>
+                                <input />
+                                <button>tab navigation</button>
+                                <button>stays</button>
+                                <button>inside</button>
+                                <button>the modal</button>
+                            </form>
+                        </Modal>
+                        {/*end modal*/}
                         <div className="player-profile-main-wrap col-md-6 col-md-pull-3">
                             <div>
                                 <div className="row" style={{marginTop: "50px"}}>
