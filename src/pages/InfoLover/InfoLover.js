@@ -13,6 +13,8 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        height: '50%',
+        width: '50%'
     },
 };
 
@@ -211,7 +213,7 @@ export function InfoLover() {
                                 </div>
                                 <div className="text-center">
 
-                                    <button onClick={openModal}>Thuê</button>
+                                    <button onClick={openModal} className= "btn-my-style red">Thuê</button>
 
                                     <button className="btn-my-style white">Donate</button>
                                     <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
@@ -227,16 +229,72 @@ export function InfoLover() {
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
-                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-                            <button onClick={closeModal}>close</button>
-                            <div>I am a modal</div>
-                            <form>
-                                <input />
-                                <button>tab navigation</button>
-                                <button>stays</button>
-                                <button>inside</button>
-                                <button>the modal</button>
-                            </form>
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Chi tiết đơn thuê</h2>
+
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>Tên lover:</td>
+                                    <td>{profileLover.account?.nickname}</td>
+                                </tr>
+                                <tr>
+                                    <td>Thời gian muốn thuê:</td>
+                                    <td>
+                                        <select name="" id="" onChange={(e) => {
+                                            changeTime(e.target.value)
+                                        }}>
+                                            <option value="">Chọn giờ</option>
+                                            <option value="1">1 giờ</option>
+                                            <option value="2">2 giờ</option>
+                                            <option value="3">3 giờ</option>
+                                            <option value="4">4 giờ</option>
+                                            <option value="5">5 giờ</option>
+                                            <option value="24">1 ngày</option>
+                                            <option value="48">2 ngày</option>
+                                            <option value="168">1 tuần</option>
+                                            <option value="336">2 tuần</option>
+                                            <option value="720">1 tháng</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Chọn dịch vụ VIP:</td>
+                                    <td>
+                                        {vipService.map((item) => {
+                                            return (
+                                                <>
+                                                    <label htmlFor="">
+                                                        <input type="checkbox"
+                                                               id={"check" + item.id}
+                                                               value={item.id}
+                                                            // checked={vipServicesChecked.some((s) => s.id === item.id)}
+                                                            // onChange={(event) => changeVipServices(event, item)}
+                                                            //  onChange={getMoneyVipService}
+                                                               onChange={handleCheckboxChange}
+                                                        />
+                                                        {item.name} ({item.price}vnđ)
+                                                    </label>
+                                                    <br/>
+                                                </>
+
+                                            )
+                                        })}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng tiền:</td>
+                                    <td>{bill.totalMoney} vnđ</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2}>
+                                        <button type={"button"} onClick={rentLover}>Thanh toán</button>
+                                    </td>
+                                    <td>
+                                        <button onClick={closeModal}>close</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </Modal>
                         {/*end modal*/}
                         <div className="player-profile-main-wrap col-md-6 col-md-pull-3">
