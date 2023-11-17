@@ -56,7 +56,7 @@ const Header = () => {
                         <ul className="nav navbar-nav navbar-center">
                             <li className={"header-li-1"}><Link to={"/"} onClick={resetAllToHome}>Trang chủ</Link></li>
                             <li className={"header-li-1"}>
-                                {role === "ROLE_LOVER" ? <Link to={"/"}><a href={"#"}>Trang lover</a></Link> :
+                                {role === "ROLE_LOVER" ? <Link to={"/homeProfileLover"}><a href={"#"}>Trang lover</a></Link> :
                                     <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>}
                             </li>
                             <li className={"header-li-1"}>
