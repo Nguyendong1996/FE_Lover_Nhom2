@@ -32,6 +32,7 @@ const Header = () => {
             <link rel="stylesheet" type="text/css" href="../resources/4.2ddfb1d3.chunk.css"/>
             <link rel="stylesheet" type="text/css" href="../resources/15.7bac9b00.chunk.css"/>
             <link rel="stylesheet" href="../resources/css-home.css"/>
+            <link rel="stylesheet" href="../resources/css-user-profile.css"/>
             <div id="root">
                 <header className="menu__header fix-menu" id="header-menu">
                     <div className="navbar-header"><a href className="logo"><img alt="logo playerduo"
