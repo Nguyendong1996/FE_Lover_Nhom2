@@ -42,7 +42,7 @@ export function updateAvatarUser(url, id, token) {
                         Authorization: `Bearer ${token}`
                     }
                 }).catch(() => {
-                alert("Lỗi kết nối đến máy chủ!")
+                alert("Lỗi!")
             })
         )
     })
@@ -57,7 +57,7 @@ export function findByIdAccount(id, token) {
                     }
                 })
                 .then((res) => {
-                    return res;
+                    return res.data;
                 }).catch(() => {
                 return {}
             })

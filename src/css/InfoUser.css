@@ -1,0 +1,27 @@
+.word-1 {
+    color: #f0564a;
+    font-size: 20px;
+    font-weight: bold;
+}
+.word-2 {
+    color: #f0564a;
+    font-size: 30px;
+    font-weight: bold;
+}
+.info-user-icon {
+    color: #f0564a;
+    font-size: large;
+    margin-left: 5px;
+}
+.div-info-user-1 {
+    text-align: center;
+    margin-top: 100px;
+}
+.div-info-user-2 {
+    margin-top: 30px;
+}
+.label-info-user {
+    /*color: #f0564a;*/
+    padding-bottom: 20px;
+    font-size: 20px;
+}
