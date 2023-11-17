@@ -1,6 +1,4 @@
-import SidebarSupplies from "./SidebarSupplies";
-import Top6ServiceCCDV from "./Top6ServiceCCDV";
-import NewCcdVs from "./NewCCDVs";
+
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import axios from "axios";

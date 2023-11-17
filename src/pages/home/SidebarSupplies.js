@@ -1,31 +1,49 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {findAllService} from "../../services/ServiceService";
+import {AppContext} from "../../context/AppContext";
 
 const SidebarSupplies = () => {
 
+    const [baseServices, setBaseServices] = useState([])
+    const {handleBaseServiceChange} = useContext(AppContext);
+    const {idBaseService} = useContext(AppContext);
+    const {setVisibleProducts} = useContext(AppContext);
 
+    function change1(id) {
+        handleBaseServiceChange(id)
+        setVisibleProducts(4)
+    }
+    useEffect(() => {
+        findAllService().then((res) => {
+            setBaseServices(res)
+            console.log(res)
+        })
+    }, [])
     return (
         <>
             <div className="home-flex-category">
-                <div className="fixed-cate"><p><span>Danh sách dịch vụ</span></p>
+                <div className="fixed-cate">
+                    {(idBaseService === 0) ? <p style={{fontSize: 20, color:"#f0564a"}}><span>Dịch vụ cơ bản</span></p>
+                        : <p style={{fontSize: 20}}><span>Dịch vụ cơ bản</span></p>
+                    }
+
                     <ul className="list-group">
 
-                            <li className="list-item " >
-                                <div className="media">
-                                    <div className="media-body media-middle"><p className="media-heading">oke tuấn con củ cac</p>
+                        {baseServices.map((item) => {
+                            return (
+                                <li className="list-item ">
+                                    <div className="media">
+                                        <div className="media-body media-middle">
+                                            {(idBaseService === item.id) ?
+                                                <p className="media-heading" style={{fontSize: 15, color: "#f0564a"}}
+                                                   onClick={() => change1(item.id)}>{item.name}</p> :
+                                                <p className="media-heading" style={{fontSize: 15}}
+                                                   onClick={() => change1(item.id)}>{item.name}</p>}
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-
-
-                        {/*<li className="list-item ">*/}
-                        {/*    <div className="media">*/}
-                        {/*        <div className="media-left"><img className="media-object" alt="715867c6-698f-411a-b4f9-1e9093130b60__f364f2e0-34ce-11ed-838c-b120e70abb59__game_avatars.jpg" src="../resources/raw/715867c6-698f-411a-b4f9-1e9093130b60__f364f2e0-34ce-11ed-838c-b120e70abb59__game_avatars.jpg" />*/}
-                        {/*        </div>*/}
-                        {/*        <div className="media-body media-middle"><p className="media-heading">Liên Minh Huyền Thoại</p>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</li>*/}
-
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>

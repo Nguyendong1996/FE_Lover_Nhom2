@@ -1,0 +1,50 @@
+#div-form-login-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#button-login-1 {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#button-login-1:hover {
+    background-color: rgba(231, 61, 48, 0.95);
+}
+
+#button-send-code-form-register {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+}
+
+#button-send-code-form-register:hover {
+    background-color: rgba(231, 61, 48, 0.95);
+}
+
+#button-submit-form-register {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+
+}
+
+#button-load-more-home {
+    border: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 30px;
+    background-color: #f0564a;
+    color: white;
+}
