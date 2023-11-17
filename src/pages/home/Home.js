@@ -40,9 +40,7 @@ const Home = () => {
             <div id="root" style={{marginTop: 70}}>
                 <div className="wrapper">
                     <div className="home-flex">
-
                         <SidebarSupplies/>
-
                         <div className="home-flex-content">
                             <div className="slide banner carousel slide">
                                 <div className="carousel-inner">

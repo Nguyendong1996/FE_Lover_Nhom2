@@ -37,11 +37,11 @@ export const findAllGender = () =>{
         )
     })
 }
-export const updateProfileLover = (profileLover,navigate,id) =>{
+export const updateProfileLover = (profileLover,navigate) =>{
     return new Promise(resolve => {
         resolve(
             axios.post("http://localhost:8080/api/profileLoves/update",profileLover).then(() =>{
-                    return navigate("/homeProfileLover/" + id)
+                    return navigate("/homeProfileLover")
                 }
             )
         )
