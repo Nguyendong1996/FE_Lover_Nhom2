@@ -9,13 +9,16 @@ import {findAllByBaseService} from "../../services/HomeService";
 
 const Home = () => {
     const [lovers, setLovers] = useState([])
-    const [visibleProducts, setVisibleProducts] = useState(4);
     const {searchValue} = useContext(AppContext);
     const {idVipService} = useContext(AppContext);
     const {idFreeService} = useContext(AppContext);
     const {idBaseService} = useContext(AppContext);
+    const {visibleProducts} = useContext(AppContext);
+    const {handleChangeVisibleProducts} = useContext(AppContext);
+
+    const idAccount = localStorage.getItem("idAccount")
     const loadMoreProducts = () => {
-        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 4);
+        handleChangeVisibleProducts()
     };
     useEffect(() => {
         if (idBaseService !== 0) {
@@ -102,7 +105,8 @@ const Home = () => {
                             <div className="list-player">
                                 <header className={"title-header vip"}>
                                     <div>
-                                        <h5 className={"title-header-left"} style={{textAlign: "center"}}>DANH SÁCH LOVER</h5>
+                                        <h5 className={"title-header-left"} style={{textAlign: "center"}}>DANH SÁCH
+                                            LOVER</h5>
                                     </div>
                                 </header>
                                 <div className="card-player row">
@@ -111,11 +115,11 @@ const Home = () => {
                                             <div className="col-md-3" key={key} style={{marginBottom: 20}}>
                                                 <div className="player-information-card-wrap">
                                                     <div className="player-avatar">
-                                                        <a target="_blank" href={"/"}>
+                                                        <Link to={"/info-lover/" + item.account?.id}>
                                                             <img src={item.avatarImage} className alt="PD"
                                                                  id="avt-img-reponsiver"
                                                                  style={{height: "100%", width: "100%"}}/>
-                                                        </a>
+                                                        </Link>
                                                         <a target="_blank" className="player-price"
                                                            href={"/"}>{item.price} đ/h</a>
                                                     </div>

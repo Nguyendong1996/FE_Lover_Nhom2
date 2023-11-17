@@ -196,7 +196,7 @@ export function InfoLover() {
                                     className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
                                 </div>
                                 <div className="text-center">
-                                    <button className="btn-my-style red" >Thuê</button>
+                                    <button>Thuê</button>
                                     <button className="btn-my-style white">Donate</button>
                                     <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
                                     </button>

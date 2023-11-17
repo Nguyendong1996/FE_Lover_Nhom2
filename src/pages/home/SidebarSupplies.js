@@ -7,7 +7,12 @@ const SidebarSupplies = () => {
     const [baseServices, setBaseServices] = useState([])
     const {handleBaseServiceChange} = useContext(AppContext);
     const {idBaseService} = useContext(AppContext);
+    const {setVisibleProducts} = useContext(AppContext);
 
+    function change1(id) {
+        handleBaseServiceChange(id)
+        setVisibleProducts(4)
+    }
     useEffect(() => {
         findAllService().then((res) => {
             setBaseServices(res)
@@ -31,9 +36,9 @@ const SidebarSupplies = () => {
                                         <div className="media-body media-middle">
                                             {(idBaseService === item.id) ?
                                                 <p className="media-heading" style={{fontSize: 15, color: "#f0564a"}}
-                                                   onClick={() => handleBaseServiceChange(item.id)}>{item.name}</p> :
+                                                   onClick={() => change1(item.id)}>{item.name}</p> :
                                                 <p className="media-heading" style={{fontSize: 15}}
-                                                   onClick={() => handleBaseServiceChange(item.id)}>{item.name}</p>}
+                                                   onClick={() => change1(item.id)}>{item.name}</p>}
                                         </div>
                                     </div>
                                 </li>

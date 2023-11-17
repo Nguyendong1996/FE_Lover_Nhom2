@@ -20,10 +20,6 @@ export function FormLogin() {
             localStorage.setItem("isLogin", "true");
             localStorage.setItem("idAccount", res.data.id)
             localStorage.setItem("role", res.data.roles[0].authority)
-            // // console.log(res)
-            // props.m(true);
-            // props.n(res.data.id)
-            // props.l(res.data.roles[0].authority)
             handleChangeLogin(isLogin)
             setLoading(false)
             if (res.data.roles[0].authority === "ROLE_ADMIN") {
