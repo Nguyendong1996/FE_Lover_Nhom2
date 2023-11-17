@@ -18,10 +18,8 @@ const Home = () => {
                 </div>
                 <div className="wrapper">
                     <div className="home-flex">
-
                         <SidebarSupplies/>
-
-                        <div className="home-flex-content">
+                        <div className="home-flex-content" style={{marginTop :'90px'}}>
                             <p className="btn-chat-global false"><span>Trò Chuyện</span></p>
                             <div className="hided">
                                 <div className="slide extend-box">
