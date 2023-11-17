@@ -189,14 +189,14 @@ export function InfoLover() {
                             </div>
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
-                            <div className="right-player-profile" style={{marginTop: "50px"}}><p className="price-player-profile">{profileLover.price} / giờ</p>
+                            <div className="right-player-profile" style={{marginTop: "80px"}}><p className="price-player-profile">{profileLover.price} / giờ</p>
                                 <div className="rateting-style"><i className="fas fa-star"></i><i
                                     className="fas fa-star"></i><i
                                     className="fas fa-star"></i><i className="fas fa-star"></i><i
                                     className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
                                 </div>
                                 <div className="text-center">
-                                    <button>Thuê</button>
+                                    <button  className="btn-my-style red">Thuê</button>
                                     <button className="btn-my-style white">Donate</button>
                                     <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
                                     </button>
@@ -205,7 +205,7 @@ export function InfoLover() {
                         </div>
                         <div className="player-profile-main-wrap col-md-6 col-md-pull-3">
                             <div>
-                                <div className="row" style={{marginTop: "50px"}}>
+                                <div className="row" style={{marginTop: "80px"}}>
                                     <div className="center-item col-md-12">
                                     <span
                                         className="name-player-profile hidden-over-name">{profileLover.account?.nickname} 🐰🐰</span>
