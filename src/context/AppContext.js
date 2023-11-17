@@ -8,7 +8,11 @@ export const AppProvider = ({children}) => {
     const [idFreeService, setIdFreeService] = useState(0);
     const [idBaseService, setIdBaseService] = useState(0);
     const [check, setCheck] = useState(false);
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(false);
+    const [visibleProducts, setVisibleProducts] = useState(4);
+    const handleChangeVisibleProducts = () => {
+        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 4);
+    }
     const handleChangeLogin = (value) => {
         setIsLogin(!value)
     }
@@ -46,6 +50,9 @@ export const AppProvider = ({children}) => {
             idFreeService,
             idBaseService,
             check, isLogin,
+            visibleProducts,
+            setVisibleProducts,
+            handleChangeVisibleProducts,
             handleChangeLogin,
             handleChangeCheck,
             handleFreeServiceChange,
