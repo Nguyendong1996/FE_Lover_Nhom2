@@ -1,4 +1,18 @@
+import {useEffect, useState} from "react";
+import { findByIdLover} from "../../services/ProfileLoverService";
+
 export const ProfileLover = () =>{
+    const [profileLover, setProfileLover] = useState({})
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() =>{
+        findByIdLover(1).then((res) =>{
+            console.log(res)
+            setProfileLover(res)
+        }).catch(() =>{
+            return {}
+        })
+    },[])
     return(
         <>
             <title>User Profile</title>
@@ -29,84 +43,70 @@ export const ProfileLover = () =>{
             <link rel="stylesheet" type="text/css" href="../resources/3.fe7e74cf.chunk.css" />
             <link rel="stylesheet" type="text/css" href="../resources/10.697bc269.chunk.css" />
             <link rel="stylesheet" href="../resources/css-user-profile.css" />
-            <div  style={{marginLeft:'160px',marginTop:'-700px'}}>
-                <div className="hidden">
-                    <audio src="../resources/raw/notification-sound.805a8904.mp3"/>
-                    <audio src="../resources/raw/notification-group-sound.4c7ac55b.mp3"/>
-                    <audio src="../resources/raw/unconvinced.1de6c75d.mp3"/>
-                </div>
-                <div className="notifications-wrapper"/>
-                <div className="message__popup  false">
-                    <div className="message__popup--icon">
-                        <img src="../resources/raw/popup-chat.png" className alt="PD"/></div>
-                </div>
                 <div className="wrapper">
-                    <div className="container player-infomation">
-                        <div className="player-profile-left-wrap col-md-3" style={{marginTop:'-30px'}}>
+                    <div className="container player-infomation" style={{marginLeft:'13%',marginTop:'-50%'}}>
+                        <div className="player-profile-left-wrap col-md-3" style={{marginTop:'10px',marginLeft:'0%'}}>
                             <div className="avt-player false">
                                 <div>
-                                    <div className="avt avt-lg">
-                                        <img src="../image/img_2.png" alt="Avatar"
-                                             style={{width: "100%", height: "100%"}}/>
+                                    <div>
+                                        <img src={profileLover.avatarImage} style={{width: 300, height: 300}}
+                                             className="img-info" alt=""  />
                                     </div>
+                                    <div className="rent-time-wrap"><p className="ready">{profileLover.statusLover?.name}</p></div>
                                 </div>
-                            </div>
-                            <div className="rent-time-wrap"><p className="ready">Đang sẵn sàng</p></div>
-                            <div className="social-icon">
 
+                            </div>
+
+                            <div className="social-icon">
                             </div>
                             <div className="member-since">
                                 <div>Ngày tham gia:</div>
                                 <span>
+                                    {profileLover.createdAt}
                             </span>
                             </div>
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
                         </div>
-                        <div className="player-profile-main-wrap col-md-6 col-md-pull-3" >
+                        <div className="player-profile-main-wrap col-md-6 col-md-pull-3" style={{marginLeft:'25%'}}>
                             <div>
                                 <div className="row">
                                     <div className="center-item col-md-12">
                                     <span
-                                        className="name-player-profile hidden-over-name"> 🐰🐰</span>
+                                        className="name-player-profile hidden-over-name">{profileLover.account?.nickname} 🐰🐰</span>
                                     </div>
                                 </div>
                                 <div className="nav-player-profile row">
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Số người theo dõi</span></div>
-                                        <div className="item-nav-value">400 <span>người</span></div>
+                                        <div className="item-nav-name"><span>Số Lượt thuê</span></div>
+                                        <div className="item-nav-value">{profileLover.totalViews} <span>Lượt</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Đã được thuê</span></div>
+                                        <div className="item-nav-name"><span>Thời Gian được thuê</span></div>
+                                        <div className="item-nav-value"><span>{profileLover.totalHourRented}</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
                                         <div className="item-nav-name"><span>Tỷ lệ hoàn thành</span></div>
                                         <div className="item-nav-value">100&nbsp;%</div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Tình trạng thiết bị</span></div>
-                                        <div className="item-nav-value"><i className="fas fa-microphone"></i></div>
+                                        <div className="item-nav-name"><span>Thu nhập</span></div>
+                                        <div className="item-nav-value">{profileLover.totalMoneyRented}</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="game-category row">
-                                        <div className="choose-game"
-                                             style={{background: "url(&quot;715867c6-698f-411a-b4f9-1e9093130b60__2649fa50-37c9-11ed-838c-b120e70abb59__game_backgrounds.jpg&quot;) center center no-repeat"}}>
-                                            <p className="overlay"></p>
-                                        </div>
-                                    </div>
                                     <div>
                                         <div className="title-player-profile row">
                                             <div className="col-xs-6"><span>Thông tin</span></div>
                                         </div>
-                                        <div className="content-player-profile"><p>nhận all game, sv Na, Naraka</p>
+                                        <div className="content-player-profile" >
+                                            <p>{profileLover.description}</p>
                                             <div className="album-of-player">
                                                 <div>
-                                                    <a href="https://playerduo.net/api/upload-service/images/029f1f12-4fb8-4b21-8171-ca7bf863e2f8__ae016c20-4679-11ee-a657-a54d6be1d46a__player_album.jpg"
-                                                       style={{display: "block"}}>
-                                                    </a>
-
-                                                    <div className="clearfix"></div>
+                                                    <div className="avt avt-lg">
+                                                        <img src={profileLover.avatarImage} alt="Avatar"
+                                                             style={{width: "60%", height: "60%"}}/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -778,7 +778,6 @@ export const ProfileLover = () =>{
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }

@@ -101,7 +101,7 @@
 .home-flex-content .list-player .title-header {
     display: flex;
     justify-content: space-between;
-    margin: 25px 0 15px;
+    margin: 15px 0 15px;
     width: 100%
 }
 
