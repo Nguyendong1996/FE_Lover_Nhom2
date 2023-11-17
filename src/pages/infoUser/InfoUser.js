@@ -55,7 +55,6 @@ export function InfoUser() {
 
     return (
         <>
-            <link rel="stylesheet" href="../resources/css-user-information.css"/>
             <div id={"root"} style={{marginTop: 100}}>
                 <div className="wrapper">
                     <div className="setting__main row container-info-user">
