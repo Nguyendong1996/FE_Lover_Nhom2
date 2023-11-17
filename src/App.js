@@ -5,6 +5,7 @@ import Home from "./pages/home/Home";
 import {FormLogin} from "./pages/login/FormLogin";
 import {FormRegister} from "./pages/login/FormRegister"
 import {InfoLover} from "./pages/InfoLover/InfoLover";
+import {InfoUser} from "./pages/infoUser/InfoUser";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path={'/info-lover/:id'} element={<InfoLover/>}></Route>
                 <Route path={"/login"} element={<FormLogin/>}></Route>
                 <Route path={"/register"} element={<FormRegister/>}></Route>
+                <Route path={"/info-user/:id"} element={<InfoUser/>}></Route>
             </Route>
         </Routes>
     )
