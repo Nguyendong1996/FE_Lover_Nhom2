@@ -8,6 +8,9 @@ import {AppContext} from "../context/AppContext";
 const Header = () => {
     const {handleBaseServiceChange} = useContext(AppContext);
     const {setVisibleProducts} = useContext(AppContext);
+    const idAccount = localStorage.getItem("idAccount")
+    const role = localStorage.getItem("role")
+    console.log(role)
 
     function resetAllToHome() {
         handleBaseServiceChange(0)
@@ -29,6 +32,7 @@ const Header = () => {
             <link rel="stylesheet" type="text/css" href="../resources/4.2ddfb1d3.chunk.css"/>
             <link rel="stylesheet" type="text/css" href="../resources/15.7bac9b00.chunk.css"/>
             <link rel="stylesheet" href="../resources/css-home.css"/>
+            <link rel="stylesheet" href="../resources/css-user-profile.css"/>
             <div id="root">
                 <header className="menu__header fix-menu" id="header-menu">
                     <div className="navbar-header"><a href className="logo"><img alt="logo playerduo"
@@ -51,8 +55,16 @@ const Header = () => {
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
                             <li className={"header-li-1"}><Link to={"/"} onClick={resetAllToHome}>Trang chủ</Link></li>
-                            <li className={"header-li-1"}><Link to={"/"}>Trang lover</Link></li>
-                            <li className={"header-li-1"}><Link to={""}>Trang user</Link></li>
+                            <li className={"header-li-1"}>
+                                {role === "ROLE_LOVER" ? <Link to={"/"}><a href={"#"}>Trang lover</a></Link> :
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>}
+                            </li>
+                            <li className={"header-li-1"}>
+                                {role === null ?
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang user</a> :
+                                    <Link to={"/info-user/" + idAccount}><a href={"#"}>Trang user</a></Link>
+                                }
+                            </li>
                             <li className={"header-li-1"}><Link to={""}>Top lover</Link></li>
                             <li className={"header-li-1"}><Link to={""}>Top user</Link></li>
                         </ul>
