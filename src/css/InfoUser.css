@@ -15,6 +15,12 @@
     top: 3%;
     right: 31%;
 }
+.icon-setting-info:hover {
+    cursor: pointer;
+}
+.info-user-icon:hover {
+    cursor: pointer;
+}
 .div-info-user-1 {
     text-align: left;
     margin-top: 50px;
@@ -44,4 +50,22 @@
 .wrapper {
     width: 100%;
     height: 100%;
+}
+.loading-info-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 280px;
+}
+.info-user-btn {
+    margin-top: 20px;
+    color: white;
+    background-color: #f0564a;
+    border: none;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+}
+.info-user-btn:hover {
+    background-color: rgba(231, 61, 48, 0.95);
 }
