@@ -4,6 +4,8 @@ export const findAllLover = () =>{
         resolve(
             axios.get("http://localhost:8080/api/profileLoves").then((res) =>{
                 return res.data
+            }).catch(()=>{
+                return []
             }))
     })
 }

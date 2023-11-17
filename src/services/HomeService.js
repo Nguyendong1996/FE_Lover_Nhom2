@@ -41,7 +41,7 @@ export function findAllByBaseService(id) {
         resolve(
             axios.get("http://localhost:8080/api/profileLover/findAllByBaseService/" + id)
                 .then((res) => {
-                    return res
+                    return res.data
                 }).catch(() => {
                 return []
             })
