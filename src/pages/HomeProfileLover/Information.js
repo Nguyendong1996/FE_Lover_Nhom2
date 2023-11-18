@@ -56,7 +56,7 @@ export const Information = () =>{
                 id: values.city.id,
             },
             account:{
-                id:1,
+                id:id,
             },
             dateOfBirth: values.dateOfBirth,
             height: values.height,
