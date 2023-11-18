@@ -5,36 +5,113 @@ import {Link} from "react-router-dom";
 import "../../css/FormLogin.css"
 import {AppContext} from "../../context/AppContext";
 import {} from "../../services/ServiceService"
-import {findAllByBaseService} from "../../services/HomeService";
+import {findAllGender, findAllCountry, findAllCityByIdCountry} from "../../services/ProfileLoverService"
+import {findAllVipService} from "../../services/VipService"
+import {findAllFree} from "../../services/FreeService"
+import {findAllStatusLover, findAllByFilter} from "../../services/HomeService"
 
 const Home = () => {
     const [lovers, setLovers] = useState([])
     const {searchValue} = useContext(AppContext);
-    const {idVipService} = useContext(AppContext);
-    const {idFreeService} = useContext(AppContext);
+    const {idVipService, setIdVipService} = useContext(AppContext);
+    const {idFreeService, setIdFreeService} = useContext(AppContext);
     const {idBaseService} = useContext(AppContext);
+    const [idGender, setIdGender] = useState(0)
+    const [genders, setGenders] = useState([])
+    const [vipServices, setVipServices] = useState([])
+    const [freeServices, setFreeServices] = useState([])
+    const [countries, setCountries] = useState([])
+    const [cities, setCities] = useState([])
+    const [idCity, setIdCity] = useState(0)
+    const [idCountry, setIdCountry] = useState(0)
+    const [statusLovers, setStatuslovers] = useState([])
+    const [idStatusLover, setIdStatusLover] = useState(0)
+    const [arrangeCost, setArrangeCost] = useState(1)
+    const [filter, setFilter] = useState({
+        idBaseService: 0,
+        searchValue: "",
+        idFreeService: 0,
+        idVipService: 0,
+        idGender: 0,
+        idStatusLover: 0,
+        idCity: 0,
+        arrangeCost: 1,
+        idCountry: 0
+    })
+
     const {visibleProducts} = useContext(AppContext);
+    const {setVisibleProducts} = useContext(AppContext);
     const {handleChangeVisibleProducts} = useContext(AppContext);
 
     const idAccount = localStorage.getItem("idAccount")
     const loadMoreProducts = () => {
         handleChangeVisibleProducts()
     };
-    useEffect(() => {
-        if (idBaseService !== 0) {
-            findAllByBaseService(idBaseService)
-                .then((res) => {
-                    setLovers(res)
-                })
-        } else {
-            findAllLover()
-                .then((res) => {
-                    setLovers(res)
-                    console.log(res)
-                })
-        }
-    }, [idBaseService])
 
+    // tìm kiếm:
+    function getFilter() {
+        filter.idBaseService = idBaseService;
+        filter.idVipService = idVipService;
+        filter.idFreeService = idFreeService;
+        filter.searchValue = searchValue;
+        filter.idGender = idGender;
+        filter.idStatusLover = idStatusLover
+        filter.idCity = idCity;
+        filter.arrangeCost = arrangeCost
+        filter.idCountry = idCountry;
+    }
+    function changeGender(e) {
+        setIdGender(e.target.value)
+        setVisibleProducts(4)
+    }
+    function changeStatus(e) {
+        setIdStatusLover(e.target.value)
+        setVisibleProducts(4)
+    }
+    function changeCost(e) {
+        setArrangeCost(e.target.value)
+        setVisibleProducts(4)
+    }
+    function changeCountry(e) {
+        setIdCountry(parseInt(e.target.value));
+        setIdCity(0)
+    }
+
+
+    useEffect(() => {
+        findAllGender().then((res) => {
+            setGenders(res)
+        });
+        findAllVipService().then((res) => {
+            setVipServices(res)
+        });
+        findAllFree().then((res) => {
+            setFreeServices(res)
+        });
+        findAllStatusLover().then((res) => {
+            setStatuslovers(res)
+        });
+        findAllCountry().then((res) => {
+            setCountries(res)
+        });
+    }, [])
+    useEffect(()=>{
+        getFilter()
+        console.log(filter)
+    },[searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
+    useEffect(() => {
+        findAllCityByIdCountry(idCountry).then((res) => {
+            setCities(res)
+        })
+    }, [idCountry])
+
+    useEffect(() => {
+        findAllByFilter(filter).then((res)=>{
+            setLovers(res)
+            console.log(res)
+        })
+        console.log("set lovers")
+    }, [searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
     return (
         <>
             <div id="root" style={{marginTop: 70}}>
@@ -63,42 +140,84 @@ const Home = () => {
                                 </div>
                             </div>
                             <br/>
-                            <div className="filter-player  hidden">
-                                <select className="form-control gender ">
-                                    <option value selected="selected">Giới tính</option>
-                                    <option value="female">Nữ</option>
-                                    <option value="male">Nam</option>
+                            <div className="filter-player  hidden" style={{marginLeft: 55}}>
+                                <select className="form-control gender " style={{width: 80}}
+                                        onChange={(e) => changeGender(e)}>
+                                    <option value={0} selected="selected">Giới tính</option>
+                                    {genders.map((item) => {
+                                        return (
+                                            <option value={item.id}>{item.name}</option>
+                                        )
+                                    })}
                                 </select>
-                                <select className="form-control type ">
-                                    <option value selected="selected">Dịch vụ vip</option>
-                                    <option value="new">Người mới</option>
-                                    <option value="hot">Hot</option>
-                                    <option value="vip">Vip</option>
+                                <select className="form-control gender " style={{width: 130}}
+                                        onChange={(e) => setIdVipService(e.target.value)}>
+                                    <option value={0} selected="selected">Dịch vụ VIP</option>
+                                    {vipServices.map((item) => {
+                                        return (
+                                            <option value={item.id}>
+                                                {/*{item.name.length > 20 ? `${item.name.slice(0, 20)}...` : item.name}*/}
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })}
                                 </select>
-                                <select className="form-control type " style={{width: 110}}>
-                                    <option value selected="selected">Dịch vụ free</option>
-                                    <option value="new">Người mới</option>
-                                    <option value="hot">Hot</option>
-                                    <option value="vip">Vip</option>
+                                <select className="form-control gender " style={{width: 130}}
+                                        onChange={(e) => setIdFreeService(e.target.value)}>
+                                    <option value={0} selected="selected">Dịch vụ FREE</option>
+                                    {freeServices.map((item) => {
+                                        return (
+                                            <option value={item.id}>
+                                                {/*{item.name.length > 20 ? `${item.name.slice(0, 20)}...` : item.name}*/}
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })}
                                 </select>
-                                <div className="form-control ready false" style={{width: 110}}>Đang sẵn sàng</div>
-                                <div className="form-control ready false" style={{width: 90}}>Khoảng giá</div>
-                                <select className="form-control type ">
-                                    <option value selected="selected">Quốc gia</option>
-                                    <option value="new">Người mới</option>
-                                    <option value="hot">Hot</option>
-                                    <option value="vip">Vip</option>
+                                <select className="form-control gender " style={{width: 130}}
+                                        onChange={(e) => changeStatus(e)}>
+                                    <option value={0} selected="selected">Trạng thái</option>
+                                    {statusLovers.map((item) => {
+                                        return (
+                                            <option value={item.id}>
+                                                {/*{item.name.length > 20 ? `${item.name.slice(0, 20)}...` : item.name}*/}
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })}
                                 </select>
-                                <select className="form-control type ">
-                                    <option value selected="selected">Thành phố</option>
-                                    <option value="new">Người mới</option>
-                                    <option value="hot">Hot</option>
-                                    <option value="vip">Vip</option>
+                                <select className="form-control gender " style={{width: 160}}
+                                        onChange={(e) => changeCost(e)}>
+                                    <option value={1}>Giá từ thấp đến cao</option>
+                                    <option value={2}>Giá từ cao xuống thấp</option>
                                 </select>
-                                <button type="button" className="form-control btn-filter btn btn-default"><i
-                                    className="fa fa-search"/>
-                                    Tìm kiếm
-                                </button>
+                                <select className="form-control gender " style={{width: 90}}
+                                        onChange={(e) => changeCountry(e)}>
+                                    <option value={0}>Quốc gia</option>
+                                    {countries.map((item) => {
+                                        return (
+                                            <option value={item.id}>
+                                                {/*{item.name.length > 20 ? `${item.name.slice(0, 20)}...` : item.name}*/}
+                                                {item.name}
+                                            </option>
+                                        )
+                                    })}
+                                </select>
+                                <select className="form-control gender " style={{width: 100}}
+                                        onChange={(e) => setIdCity(parseInt(e.target.value))}>
+                                    {idCountry !== 0 ? (
+                                        <>
+                                            <option value={0}>Thành phố</option>
+                                            {cities.map((item) => (
+                                                <option value={item.id} key={item.id}>
+                                                    {item.name}
+                                                </option>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        <option value={0}>Thành phố</option>
+                                    )}
+                                </select>
                             </div>
                             <div className="list-player">
                                 <header className={"title-header vip"}>

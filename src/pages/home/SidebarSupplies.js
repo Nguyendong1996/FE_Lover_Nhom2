@@ -13,6 +13,12 @@ const SidebarSupplies = () => {
         handleBaseServiceChange(id)
         setVisibleProducts(4)
     }
+
+    function change2() {
+        handleBaseServiceChange(0)
+        setVisibleProducts(4)
+    }
+
     useEffect(() => {
         findAllService().then((res) => {
             setBaseServices(res)
@@ -23,9 +29,12 @@ const SidebarSupplies = () => {
         <>
             <div className="home-flex-category">
                 <div className="fixed-cate">
-                    {(idBaseService === 0) ? <p style={{fontSize: 20, color:"#f0564a"}}><span>Dịch vụ cơ bản</span></p>
-                        : <p style={{fontSize: 20}}><span>Dịch vụ cơ bản</span></p>
-                    }
+                    <div>
+                        {(idBaseService === 0) ?
+                            <button style={{fontSize: 20, marginLeft: 4, color:"#f0564a", border:"none"}} className="media-heading" onClick={change2}>Dịch vụ cơ bản</button>
+                            : <button style={{fontSize: 20, border:"none", marginLeft: 4}} className="media-heading" onClick={change2}>Dịch vụ cơ bản</button>
+                        }
+                    </div>
 
                     <ul className="list-group">
 
