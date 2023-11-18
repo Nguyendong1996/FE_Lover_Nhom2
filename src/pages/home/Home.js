@@ -75,8 +75,12 @@ const Home = () => {
     function changeCountry(e) {
         setIdCountry(parseInt(e.target.value));
         setIdCity(0)
+        setVisibleProducts(4)
     }
-
+    function changeCity(e) {
+        setIdCity(parseInt(e.target.value))
+        setVisibleProducts(4)
+    }
 
     useEffect(() => {
         findAllGender().then((res) => {
@@ -110,7 +114,6 @@ const Home = () => {
             setLovers(res)
             console.log(res)
         })
-        console.log("set lovers")
     }, [searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
     return (
         <>
