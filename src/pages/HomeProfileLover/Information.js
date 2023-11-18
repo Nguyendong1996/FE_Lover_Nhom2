@@ -17,6 +17,8 @@ export const Information = () =>{
     const [idCountry,setIdCountry] =useState(String);
     const [profileLover,setProfileLover] = useState({})
     const navigate = useNavigate()
+    let id = localStorage.getItem("idAccount")
+
 
     useEffect(() =>{
         findAllGender().then((res) =>{
@@ -35,7 +37,7 @@ export const Information = () =>{
         }).catch(()=>{
             return []
         })
-        findByIdLover(1).then((res) =>{
+        findByIdLover(id).then((res) =>{
             setProfileLover(res)
         })
     },[idCountry])
@@ -147,7 +149,7 @@ export const Information = () =>{
                                                 </Field>
                                             </div>
                                             <div className="fieldGroup "><p className="control-label">Quốc Gia</p>
-                                                <select name={'profileLover.country.id'} onChange={(e) => {
+                                                <select name={'profileLover.city.country.id'} onChange={(e) => {
                                                     const textCountry = e.target.value;
                                                     setIdCountry(textCountry)
                                                 }} className={"form-select"} style={{width:'480px'}}>
