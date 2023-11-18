@@ -1,22 +1,24 @@
 import React, {useContext} from 'react';
 import {} from '../css/Header.css'
 import {ButtonLogin} from "../pages/login/ButtonLogin";
-import {FormLogin} from "../pages/login/FormLogin";
 import {Link} from "react-router-dom";
 import {AppContext} from "../context/AppContext";
+import {useNavigate} from "react-router";
 
 const Header = () => {
-    const {handleBaseServiceChange} = useContext(AppContext);
+    const {handleSearchChange} = useContext(AppContext);
     const {setVisibleProducts} = useContext(AppContext);
+    const {searchValue} = useContext(AppContext);
     const idAccount = localStorage.getItem("idAccount")
     const role = localStorage.getItem("role")
-    console.log(role)
-
-    function resetAllToHome() {
-        handleBaseServiceChange(0)
+    const navigate = useNavigate();
+    //tìm kiếm theo tên:
+    function searchByName(event) {
+        const value = event.target.value;
+        handleSearchChange(value);
         setVisibleProducts(4)
+        navigate("")
     }
-
     return (
         <>
             <link rel="manifest" href="https://playerduo.net/manifest.json"/>
@@ -44,8 +46,11 @@ const Header = () => {
                                 <nav className="Navbar__Item">
                                     <div className="Navbar__Link">
                                         <div className="Group-search visible "><span
-                                            className="search input-group"><input placeholder="Nickname/Url ..."
-                                                                                  type="text" className="form-control"/><span
+                                            className="search input-group">
+                                            <input placeholder="Nickname/Url ..." value={searchValue}
+                                                   type="text" className="form-control"
+                                                   onChange={(event) => {searchByName(event);
+                                        }}/><span
                                             className="input-group-addon"><button type="button"
                                                                                   className="btn btn-default"><i
                                             className="fal fa-search" aria-hidden="true"/></button></span></span></div>
@@ -54,7 +59,7 @@ const Header = () => {
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
-                            <li className={"header-li-1"}><Link to={"/"} onClick={resetAllToHome}>Trang chủ</Link></li>
+                            <li className={"header-li-1"}><a href="http://localhost:3000/">Trang chủ</a></li>
                             <li className={"header-li-1"}>
                                 {role === "ROLE_LOVER" ? <Link to={"/homeProfileLover"}><a href={"#"}>Trang lover</a></Link> :
                                     <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>}

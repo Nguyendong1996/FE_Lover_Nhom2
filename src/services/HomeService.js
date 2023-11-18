@@ -5,13 +5,14 @@ export function findAllByNameContaining(name) {
         resolve(
             axios.get("http://localhost:8080/api/profileLover/findAllByNickname/" + name)
                 .then((res) => {
-                    return res
+                    return res.data
                 }).catch(() => {
                 return []
             })
         )
     })
 }
+
 export function findAllByVipService(id) {
     return new Promise((resolve) => {
         resolve(
@@ -24,6 +25,7 @@ export function findAllByVipService(id) {
         )
     })
 }
+
 export function findAllByFreeService(id) {
     return new Promise((resolve) => {
         resolve(
@@ -36,6 +38,7 @@ export function findAllByFreeService(id) {
         )
     })
 }
+
 export function findAllByBaseService(id) {
     return new Promise((resolve) => {
         resolve(
@@ -45,6 +48,33 @@ export function findAllByBaseService(id) {
                 }).catch(() => {
                 return []
             })
+        )
+    })
+}
+
+export function findAllStatusLover() {
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/profileLover/findAllStatusLover")
+                .then((res) => {
+                    return res.data
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+
+export function findAllByFilter(filter) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.post("http://localhost:8080/api/profileLover/findAllByFilter", filter)
+                .then((res) => {
+                    return res.data
+                })
+                .catch(() => {
+                    return [];
+                })
         )
     })
 }
