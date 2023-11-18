@@ -1,18 +1,59 @@
-import {useEffect, useState} from "react";
-import { findByIdLover} from "../../services/ProfileLoverService";
-
+import React, {useEffect, useState} from "react";
+import {createProfileLover, findByIdLover} from "../../services/ProfileLoverService";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "../../firebase/Firebase";
+import {v4} from "uuid";
+import {RingLoader} from "react-spinners";
 export const ProfileLover = () =>{
     const [profileLover, setProfileLover] = useState({})
     const [loading, setLoading] = useState(false)
+    let id = localStorage.getItem("idAccount");
 
     useEffect(() =>{
-        findByIdLover(1).then((res) =>{
+        findByIdLover(id).then((res) =>{
             console.log(res)
             setProfileLover(res)
         }).catch(() =>{
             return {}
         })
-    },[])
+    },[loading])
+    function showModalChoseImage() {
+        const fileInput = document.getElementById('input-avatar-profile-user');
+        fileInput.click();
+    }
+    function updateAvt(file) {
+        setLoading(true)
+        console.log(file)
+        const storageRef = ref(storage, `images/${file.name + v4()}`);
+        const uploadTask = uploadBytes(storageRef, file);
+        uploadTask.then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                const updatedProfileLover = {
+                    ...profileLover,
+
+                    account:{
+                        id:id,
+                    },
+                    avatarImage:url}
+                createProfileLover(updatedProfileLover)
+                    .then(() => {
+                        alert("Cập nhật ảnh đại diện thành công!");
+                        setLoading(false);
+                    })
+            })
+        })
+    }
+    if (loading) {
+        return (
+            <>
+                <div id={"root"} style={{marginTop:'-50%'}}>
+                    <div className={"loading-info-user"}>
+                        <RingLoader color="#f0564a" loading={true} size={80}/>
+                    </div>
+                </div>
+            </>
+        )
+    }
     return(
         <>
             <title>User Profile</title>
@@ -48,9 +89,15 @@ export const ProfileLover = () =>{
                         <div className="player-profile-left-wrap col-md-3" style={{marginTop:'10px',marginLeft:'0%'}}>
                             <div className="avt-player false">
                                 <div>
-                                    <div>
-                                        <img src={profileLover.avatarImage} style={{width: 300, height: 300}}
-                                             className="img-info" alt=""  />
+                                    <div className="d-flex img-avatar">
+                                        <div className="cropimg-avatar div-info-user-1">
+                                            <img src={profileLover.avatarImage} alt=""
+                                                 style={{width: 300, height: 300, borderRadius: 10}} onClick={showModalChoseImage}/>
+                                            <input type="file" id={"input-avatar-profile-user"}
+                                                   onChange={(event) => {
+                                                       updateAvt(event.target.files[0])
+                                                   }} style={{display: "none"}}/>
+                                        </div>
                                     </div>
                                     <div className="rent-time-wrap"><p className="ready">{profileLover.statusLover?.name}</p></div>
                                 </div>
