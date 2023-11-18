@@ -1,5 +1,21 @@
 import axios from "axios";
-
+export function findAllByAccountUserId(id, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/findAllByAccountUserId/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
 export function findAllByAccountLoverId(id, token) {
     return new Promise((resolve) => {
         resolve(

@@ -5,10 +5,10 @@ import {useParams} from "react-router";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {v4} from "uuid";
 import {storage} from "../../firebase/Firebase"
-import {LoadingButton} from "../home/LoadingButton";
 import {RingLoader} from "react-spinners";
 import Modal from "react-modal";
 import {Field, Form, Formik} from "formik";
+import {deleteById, findAllByAccountUserId} from "../../services/BillService"
 
 const customStyles = {
     content: {
@@ -26,6 +26,9 @@ export function InfoUser() {
     const {id} = useParams();
     const token = localStorage.getItem("token")
     const [loading, setLoading] = useState(false)
+    const [bills, setBills] = useState([])
+    const [checkDeleted, setCheckDeleted] = useState(false);
+    // tìm profileUser theo idAccount
     useEffect(() => {
         findByIdAccount(id, token)
             .then((res) => {
@@ -33,6 +36,22 @@ export function InfoUser() {
                 setInfoUser(res)
             })
     }, [id])
+    //tìm bills theo idAccount:
+    useEffect(() => {
+        findAllByAccountUserId(id)
+            .then((res) => {
+                setBills(res)
+            })
+    }, [id, checkDeleted])
+
+    //deleteBill
+    function deleteBill(id) {
+        if (window.confirm("Bạn có chắc chắn huỷ đơn này không?")) {
+            deleteById(id, token).then(() => {
+                setCheckDeleted(!checkDeleted)
+            })
+        }
+    }
 
     // đổi ảnh đại diện:
     function updateAvt(file) {
@@ -206,9 +225,13 @@ export function InfoUser() {
                                                     style={customStyles}
                                                     contentLabel="Example Modal"
                                                 >
-                                                    <h3 style={{textAlign:"center", color: "#f0564a"}}>CẬP NHẬT THÔNG TIN USER</h3>
-                                                    <h2 ref={(_subtitle) => (subtitle = _subtitle)} style={{display:"none"}}>Hello</h2>
-                                                    <button onClick={closeModal} style={{display:"none"}} id={"btn-close-modal-info-user"}>CLOSE</button>
+                                                    <h3 style={{textAlign: "center", color: "#f0564a"}}>CẬP NHẬT THÔNG
+                                                        TIN USER</h3>
+                                                    <h2 ref={(_subtitle) => (subtitle = _subtitle)}
+                                                        style={{display: "none"}}>Hello</h2>
+                                                    <button onClick={closeModal} style={{display: "none"}}
+                                                            id={"btn-close-modal-info-user"}>CLOSE
+                                                    </button>
                                                     <div className="modal-body-info-user">
                                                         <Formik
                                                             initialValues={infoUser}
@@ -218,15 +241,21 @@ export function InfoUser() {
                                                             }}
                                                         >
                                                             <Form>
-                                                                <table style={{marginLeft:50, marginRight:70}}>
+                                                                <table style={{marginLeft: 50, marginRight: 70}}>
                                                                     <tbody>
                                                                     <tr>
                                                                         <td>
                                                                             Họ:
                                                                         </td>
-                                                                        <td >
-                                                                            <Field name={"lastName"} className={"form-control"}
-                                                                                   placeHolder={"Nhập họ của bạn"} style={{marginLeft:20, height:30, marginBottom:5}}></Field>
+                                                                        <td>
+                                                                            <Field name={"lastName"}
+                                                                                   className={"form-control"}
+                                                                                   placeHolder={"Nhập họ của bạn"}
+                                                                                   style={{
+                                                                                       marginLeft: 20,
+                                                                                       height: 30,
+                                                                                       marginBottom: 5
+                                                                                   }}></Field>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -234,8 +263,14 @@ export function InfoUser() {
                                                                             Tên:
                                                                         </td>
                                                                         <td>
-                                                                            <Field name={"firstName"} className={"form-control"}
-                                                                                   placeHolder={"Nhập tên của bạn"} style={{marginLeft:20, height:30, marginBottom:5}}></Field>
+                                                                            <Field name={"firstName"}
+                                                                                   className={"form-control"}
+                                                                                   placeHolder={"Nhập tên của bạn"}
+                                                                                   style={{
+                                                                                       marginLeft: 20,
+                                                                                       height: 30,
+                                                                                       marginBottom: 5
+                                                                                   }}></Field>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -245,19 +280,28 @@ export function InfoUser() {
                                                                         <td>
                                                                             <Field name={"phoneNumber"}
                                                                                    placeHolder={"Nhập số điện thoại của bạn"}
-                                                                                   className={"form-control"} style={{marginLeft:20, height:30, marginBottom:5}}></Field>
+                                                                                   className={"form-control"} style={{
+                                                                                marginLeft: 20,
+                                                                                height: 30,
+                                                                                marginBottom: 5
+                                                                            }}></Field>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Số căn cước công dân:</td>
                                                                         <td>
-                                                                            <Field name={"citizenNumber"} placeHolder={"Nhập số căn cước công dân"}
-                                                                                   className={"form-control"} style={{marginLeft:20, height:30, marginBottom:5}}></Field>
+                                                                            <Field name={"citizenNumber"}
+                                                                                   placeHolder={"Nhập số căn cước công dân"}
+                                                                                   className={"form-control"} style={{
+                                                                                marginLeft: 20,
+                                                                                height: 30,
+                                                                                marginBottom: 5
+                                                                            }}></Field>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <div style={{textAlign:"center"}}>
+                                                                <div style={{textAlign: "center"}}>
                                                                     <button className={"info-user-btn"}>Lưu</button>
                                                                 </div>
 
@@ -297,12 +341,49 @@ export function InfoUser() {
                                 <br/>
                                 <br/>
                             </div>
-                            <div id={"history-pay"} style={{marginLeft: 300, textAlign: "center", display: "none"}}>
-                                <p>LỊCH SỬ GIAO DỊCH</p>
-                                <p>LỊCH SỬ GIAO DỊCH</p>
-                                <p>LỊCH SỬ GIAO DỊCH</p>
-                                <p>LỊCH SỬ GIAO DỊCH</p>
-                                <p>LỊCH SỬ GIAO DỊCH</p>
+                            <div id={"history-pay"} style={{display: "none", marginLeft: 330}}>
+                                <p style={{
+                                    color: "#f0564a",
+                                    fontSize: 20,
+                                    fontWeight: "bold",
+                                    textAlign: "center"
+                                }}>LỊCH SỬ GIAO DỊCH</p>
+                                {(bills.length === 0) && <div>Bạn chưa có hoá đơn nào</div>}
+                                {(bills.length !== 0) &&
+                                    <table className={"table table-striped"}>
+                                        <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Tên lover</td>
+                                            <td>Đặt lúc</td>
+                                            <td>Thời gian thuê</td>
+                                            <td>Tổng tiền</td>
+                                            <td>Trạng thái</td>
+                                            <td></td>
+                                        </tr>
+                                        {bills.map((item, index) => {
+                                            return (
+                                                <>
+                                                    <tr>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item.accountLover?.nickname}</td>
+                                                        <td>{item.createdAt}</td>
+                                                        <td>{item.time} giờ</td>
+                                                        <td>{item.totalMoney} vnđ</td>
+                                                        <td>{item.statusBill?.name}</td>
+                                                        <td>
+                                                            {(item.statusBill.id === 1) &&
+                                                                <button className={"btn btn-warning"}
+                                                                        onClick={() => {
+                                                                            deleteBill(item.id)
+                                                                        }}>Huỷ</button>}
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )
+                                        })}
+                                        </tbody>
+                                    </table>}
                             </div>
                         </div>
                     </div>
