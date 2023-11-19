@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {findNotificationByIdAccount} from "../../services/AdminService"
 import {NotificationAdmin} from "./NotificationAdmin";
+import {AppContext} from "../../context/AppContext";
 
 export function HomeAdmin() {
     const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token")
     const [chose, setChose] = useState(0)
     const [notifications, setNotifications] = useState([]);
+    const {check, setCheck} = useContext(AppContext);
     useEffect(() => {
         findNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
         })
-    }, [idAccount])
+    }, [idAccount, check])
     return (
         <>
             <meta charSet="UTF-8"/>

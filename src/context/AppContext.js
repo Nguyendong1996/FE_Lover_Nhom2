@@ -43,7 +43,7 @@ export const AppProvider = ({children}) => {
             idVipService, setIdVipService,
             idFreeService, setIdFreeService,
             idBaseService,
-            check, isLogin,
+            check, isLogin, setCheck,
             visibleProducts,
             setVisibleProducts,
             handleChangeVisibleProducts,
