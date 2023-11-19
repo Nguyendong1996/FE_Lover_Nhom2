@@ -43,7 +43,7 @@ export const HomeProfileLover = () =>{
                             <div className="media">
                                 <div className="media-left"><img className="media-object" alt="715867c6-698f-411a-b4f9-1e9093130b60__f364f2e0-34ce-11ed-838c-b120e70abb59__game_avatars.jpg" src="../image/img_3.png" />
                                 </div>
-                                <div className="media-body media-middle"><p className="media-heading">Danh Sách Đơn Thuê</p>
+                                <div className="media-body media-middle"><Link to={"list-bill-profile-lover"}><p className="media-heading">Danh Sách Đơn Thuê</p></Link>
                                 </div>
                             </div>
                         </li>
