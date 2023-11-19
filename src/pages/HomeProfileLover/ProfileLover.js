@@ -4,21 +4,82 @@ import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../firebase/Firebase";
 import {v4} from "uuid";
 import {RingLoader} from "react-spinners";
+import {Field, Form, Formik} from "formik";
 export const ProfileLover = () =>{
     const [profileLover, setProfileLover] = useState({})
     const [loading, setLoading] = useState(false)
+    const [status, setStatus] = useState(false);
+    const [check,setCheck] = useState(false);
     let id = localStorage.getItem("idAccount");
+    const [isEditingPrice, setIsEditingPrice] = useState(false);
 
     useEffect(() =>{
         findByIdLover(id).then((res) =>{
             setProfileLover(res)
+            if (res.statusLover?.id ===1 || res.statusLover?.id ===2){
+                console.log(status)
+                setStatus(true);
+            }
         }).catch(() =>{
             return {}
         })
         findAllFreeService().then((res) =>{
             console.log(res)
         })
-    },[loading])
+    },[loading,check])
+    const updateStatusLover = () => {
+        if (profileLover.statusLover?.id === 2) {
+            alert("Đang trong quá trình cung cấp dịch vụ! Không được thay đổi thông tin!!!");
+        } else {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm("Bạn có muốn thay đổi trạng thái hoạt động không?")) {
+                let newIdStatus;
+                if (profileLover.statusLover?.id === 1) {
+                    newIdStatus = 3;
+                    alert("Bạn đã tắt trạng thái hoạt động");
+                    setStatus(false);
+                } else if (profileLover.statusLover?.id === 3) {
+                    newIdStatus = 1;
+                    alert("Bạn đã bật trạng thái hoạt động");
+                    setStatus(true);
+                }
+
+                const updatedProfileLover = {
+                    ...profileLover,
+                    account: {
+                        id: id,
+                    },
+                    statusLover: {
+                        id: newIdStatus,
+                    },
+                };
+
+                createProfileLover(updatedProfileLover).then(() => {
+                    setCheck(!check)
+                    // Thực hiện các hành động khác sau khi đã gọi createProfileLover
+                });
+            }
+        }
+    };
+
+    const handlePriceEdit = () => {
+        setIsEditingPrice(true); // Kích hoạt chế độ chỉnh sửa
+    };
+    const handlePriceSave = (e) => {
+        const updatedProfileLover = {
+            ...profileLover,
+            account:{
+                id:id,
+            },
+            price: e.price,
+        }
+        createProfileLover(updatedProfileLover).then(() => {
+                setCheck(!check)
+                return alert("update thanh cong !!!")
+            }
+        );
+        setIsEditingPrice(false); // Tắt chế độ chỉnh sửa
+    };
     function showModalChoseImage() {
         const fileInput = document.getElementById('input-avatar-profile-user');
         fileInput.click();
@@ -102,6 +163,9 @@ export const ProfileLover = () =>{
                                         </div>
                                     </div>
                                     <div className="rent-time-wrap"><p className="ready">{profileLover.statusLover?.name}</p></div>
+                                    <div>
+                                        <button onClick={updateStatusLover}>{status ? 'Tắt' : 'Bật'} trạng thái</button>
+                                    </div>
                                 </div>
 
                             </div>
@@ -144,6 +208,36 @@ export const ProfileLover = () =>{
                                     </div>
                                 </div>
                                 <div>
+                                    <div>
+                                        <div className="title-player-profile row">
+                                            <div style={{marginLeft:'2%'}}>
+                                                {!isEditingPrice ? (
+                                                    <h5 className="control-label">
+                                                        <i onClick={handlePriceEdit}
+                                                           className="fas fa-cog info-uimgser-icon"></i>
+                                                        <span>Price : {profileLover.price}</span> </h5>
+                                                ) : (
+                                                    <Formik initialValues={profileLover}
+                                                            enableReinitialize={true}
+                                                            onSubmit={(e) =>{handlePriceSave(e)}}>
+                                                        <Form>
+                                                            <div className="fieldGroup "><p className="control-label">New Prcie</p>
+                                                                <Field
+                                                                    type="text"
+                                                                    name="price"
+                                                                    placeholder=""
+                                                                    maxLength="5000"
+                                                                    autoComplete="false"
+                                                                    style={{width:'280px'}}
+                                                                />
+                                                                <button class="btn btn-success">Save</button>
+                                                            </div>
+                                                        </Form>
+                                                    </Formik>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div>
                                         <div className="title-player-profile row">
                                             <div className="col-xs-6"><span>Thông tin</span></div>
