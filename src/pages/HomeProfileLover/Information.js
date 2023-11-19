@@ -81,6 +81,7 @@ export const Information = () =>{
                             <div className="row">
                                 <div className="col-md-6 col-sm-12 col-xs-12 personalinfo">
                                     <h3 style={{textAlign:'center',color:'red'}}>Thông tin cá nhân</h3>
+                                    <hr/>
                                     <Formik initialValues={profileLover}
                                             enableReinitialize={true}
                                             onSubmit={(values) =>{updateProfileLover1(values)}}
@@ -202,7 +203,7 @@ export const Information = () =>{
                                             />
                                         </div>
                                         <div style={{marginLeft:'40%'}}>
-                                            <button type="submit" className="btn-update" >Cập nhật</button>
+                                            <button type="submit" className="btn btn-success" >Cập nhật</button>
                                         </div>
                                     </Form>
                                     </Formik>
