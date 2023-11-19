@@ -12,6 +12,7 @@ const Header = () => {
     const idAccount = localStorage.getItem("idAccount")
     const role = localStorage.getItem("role")
     const navigate = useNavigate();
+
     //tìm kiếm theo tên:
     function searchByName(event) {
         const value = event.target.value;
@@ -19,6 +20,7 @@ const Header = () => {
         setVisibleProducts(4)
         navigate("")
     }
+
     return (
         <>
             <link rel="manifest" href="https://playerduo.net/manifest.json"/>
@@ -49,8 +51,9 @@ const Header = () => {
                                             className="search input-group">
                                             <input placeholder="Nickname/Url ..." value={searchValue}
                                                    type="text" className="form-control"
-                                                   onChange={(event) => {searchByName(event);
-                                        }}/><span
+                                                   onChange={(event) => {
+                                                       searchByName(event);
+                                                   }}/><span
                                             className="input-group-addon"><button type="button"
                                                                                   className="btn btn-default"><i
                                             className="fal fa-search" aria-hidden="true"/></button></span></span></div>
@@ -59,17 +62,38 @@ const Header = () => {
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
-                            <li className={"header-li-1"}><Link to={""}><a href="#">Trang chủ</a></Link></li>
-                            <li className={"header-li-1"}>
-                                {role === "ROLE_LOVER" ? <Link to={"/homeProfileLover"}><a href={"#"}>Trang lover</a></Link> :
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>}
-                            </li>
-                            <li className={"header-li-1"}>
-                                {role === null ?
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang user</a> :
+                            <li className={"header-li-1"}><Link to={"/"}><a href="#">Trang chủ</a></Link></li>
+
+                            {role === "ROLE_LOVER" &&
+                                <li className={"header-li-1"}><Link to={"/homeProfileLover"}>
+                                    <a href={"#"}>Trang lover</a></Link></li>
+                            }
+                            {role === "ROLE_USER" &&
+                                <li className={"header-li-1"}>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>
+                                </li>
+                            }
+                            {role === null &&
+                                <li className={"header-li-1"}>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang lover</a>
+                                </li>
+                            }
+                            {role === null &&
+                                <li className={"header-li-1"}>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang user</a>
+                                </li>
+                            }
+                            {(role === "ROLE_USER" || role === "ROLE_LOVER") &&
+                                <li className={"header-li-1"}>
                                     <Link to={"/info-user/" + idAccount}><a href={"#"}>Trang user</a></Link>
-                                }
-                            </li>
+                                </li>
+                            }
+                            {role === "ROLE_ADMIN" &&
+                                <li className={"header-li-1"}>
+                                    <Link to={"/home-admin/" + idAccount}><a href={"#"}>Trang Admin</a></Link>
+                                </li>
+                            }
+
                             <li className={"header-li-1"}><Link to={""}>Top lover</Link></li>
                             <li className={"header-li-1"}><Link to={""}>Top user</Link></li>
                         </ul>
@@ -96,7 +120,8 @@ const Header = () => {
                 </header>
             </div>
         </>
-    );
+    )
+        ;
 };
 
 export default Header;
