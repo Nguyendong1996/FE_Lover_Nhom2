@@ -516,12 +516,26 @@
 //     )
 // }
 
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {InformationUser} from "./InformationUser";
 import {InformationAccount} from "./InformationAccount";
+import {AppContext} from "../../context/AppContext";
+import {findNotificationByIdAccount} from "../../services/AdminService";
+import {NotificationInfoUser} from "./NotificationInfoUser";
 
 export function InfoUser() {
-    const [chosen, setChosen] = useState(1)
+    const [chosen, setChosen] = useState(5)
+    const [notifications, setNotifications] = useState([])
+    const idAccount = localStorage.getItem("idAccount")
+    const token = localStorage.getItem("token")
+    const {check, setCheck} = useContext(AppContext);
+
+    useEffect(() => {
+        findNotificationByIdAccount(idAccount, token).then((res)=>{
+            setNotifications(res)
+            console.log(res)
+        })
+    }, [idAccount, check])
 
     function showInfo() {
         setChosen(1)
@@ -530,12 +544,15 @@ export function InfoUser() {
     function showHistory() {
         setChosen(2)
     }
+
     function showAccount() {
         setChosen(3)
     }
+
     function showNotification() {
         setChosen(4)
     }
+
     return (
         <>
             <meta charSet="UTF-8"/>
@@ -563,6 +580,30 @@ export function InfoUser() {
                                         <div className="panel-collapse collapse in">
                                             <div className="panel-body">
                                                 <div className="panel-group">
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
+                                                                {chosen === 5 ? <span><i className="fas fa-bell">
+                                                                    </i>Thông báo ({notifications.length})</span> :
+                                                                    <span onClick={() => setChosen(5)}
+                                                                          style={{color: "#354052"}}>
+                                                                        <i className="fas fa-bell"></i>Thông báo ({notifications.length})</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
+                                                                {chosen === 6
+                                                                    ? <span><i className="fas fa-comment"></i>Tin nhắn</span>
+                                                                    : <span onClick={() => setChosen(6)}
+                                                                            style={{color: "#354052"}}><i
+                                                                        className="fas fa-comment"></i>Tin nhắn</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
@@ -598,10 +639,11 @@ export function InfoUser() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                { chosen === 2 ? <span onClick={showHistory}>
+                                                                {chosen === 2 ? <span onClick={showHistory}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
-                                                                </span> : <span style={{color: "#354052"}} onClick={showHistory}>
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={showHistory}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
                                                                 </span>}
@@ -629,6 +671,7 @@ export function InfoUser() {
                         </div>
                         {chosen === 1 && <InformationUser/>}
                         {chosen === 3 && <InformationAccount/>}
+                        {chosen === 5 && <NotificationInfoUser/>}
                     </div>
                 </div>
             </div>
