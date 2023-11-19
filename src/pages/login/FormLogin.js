@@ -23,7 +23,7 @@ export function FormLogin() {
             handleChangeLogin(isLogin)
             setLoading(false)
             if (res.data.roles[0].authority === "ROLE_ADMIN") {
-                navigate("/layout-admin/home/" + res.data.id)
+                navigate("/home-admin/" + res.data.id)
             } else {
                 navigate("/")
             }

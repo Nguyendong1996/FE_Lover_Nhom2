@@ -15,3 +15,18 @@ export function findAllProfileUserByIdStatusUser(token) {
         )
     })
 }
+export function findNotificationByIdAccount(idAccount, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/admin/findNotificationByIdAccount/" + idAccount, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                return res.data;
+            }).catch(()=>{
+                return []
+            })
+        )
+    })
+}

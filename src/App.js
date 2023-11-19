@@ -11,7 +11,11 @@ import {HomeProfileLover} from "./pages/HomeProfileLover/HomeProfileLover";
 import {ProfileLover} from "./pages/HomeProfileLover/ProfileLover";
 import {Information} from "./pages/HomeProfileLover/Information";
 import {ServiceProfileLover} from "./pages/HomeProfileLover/ServiceProfileLover";
+
+import {HomeAdmin} from "./pages/admin/HomeAdmin";
+
 import {ListBillOfProfileLover} from "./pages/HomeProfileLover/ListBillOfProfileLover";
+
 function App() {
     return (
         <Routes>
@@ -28,6 +32,7 @@ function App() {
                 <Route path={"/login"} element={<FormLogin/>}></Route>
                 <Route path={"/register"} element={<FormRegister/>}></Route>
                 <Route path={"/info-user/:id"} element={<InfoUser/>}></Route>
+                <Route path={"/home-admin/:id"} element={<HomeAdmin/>}></Route>
             </Route>
       </Routes>
     )
