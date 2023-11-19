@@ -196,7 +196,7 @@ export const ProfileLover = () =>{
                                     </div>
                                     <div className="col-md-3 col-xs-6">
                                         <div className="item-nav-name"><span>Thời Gian được thuê</span></div>
-                                        <div className="item-nav-value"><span>{profileLover.totalHourRented}</span></div>
+                                        <div className="item-nav-value"><span>{profileLover.totalHourRented} Giờ</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
                                         <div className="item-nav-name"><span>Tỷ lệ hoàn thành</span></div>
