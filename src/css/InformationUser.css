@@ -1,0 +1,34 @@
+#div-container-info-user {
+    display: flex;
+
+}
+.div-info-user-1 {
+    position: relative;
+
+}
+.div-info-user-2 {
+    margin-left: 20px;
+}
+.info-user-icon {
+    color: #f0564a;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 20px;
+}
+.icon-setting-info {
+    color: #f0564a;
+    font-size: 15px;
+}
+.label-info-user {
+    font-size: 15px;
+    font-weight: bold;
+    color: #354052;
+    padding: 10px;
+}
+#button-update-info-profile-user:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}
+

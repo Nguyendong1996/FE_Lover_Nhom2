@@ -102,30 +102,4 @@ export function FormLogin() {
         </>
     )
 
-    function Button1({loading1}) {
-        if (loading1) {
-            return (
-                <button type="button" className="btn btn-secondary"
-                        id={"button-send-code-form-register"}
-                        onClick={sendCode}>Lấy mã
-                </button>
-            )
-        }
-        return (
-            <></>
-        )
-    }
-
-    function Button2({loading2}) {
-        if (loading2) {
-            return (
-                <button type="submit" className="btn btn-secondary"
-                        id={"button-submit-form-register"}>Đổi mật khẩu
-                </button>
-            )
-        }
-        return (
-            <></>
-        )
-    }
 }

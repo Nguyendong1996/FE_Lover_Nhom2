@@ -1,0 +1,13 @@
+#modal-content-form-register-to-lover {
+    display: flex;
+    align-items: center;
+}
+#btn-submit-info-1 {
+    color: #f0564a;
+    background-color: white;
+}
+#btn-submit-info-1:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}

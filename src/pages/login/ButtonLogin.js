@@ -21,5 +21,6 @@ export function ButtonLogin() {
     function logOut() {
         localStorage.clear()
         handleChangeLogin(isLogin)
+        navigate("/")
     }
 }

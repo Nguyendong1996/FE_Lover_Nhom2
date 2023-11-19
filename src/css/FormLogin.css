@@ -39,12 +39,8 @@
 
 }
 
-#button-load-more-home {
-    border: none;
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    margin-top: 30px;
+#button-load-more-home:hover {
+   color: white;
     background-color: #f0564a;
-    color: white;
+    border: none;
 }
