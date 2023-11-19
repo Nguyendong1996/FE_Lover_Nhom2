@@ -59,7 +59,7 @@ const Header = () => {
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
-                            <li className={"header-li-1"}><a href="http://localhost:3000/">Trang chủ</a></li>
+                            <li className={"header-li-1"}><Link to={""}><a href="#">Trang chủ</a></Link></li>
                             <li className={"header-li-1"}>
                                 {role === "ROLE_LOVER" ? <Link to={"/homeProfileLover"}><a href={"#"}>Trang lover</a></Link> :
                                     <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>}

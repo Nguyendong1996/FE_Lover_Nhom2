@@ -5,6 +5,12 @@ import Modal from "react-modal";
 import {Field, Form, Formik} from "formik";
 import {findByIdAccount} from "../../services/inforUserService";
 import "../../css/InformationAccount.css"
+import {
+    findAllCityByIdCountry,
+    findAllCountry,
+    userSendRequestRegisterToLover
+} from "../../services/ProfileLoverService"
+import {fireChangeForInputTimeIfValid} from "@testing-library/user-event/dist/keyboard/shared";
 
 const customStyles = {
     content: {
@@ -23,6 +29,7 @@ export function InformationAccount() {
     const token = localStorage.getItem("token")
     const role = localStorage.getItem("role")
     const [infoUser, setInfoUser] = useState({})
+    const [check, setCheck] = useState(false)
     // tìm profileUser theo idAccount
     useEffect(() => {
         findByIdAccount(id, token)
@@ -30,7 +37,7 @@ export function InformationAccount() {
                 console.log(res)
                 setInfoUser(res)
             })
-    }, [id])
+    }, [id, check])
     useEffect(() => {
         axios.get("http://localhost:8080/api/findById/" + id,
             {
@@ -61,11 +68,48 @@ export function InformationAccount() {
     }
 
     //đăng kí tài khoản
-    const [newProfileLover, setNewProfileLover] = useState({})
+    const [newProfileLover, setNewProfileLover] = useState({
+        city: {
+            id: 0
+        },
+        description: "",
+        gender: {
+            id: 0
+        },
+        height: 0,
+        weight: 0,
+        hobby: "",
+        requestToUser: ""
+    })
+    const [countries, setCountries] = useState([])
+    const [cities, setCities] = useState([])
+    const [idCountry, setIdCountry] = useState("0")
 
     function registerToLover(newProfileLover) {
+        if (idCountry === "0") {
+            newProfileLover.city.id = 0;
+        }
+        userSendRequestRegisterToLover(newProfileLover, id, token)
+            .then((res) => {
+                alert(res)
+                setIsOpen(false)
+                setCheck(!check)
+            }).catch(() => {
+            alert("Lỗi kết nối!")
+        })
         console.log(newProfileLover)
     }
+
+    useEffect(() => {
+        findAllCityByIdCountry(idCountry).then((res) => {
+            setCities(res)
+        })
+    }, [idCountry])
+    useEffect(() => {
+        findAllCountry().then((res) => {
+            setCountries(res)
+        });
+    }, [])
 
     return (
         <>
@@ -76,9 +120,23 @@ export function InformationAccount() {
                             <h3 style={{fontSize: 25}}>CÀI ĐẶT TÀI KHOẢN</h3>
                             {role === "ROLE_USER" &&
                                 <div className="label-info-user">
-                                    <a href="#" style={{textDecoration: "underline"}}
-                                       onClick={openModal}>
-                                        Đăng kí tài khoản lover</a></div>
+                                    {
+                                        infoUser.statusUser?.id === 1 &&
+                                        <a href="#" style={{textDecoration: "underline"}}
+                                        >Bạn đã gửi yêu cầu đăng kí tài khoản lover</a>
+                                    }
+                                    {
+                                        infoUser.statusUser?.id === 2 &&
+                                        <a href="#" style={{textDecoration: "underline"}}
+                                        >Bạn đã đăng kí thành công tài khoản lover</a>
+                                    }
+                                    {
+                                        infoUser.statusUser?.id === 3 &&
+                                        <a href="#" style={{textDecoration: "underline"}}
+                                           onClick={openModal}>Đăng kí tài khoản lover</a>
+                                    }
+
+                                </div>
                             }
                             <div className="label-info-user">Nickname (tên hiển thị): {account.nickname}</div>
                             <div className="label-info-user">Username (tên đăng nhập): {account.nickname}</div>
@@ -113,9 +171,9 @@ export function InformationAccount() {
             >
                 <h2 ref={(_subtitle) => (subtitle = _subtitle)} style={{display: "none"}}>Chi tiết đơn thuê</h2>
                 <div>
-                    <span><h3 style={{textAlign:"center", color:"#f0564a"}}>ĐIỀN ĐẦY ĐỦ THÔNG TIN ĐỂ ĐĂNG KÝ</h3></span>
+                    <span><h3 style={{textAlign: "center", color: "#f0564a"}}>ĐIỀN ĐẦY ĐỦ THÔNG TIN ĐỂ ĐĂNG KÝ</h3></span>
                     <Formik
-                        initialValues={{}}
+                        initialValues={newProfileLover}
                         onSubmit={(newProfileLover) => {
                             registerToLover(newProfileLover)
                         }}
@@ -129,7 +187,9 @@ export function InformationAccount() {
                                             <td>Giới tính:</td>
                                             <td>
                                                 <Field name={"gender.id"} as={'select'} className={'form-control'}
-                                                       style={{height: 35, marginBottom:5}}>
+                                                       required
+                                                       style={{height: 35, marginBottom: 5}}>
+                                                    <option value={0}>-----</option>
                                                     <option value={1}>Nam</option>
                                                     <option value={2}>Nữ</option>
                                                 </Field>
@@ -138,67 +198,76 @@ export function InformationAccount() {
                                         <tr>
                                             <td>Quốc gia:</td>
                                             <td>
-                                                <Field name={"gender.id"} as={'select'} className={'form-control'}
-                                                       style={{height: 35, marginBottom:5}}>
-                                                    <option value={1}>Nam</option>
-                                                    <option value={2}>Nữ</option>
-                                                </Field>
+                                                <select name="" id="" onChange={(e) => setIdCountry(e.target.value)}
+                                                        className={"form-control"}
+                                                        style={{height: 35, marginBottom: 5}}>
+                                                    <option value={0}>-----</option>
+                                                    {countries.map((item) => {
+                                                        return (
+                                                            <option value={item.id}>{item.name}̃</option>
+                                                        )
+                                                    })}
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Thành phố:</td>
                                             <td>
-                                                <Field name={"gender.id"} as={'select'} className={'form-control'}
-                                                       style={{height: 35, marginBottom:5}}>
-                                                    <option value={1}>Nam</option>
-                                                    <option value={2}>Nữ</option>
+                                                <Field name={"city.id"} as={'select'} className={'form-control'}
+                                                       style={{height: 35, marginBottom: 5}}>
+                                                    <option value={0}>-----</option>
+                                                    {cities.map((item) => {
+                                                        return (
+                                                            <option value={item.id}>{item.name}̃</option>
+                                                        )
+                                                    })}
                                                 </Field>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Chiều cao:(cm)</td>
                                             <td>
-                                                <Field name={"dateOfBirth"} type="number" className={"form-control"}
-                                                       style={{height: 35, marginBottom:5}}/>
+                                                <Field name={"height"} type="number" className={"form-control"}
+                                                       style={{height: 35, marginBottom: 5}}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Cân nặng:(kg)</td>
                                             <td>
-                                                <Field name={"dateOfBirth"} type="number" className={"form-control"}
-                                                       style={{height: 35, marginBottom:5}}/>
+                                                <Field name={"weight"} type="number" className={"form-control"}
+                                                       style={{height: 35, marginBottom: 5}}/>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <table style={{marginLeft:30, width:300}}>
+                                    <table style={{marginLeft: 30, width: 300}}>
                                         <tbody>
                                         <tr>
                                             <td>Sở thích:</td>
                                             <td>
-                                                <Field name={"gender.id"} as="textarea" className={'form-control'}
-                                                       style={{height: 35, marginBottom:5}} rows="3"/>
+                                                <Field name={"hobby"} as="textarea" className={'form-control'}
+                                                       style={{height: 35, marginBottom: 5}} rows="3"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Mô tả:</td>
                                             <td>
-                                                <Field name={"gender.id"} as="textarea" className={'form-control'}
-                                                       style={{marginBottom:5}} rows="5"/>
+                                                <Field name={"description"} as="textarea" className={'form-control'}
+                                                       style={{marginBottom: 5}} rows="5"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Yêu cầu:</td>
                                             <td>
-                                                <Field name={"dateOfBirth"} type="text" className={"form-control"}
-                                                       style={{height: 35, marginBottom:5}}/>
+                                                <Field name={"requestToUser"} type="text" className={"form-control"}
+                                                       style={{height: 35, marginBottom: 5}}/>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div style={{textAlign: "center", marginTop:10}}>
+                            <div style={{textAlign: "center", marginTop: 10}}>
                                 <button className={"btn btn-primary"} id={"btn-submit-info-1"}>Đăng ký</button>
                             </div>
                         </Form>

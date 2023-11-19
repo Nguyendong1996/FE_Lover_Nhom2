@@ -135,3 +135,20 @@ export const createProfileLover = (profileLover) =>{
         )
     })
 }
+export function userSendRequestRegisterToLover(profileLover, idAccount,token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.post("http://localhost:8080/api/profileLover/userSendRequestRegisterToLover/" + idAccount, profileLover,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then((res) => {
+                return res.data
+            })
+                .catch((err) => {
+                    return err
+                })
+        )
+    })
+}
