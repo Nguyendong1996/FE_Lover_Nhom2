@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
 import {
-    acceptBillByIdAccountLover, doneBillByLover,
+    acceptBillByIdAccountLover, doneBillByLover, doneBillByLover1,
     findAllByAccountLoverId,
     rejectBillByIdAccountLover
 } from "../../services/BillService";
@@ -18,6 +18,7 @@ export function ListBillOfProfileLover() {
         findAllByAccountLoverId(id, token)
             .then((res) => {
                 setBills(res)
+                console.log(res)
             })
     }, [id, check])
 
@@ -40,10 +41,14 @@ export function ListBillOfProfileLover() {
     }
 
     function doneBill(bill) {
-        doneBillByLover(bill.id, id, token)
+        // eslint-disable-next-line no-restricted-globals
+       if( confirm("bạn chắc chắn đơn này đã hoàn thành")){
+
+        doneBillByLover1(bill.id, id, token)
             .then(() => {
                 handleChangeCheck(check)
             })
+       }
     }
 
     return (
