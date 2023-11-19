@@ -7,18 +7,61 @@ import {RingLoader} from "react-spinners";
 export const ProfileLover = () =>{
     const [profileLover, setProfileLover] = useState({})
     const [loading, setLoading] = useState(false)
+    const [status, setStatus] = useState(false);
+    const [check,setCheck] = useState(false);
     let id = localStorage.getItem("idAccount");
+
 
     useEffect(() =>{
         findByIdLover(id).then((res) =>{
             setProfileLover(res)
+            if (res.statusLover?.id ===1 || res.statusLover?.id ===2){
+                console.log(status)
+                setStatus(true);
+            }
         }).catch(() =>{
             return {}
         })
         findAllFreeService().then((res) =>{
             console.log(res)
         })
-    },[loading])
+    },[loading,check])
+    const updateStatusLover = () => {
+        if (profileLover.statusLover?.id === 2) {
+            alert("Đang trong quá trình cung cấp dịch vụ! Không được thay đổi thông tin!!!");
+        } else {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm("Bạn có muốn thay đổi trạng thái hoạt động không?")) {
+                let newIdStatus;
+                if (profileLover.statusLover?.id === 1) {
+                    newIdStatus = 3;
+                    alert("Bạn đã tắt trạng thái hoạt động");
+                    setStatus(false);
+                } else if (profileLover.statusLover?.id === 3) {
+                    newIdStatus = 1;
+                    alert("Bạn đã bật trạng thái hoạt động");
+                    setStatus(true);
+                }
+
+                const updatedProfileLover = {
+                    ...profileLover,
+                    account: {
+                        id: id,
+                    },
+                    statusLover: {
+                        id: newIdStatus,
+                    },
+                };
+
+                createProfileLover(updatedProfileLover).then(() => {
+                    setCheck(!check)
+                    // Thực hiện các hành động khác sau khi đã gọi createProfileLover
+                });
+            }
+        }
+    };
+
+
     function showModalChoseImage() {
         const fileInput = document.getElementById('input-avatar-profile-user');
         fileInput.click();
@@ -102,6 +145,9 @@ export const ProfileLover = () =>{
                                         </div>
                                     </div>
                                     <div className="rent-time-wrap"><p className="ready">{profileLover.statusLover?.name}</p></div>
+                                    <div>
+                                        <button onClick={updateStatusLover}>{status ? 'Tắt' : 'Bật'} trạng thái</button>
+                                    </div>
                                 </div>
 
                             </div>
