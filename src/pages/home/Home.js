@@ -274,7 +274,7 @@ const Home = () => {
                                 </div>
                                 <div style={{textAlign: "center"}}>
                                     {visibleProducts < lovers.length && (
-                                        <button onClick={loadMoreProducts} id={"button-load-more-home"}>
+                                        <button className={"btn btn-secondary"} onClick={loadMoreProducts} id={"button-load-more-home"}>
                                             Xem thêm...
                                         </button>
                                     )}
