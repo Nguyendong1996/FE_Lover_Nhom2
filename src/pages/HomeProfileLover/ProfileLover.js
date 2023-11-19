@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {createProfileLover, findByIdLover} from "../../services/ProfileLoverService";
+import {createProfileLover, findAllFreeService, findByIdLover} from "../../services/ProfileLoverService";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../firebase/Firebase";
 import {v4} from "uuid";
@@ -11,10 +11,12 @@ export const ProfileLover = () =>{
 
     useEffect(() =>{
         findByIdLover(id).then((res) =>{
-            console.log(res)
             setProfileLover(res)
         }).catch(() =>{
             return {}
+        })
+        findAllFreeService().then((res) =>{
+            console.log(res)
         })
     },[loading])
     function showModalChoseImage() {
