@@ -1,0 +1,10 @@
+#btn-1 {
+    border: 1px solid #f0564a;
+    color: #f0564a;
+    width: 100px;
+}
+#btn-1:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}

@@ -1,182 +1,257 @@
+import React, {useEffect, useState} from "react";
+import {createProfileLover, findAllFreeService, findByIdLover} from "../../services/ProfileLoverService";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "../../firebase/Firebase";
+import {v4} from "uuid";
+import {RingLoader} from "react-spinners";
+import {Field, Form, Formik} from "formik";
+export const ProfileLover = () =>{
+    const [profileLover, setProfileLover] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [status, setStatus] = useState(false);
+    const [check,setCheck] = useState(false);
+    let id = localStorage.getItem("idAccount");
+    const [isEditingPrice, setIsEditingPrice] = useState(false);
 
-import React, {useEffect, useLayoutEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router";
-import axios from "axios";
+    useEffect(() =>{
+        findByIdLover(id).then((res) =>{
+            setProfileLover(res)
+            if (res.statusLover?.id ===1 || res.statusLover?.id ===2){
+                console.log(status)
+                setStatus(true);
+            }
+        }).catch(() =>{
+            return {}
+        })
+        findAllFreeService().then((res) =>{
+            console.log(res)
+        })
+    },[loading,check])
+    const updateStatusLover = () => {
+        if (profileLover.statusLover?.id === 2) {
+            alert("Đang trong quá trình cung cấp dịch vụ! Không được thay đổi thông tin!!!");
+        } else {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm("Bạn có muốn thay đổi trạng thái hoạt động không?")) {
+                let newIdStatus;
+                if (profileLover.statusLover?.id === 1) {
+                    newIdStatus = 3;
+                    alert("Bạn đã tắt trạng thái hoạt động");
+                    setStatus(false);
+                } else if (profileLover.statusLover?.id === 3) {
+                    newIdStatus = 1;
+                    alert("Bạn đã bật trạng thái hoạt động");
+                    setStatus(true);
+                }
 
-function Detail(){
-    const [userDetail, setUserDetail] = useState({});
-    const [image, setImage] = useState([]);
-    const [interest, setInterest] = useState([])
-    const [bill, setBill] = useState([])
-    const {id} = useParams();
-    const navigate = useNavigate();
+                const updatedProfileLover = {
+                    ...profileLover,
+                    account: {
+                        id: id,
+                    },
+                    statusLover: {
+                        id: newIdStatus,
+                    },
+                };
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/userDetail/` + id)
-            .then(response => {
-                console.log(response);
-                setUserDetail(response.data.userProfile);
-                setImage(response.data.image)
-                setInterest(response.data.interests)
-                setBill(response.data.bills)
+                createProfileLover(updatedProfileLover).then(() => {
+                    setCheck(!check)
+                    // Thực hiện các hành động khác sau khi đã gọi createProfileLover
+                });
+            }
+        }
+    };
+
+    const handlePriceEdit = () => {
+        setIsEditingPrice(true); // Kích hoạt chế độ chỉnh sửa
+    };
+    const handlePriceSave = (e) => {
+        const updatedProfileLover = {
+            ...profileLover,
+            account:{
+                id:id,
+            },
+            price: e.price,
+        }
+        createProfileLover(updatedProfileLover).then(() => {
+                setCheck(!check)
+                return alert("update thanh cong !!!")
+            }
+        );
+        setIsEditingPrice(false); // Tắt chế độ chỉnh sửa
+    };
+    function showModalChoseImage() {
+        const fileInput = document.getElementById('input-avatar-profile-user');
+        fileInput.click();
+    }
+    function updateAvt(file) {
+        setLoading(true)
+        console.log(file)
+        const storageRef = ref(storage, `images/${file.name + v4()}`);
+        const uploadTask = uploadBytes(storageRef, file);
+        uploadTask.then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                const updatedProfileLover = {
+                    ...profileLover,
+
+                    account:{
+                        id:id,
+                    },
+                    avatarImage:url}
+                createProfileLover(updatedProfileLover)
+                    .then(() => {
+                        alert("Cập nhật ảnh đại diện thành công!");
+                        setLoading(false);
+                    })
             })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-    useLayoutEffect(() => {
-        window.scrollTo(0, 0)
-    });
+        })
+    }
+    if (loading) {
+        return (
+            <>
+                <div id={"root"} style={{marginTop:'-50%'}}>
+                    <div className={"loading-info-user"}>
+                        <RingLoader color="#f0564a" loading={true} size={80}/>
+                    </div>
+                </div>
+            </>
+        )
+    }
     return(
         <>
-        <title>User Profile</title>
-        <link rel="apple-touch-icon" sizes="57x57" href="https://playerduo.net/favicons/apple-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="https://playerduo.net/favicons/apple-icon-60x60.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="https://playerduo.net/favicons/apple-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="https://playerduo.net/favicons/apple-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="https://playerduo.net/favicons/apple-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="https://playerduo.net/favicons/apple-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="https://playerduo.net/favicons/apple-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://playerduo.net/favicons/apple-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="https://playerduo.net/favicons/apple-icon-180x180.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="../resources/raw/android-icon-192x192.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="../resources/raw/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="../resources/raw/favicon-96x96.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="../resources/raw/favicon-16x16.png" />
-        <link rel="manifest" href="https://playerduo.net/manifest.json" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png" />
-        <meta name="theme-color" content="#ffffff" />
-        <link rel="shortcut icon" href="../resources/raw/favicon.ico" />
-        <link href="../resources/all.css" rel="stylesheet" />
-        <link href="../resources/css.css" rel="stylesheet" />
-        <title>PlayerDuo - Thuê người chơi</title>
-        <link href="../resources/8.97b85fe3.chunk.css" rel="stylesheet" />
-        <link href="../resources/main.3e229f12.chunk.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="../resources/0.cbdbec7b.chunk.css" />
-        <link rel="stylesheet" type="text/css" href="../resources/3.fe7e74cf.chunk.css" />
-        <link rel="stylesheet" type="text/css" href="../resources/10.697bc269.chunk.css" />
-        <link rel="stylesheet" href="../resources/css-user-profile.css" />
-            <div >
-                <div className="hidden">
-                    <audio src="../resources/raw/notification-sound.805a8904.mp3"/>
-                    <audio src="../resources/raw/notification-group-sound.4c7ac55b.mp3"/>
-                    <audio src="../resources/raw/unconvinced.1de6c75d.mp3"/>
-                </div>
-                <div className="notifications-wrapper"/>
-                <div className="message__popup  false">
-                    <div className="message__popup--icon">
-                        <img src="../resources/raw/popup-chat.png" className alt="PD"/></div>
-                </div>
+            <title>User Profile</title>
+            <link rel="apple-touch-icon" sizes="57x57" href="https://playerduo.net/favicons/apple-icon-57x57.png" />
+            <link rel="apple-touch-icon" sizes="60x60" href="https://playerduo.net/favicons/apple-icon-60x60.png" />
+            <link rel="apple-touch-icon" sizes="72x72" href="https://playerduo.net/favicons/apple-icon-72x72.png" />
+            <link rel="apple-touch-icon" sizes="76x76" href="https://playerduo.net/favicons/apple-icon-76x76.png" />
+            <link rel="apple-touch-icon" sizes="114x114" href="https://playerduo.net/favicons/apple-icon-114x114.png" />
+            <link rel="apple-touch-icon" sizes="120x120" href="https://playerduo.net/favicons/apple-icon-120x120.png" />
+            <link rel="apple-touch-icon" sizes="144x144" href="https://playerduo.net/favicons/apple-icon-144x144.png" />
+            <link rel="apple-touch-icon" sizes="152x152" href="https://playerduo.net/favicons/apple-icon-152x152.png" />
+            <link rel="apple-touch-icon" sizes="180x180" href="https://playerduo.net/favicons/apple-icon-180x180.png" />
+            <link rel="icon" type="image/png" sizes="192x192" href="../resources/raw/android-icon-192x192.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="../resources/raw/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="96x96" href="../resources/raw/favicon-96x96.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="../resources/raw/favicon-16x16.png" />
+            <link rel="manifest" href="https://playerduo.net/manifest.json" />
+            <meta name="msapplication-TileColor" content="#ffffff" />
+            <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png" />
+            <meta name="theme-color" content="#ffffff" />
+            <link rel="shortcut icon" href="../resources/raw/favicon.ico" />
+            <link href="../resources/all.css" rel="stylesheet" />
+            <link href="../resources/css.css" rel="stylesheet" />
+            <title>PlayerDuo - Thuê người chơi</title>
+            <link href="../resources/8.97b85fe3.chunk.css" rel="stylesheet" />
+            <link href="../resources/main.3e229f12.chunk.css" rel="stylesheet" />
+            <link rel="stylesheet" type="text/css" href="../resources/0.cbdbec7b.chunk.css" />
+            <link rel="stylesheet" type="text/css" href="../resources/3.fe7e74cf.chunk.css" />
+            <link rel="stylesheet" type="text/css" href="../resources/10.697bc269.chunk.css" />
+            <link rel="stylesheet" href="../resources/css-user-profile.css" />
                 <div className="wrapper">
-                    <div className="container player-infomation">
-                        <div className="player-profile-left-wrap col-md-3">
+                    <div className="container player-infomation" style={{marginLeft:'13%',marginTop:'-50%'}}>
+                        <div className="player-profile-left-wrap col-md-3" style={{marginTop:'10px',marginLeft:'0%'}}>
                             <div className="avt-player false">
                                 <div>
-                                    <div className="avt avt-lg">
-                                        {
-                                            userDetail.account && <img src={userDetail.account.avatar} alt="Avatar"
-                                                                       style={{width: "100%", height: "100%"}}/>
-                                        }
+                                    <div className="d-flex img-avatar">
+                                        <div className="cropimg-avatar div-info-user-1">
+                                            <img src={profileLover.avatarImage} alt=""
+                                                 style={{width: 300, height: 300, borderRadius: 10}} onClick={showModalChoseImage}/>
+                                            <input type="file" id={"input-avatar-profile-user"}
+                                                   onChange={(event) => {
+                                                       updateAvt(event.target.files[0])
+                                                   }} style={{display: "none"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="rent-time-wrap"><p className="ready">{profileLover.statusLover?.name}</p></div>
+                                    <div>
+                                        <button onClick={updateStatusLover}>{status ? 'Tắt' : 'Bật'} trạng thái</button>
                                     </div>
                                 </div>
+
                             </div>
-                            <div className="rent-time-wrap"><p className="ready">Đang sẵn sàng</p></div>
+
                             <div className="social-icon">
-                                <div className="icon-wrap user-page">
-                                    <a href="https://playerduo.net/rabbitnee" target="_blank" rel="noopener noreferrer">
-                                        {userDetail.account && <img src={userDetail.account.avatar} style={{width:"50px",height:"50px"}} alt="PD" title="Trang cá nhân"
-                                                                    className="option-icon img-rounded"/>}
-                                    </a>
-                                </div>
                             </div>
                             <div className="member-since">
                                 <div>Ngày tham gia:</div>
                                 <span>
-                                {userDetail.dateCreate}
+                                    {profileLover.createdAt}
                             </span>
                             </div>
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
-                            <div className="right-player-profile"><p className="price-player-profile">75,000 đ/h</p>
-                                <div className="rateting-style"><i className="fas fa-star"></i><i
-                                    className="fas fa-star"></i><i
-                                    className="fas fa-star"></i><i className="fas fa-star"></i><i
-                                    className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
-                                </div>
-                                <div className="text-center">
-                                    <button className="btn-my-style red">Thuê</button>
-                                    <button className="btn-my-style white">Donate</button>
-                                    <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
-                                    </button>
-                                </div>
-                            </div>
                         </div>
-                        <div className="player-profile-main-wrap col-md-6 col-md-pull-3">
+                        <div className="player-profile-main-wrap col-md-6 col-md-pull-3" style={{marginLeft:'25%'}}>
                             <div>
                                 <div className="row">
                                     <div className="center-item col-md-12">
                                     <span
-                                        className="name-player-profile hidden-over-name">{userDetail.firstName} {userDetail.lastName} 🐰🐰</span>
-                                        <button className="btn-follow-player"><i className="fas fa-heart"></i>&nbsp;
-                                            <span
-                                                className="plus"><span>Theo dõi</span></span></button>
+                                        className="name-player-profile hidden-over-name">{profileLover.account?.nickname} 🐰🐰</span>
                                     </div>
                                 </div>
                                 <div className="nav-player-profile row">
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Số người theo dõi</span></div>
-                                        <div className="item-nav-value">400 <span>người</span></div>
+                                        <div className="item-nav-name"><span>Số Lượt thuê</span></div>
+                                        <div className="item-nav-value">{profileLover.totalViews} <span>Lượt</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Đã được thuê</span></div>
-                                        <div className="item-nav-value">{bill.length}&nbsp;<span> lần</span></div>
+                                        <div className="item-nav-name"><span>Thời Gian được thuê</span></div>
+                                        <div className="item-nav-value"><span>{profileLover.totalHourRented} Giờ</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
                                         <div className="item-nav-name"><span>Tỷ lệ hoàn thành</span></div>
                                         <div className="item-nav-value">100&nbsp;%</div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Tình trạng thiết bị</span></div>
-                                        <div className="item-nav-value"><i className="fas fa-microphone"></i></div>
+                                        <div className="item-nav-name"><span>Thu nhập</span></div>
+                                        <div className="item-nav-value">{profileLover.totalMoneyRented}</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="game-category row">
-                                        <div className="choose-game"
-                                             style={{background: "url(&quot;715867c6-698f-411a-b4f9-1e9093130b60__2649fa50-37c9-11ed-838c-b120e70abb59__game_backgrounds.jpg&quot;) center center no-repeat"}}>
-                                            <p className="overlay">{interest.length > 0 ? interest[0].interest : 'no'}</p>
+                                    <div>
+                                        <div className="title-player-profile row">
+                                            <div style={{marginLeft:'2%'}}>
+                                                {!isEditingPrice ? (
+                                                    <h5 className="control-label">
+                                                        <i onClick={handlePriceEdit}
+                                                           className="fas fa-cog info-uimgser-icon"></i>
+                                                        <span>Price : {profileLover.price}</span> </h5>
+                                                ) : (
+                                                    <Formik initialValues={profileLover}
+                                                            enableReinitialize={true}
+                                                            onSubmit={(e) =>{handlePriceSave(e)}}>
+                                                        <Form>
+                                                            <div className="fieldGroup "><p className="control-label">New Prcie</p>
+                                                                <Field
+                                                                    type="text"
+                                                                    name="price"
+                                                                    placeholder=""
+                                                                    maxLength="5000"
+                                                                    autoComplete="false"
+                                                                    style={{width:'280px'}}
+                                                                />
+                                                                <button class="btn btn-success">Save</button>
+                                                            </div>
+                                                        </Form>
+                                                    </Formik>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
                                         <div className="title-player-profile row">
                                             <div className="col-xs-6"><span>Thông tin</span></div>
                                         </div>
-                                        <div className="content-player-profile"><p>nhận all game, sv Na, Naraka</p>
+                                        <div className="content-player-profile" >
+                                            <p>{profileLover.description}</p>
                                             <div className="album-of-player">
                                                 <div>
-                                                    <a href="https://playerduo.net/api/upload-service/images/029f1f12-4fb8-4b21-8171-ca7bf863e2f8__ae016c20-4679-11ee-a657-a54d6be1d46a__player_album.jpg"
-                                                       style={{display: "block"}}>
-                                                        {image && image.map(image => (
-                                                            <img key={image.id} src={image.img}
-                                                                 alt={`Ảnh chân dung ${image.id}`}
-                                                                 style={{width: "50px", height: "50px"}}/>))}
-                                                    </a>
-
-                                                    <div className="clearfix"></div>
+                                                    <div className="avt avt-lg">
+                                                        <img src={profileLover.avatarImage} alt="Avatar"
+                                                             style={{width: "60%", height: "60%"}}/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <p>Tên: {userDetail.firstName} {userDetail.lastName}</p>
-                                            <p>Địa Chỉ: {userDetail.address}, {userDetail.country}</p>
-                                            <p>Năm Sinh: {userDetail.birthday} ♥ Không biết hát nha</p>
-                                            <p>Giới Tính: {userDetail.gender}</p>
-                                            <p>Chiều Cao: {userDetail.height}</p>
-                                            <p>Cân Nặng: {userDetail.weight}</p>
-                                            <p>Mô tả về bản thân: {userDetail.describes}</p>
-                                            <p>Yêu cầu với người thuê: {userDetail.basicRequest}</p>
-                                            <p>fb: <a href={userDetail.facebookLink} target="_blank"
-                                                      rel="noopener noreferrer">{userDetail.facebookLink}</a>
-                                            </p>
                                         </div>
                                         <div>
                                             <div id="top-donate">
@@ -846,8 +921,6 @@ function Detail(){
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }
-export default Detail

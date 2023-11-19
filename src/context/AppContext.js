@@ -7,41 +7,47 @@ export const AppProvider = ({children}) => {
     const [idVipService, setIdVipService] = useState(0);
     const [idFreeService, setIdFreeService] = useState(0);
     const [idBaseService, setIdBaseService] = useState(0);
+
+
     const [check, setCheck] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
+    const [visibleProducts, setVisibleProducts] = useState(4);
+    const handleChangeVisibleProducts = () => {
+        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 4);
+    }
+    const handleChangeLogin = (value) => {
+        setIsLogin(!value)
+    }
     const handleChangeCheck = (value) => {
         setCheck(!value)
     }
     const handleSearchChange = (value) => {
         setSearchValue(value)
-        setIdVipService(0)
-        setIdFreeService(0)
-        setIdBaseService(0)
+
     };
     const handleIdVipServiceChange = (id) => {
         setIdVipService(id)
-        setSearchValue("")
-        setIdFreeService(0)
-        setIdBaseService(0)
+
     }
     const handleFreeServiceChange = (id) => {
         setIdFreeService(id)
-        setIdVipService(0)
-        setSearchValue("")
-        setIdBaseService(0)
+
     }
     const handleBaseServiceChange = (id) => {
         setIdBaseService(id)
-        setSearchValue("")
-        setIdFreeService(0)
-        setIdVipService(0)
+
     }
     return (
         <AppContext.Provider value={{
             searchValue,
-            idVipService,
-            idFreeService,
+            idVipService, setIdVipService,
+            idFreeService, setIdFreeService,
             idBaseService,
-            check,
+            check, isLogin,
+            visibleProducts,
+            setVisibleProducts,
+            handleChangeVisibleProducts,
+            handleChangeLogin,
             handleChangeCheck,
             handleFreeServiceChange,
             handleIdVipServiceChange,

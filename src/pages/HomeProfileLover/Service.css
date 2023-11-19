@@ -1,0 +1,19 @@
+.service-list-container {
+    display: flex;
+    align-items: center;
+}
+
+.service-select-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.service-update-wrapper {
+    flex: 1;
+    display: none;
+}
+
+.service-update-wrapper.expanded {
+    display: block;
+}
