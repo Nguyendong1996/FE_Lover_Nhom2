@@ -5,6 +5,8 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {LoadingButton} from "./LoadingButton";
 import "../../css/FormLogin.css"
 import {Link} from "react-router-dom";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export function FormLogin() {
 
     const [loading, setLoading] = useState(false)
@@ -25,7 +27,7 @@ export function FormLogin() {
             }
         }).catch(() => {
             // trường hợp kết nối được đến máy chủ nhưng tài khoản hoặc mật khẩu không đúng:
-            alert("Lỗi kết nối đến máy chủ!")
+            toast.error("Tài khoản hoặc mật khẩu không đúng")
             setLoading(false)
         })
     }
@@ -173,22 +175,6 @@ export function FormLogin() {
             <div className="main-singin-box">
                 <div className="wrapper" style={{backgroundColor: "#eee9e9"}}>
                     <div className="container">
-
-                        {/*<div className="leftside">*/}
-                        {/*    <div className="air-balloon one">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon two">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon three">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon foure">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
                         <div className="row login-page">
                             <div className="col-md-7 hidden-sm hidden-xs image-login">
                                 <img style={{height: '100%'}}
@@ -247,27 +233,13 @@ export function FormLogin() {
                                 </a>
                             </div>
                         </div>
-
-                        {/*<div className="rightside">*/}
-                        {/*    <div className="air-balloon one">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon two">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon three">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="air-balloon foure">*/}
-                        {/*        <img src="/resources/img/404-balloon.png" alt="404-balloon"/>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </div>
             <div id="fb-root" style={{position: 'absolute', top: '-10000px', width: '0px', height: '0px'}}
                  className="fb_reset">
             </div>
+            <ToastContainer/>
         </>
     )
 

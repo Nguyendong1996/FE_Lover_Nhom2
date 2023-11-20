@@ -101,6 +101,22 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
+                                                                {
+                                                                    chosen === 7 ? <span onClick={()=>setChosen(7)}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Cập nhật dịch vụ
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={()=>{setChosen(7)}}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Cập nhật dịch vụ
+                                                                </span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
                                                                 {chosen === 2 ? <span onClick={()=>setChosen(2)}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch

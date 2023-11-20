@@ -189,6 +189,7 @@ export function EditInfoLover() {
                                     <div >
                                         <p className="control-label" style={{textAlign:'center', fontSize:15, fontWeight:"bold"}}>Mô Tả Bản Thân</p>
                                         <Field
+                                            className={"form-control"}
                                             as="textarea"
                                             name="description"
                                             placeholder=""

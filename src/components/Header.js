@@ -13,6 +13,7 @@ const Header = () => {
     const role = localStorage.getItem("role")
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin")
+
     //tìm kiếm theo tên:
     function searchByName(event) {
         const value = event.target.value;
@@ -21,6 +22,7 @@ const Header = () => {
         navigate("")
     }
 
+    const [chosen, setChosen] = useState(1)
     return (
         <>
             <link rel="manifest" href="https://playerduo.net/manifest.json"/>
@@ -62,40 +64,46 @@ const Header = () => {
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
-                            <li className={"header-li-1"}><Link to={"/"}><a href="#">Trang chủ</a></Link></li>
+                            <li className={"header-li-1"}><Link to={"/"}>
+                                <a href="#" style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}
+                                   onClick={() => {
+                                       setChosen(1)
+                                   }}>TRANG CHỦ</a></Link></li>
 
-                            {role === "ROLE_LOVER" &&
+                            {(role === "ROLE_LOVER") &&
                                 <li className={"header-li-1"}><Link to={"/homeProfileLover"}>
-                                    <a href={"#"}>Trang lover</a></Link></li>
+                                    <a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a></Link></li>
                             }
                             {role === "ROLE_USER" &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")}>Trang lover</a>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang lover</a>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
+
+
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")}>Trang user</a>
+                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a>
                                 </li>
                             }
                             {(role === "ROLE_USER" || role === "ROLE_LOVER") &&
                                 <li className={"header-li-1"}>
-                                    <Link to={"/info-user/" + idAccount}><a href={"#"}>Trang user</a></Link>
+                                    <Link to={"/info-user/" + idAccount}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a></Link>
                                 </li>
                             }
                             {role === "ROLE_ADMIN" &&
                                 <li className={"header-li-1"}>
-                                    <Link to={"/home-admin/" + idAccount}><a href={"#"}>Trang Admin</a></Link>
+                                    <Link to={"/home-admin/" + idAccount}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG ADMIN</a></Link>
                                 </li>
                             }
 
-                            <li className={"header-li-1"}><Link to={""}>Top lover</Link></li>
-                            <li className={"header-li-1"}><Link to={""}>Top user</Link></li>
+                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TOP LOVER</a></li>
+                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TOP USER</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li className="item-icon notificate dropdown"><a id="basic-nav-dropdown" role="button"

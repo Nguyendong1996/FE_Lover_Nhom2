@@ -17,6 +17,7 @@ import {HomeAdmin} from "./pages/admin/HomeAdmin";
 import {ListBillOfProfileLover} from "./pages/HomeProfileLover/ListBillOfProfileLover";
 import {HomeLover} from "./pages/homeLover/HomeLover";
 import {InformationUser} from "./pages/infoUser/InformationUser";
+import {ToastContainer} from "react-toastify";
 
 function App() {
     return (
