@@ -2,10 +2,9 @@ import {Link, useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import {AppContext} from "../../context/AppContext";
 
-export function ButtonLogin() {
+export function ButtonLogin(props) {
     const navigate = useNavigate();
-    const {isLogin} = useContext(AppContext);
-    const {handleChangeLogin} = useContext(AppContext);
+    const isLogin = props.isLogin;
     if (isLogin) {
         return (
             <a href="#" className="nav-link scrollto" onClick={logOut}>Đăng xuất</a>
@@ -20,7 +19,6 @@ export function ButtonLogin() {
 
     function logOut() {
         localStorage.clear()
-        handleChangeLogin(isLogin)
         navigate("/")
     }
 }

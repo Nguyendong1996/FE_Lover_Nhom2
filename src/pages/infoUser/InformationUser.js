@@ -131,7 +131,7 @@ export function InformationUser() {
                                     <img src={infoUser.avatarImage} alt=""
                                          style={{width: 250, height: 250, borderRadius: 10}}/>
                                     <i onClick={showModalChoseImage}
-                                       className="fas fa-cog info-user-icon"></i>
+                                       className="fas fa-edit info-user-icon"></i>
                                     <input type="file" id={"input-avatar-profile-user"}
                                            onChange={(event) => {
                                                updateAvt(event.target.files[0])
@@ -139,8 +139,8 @@ export function InformationUser() {
                                 </div>
                                 <div className={"div-info-user-2"}>
                                     <div className="label-info-user">
-                                        (Sửa lần cuối: {infoUser.updateAt?.slice(0,10)})
-                                        <i className="fas fa-cog icon-setting-info" onClick={openModal}></i>
+                                        Cập nhật lần cuối: {infoUser.updateAt?.slice(0,10)}
+                                        <i className="fas fa-cog icon-setting-info" onClick={openModal} style={{marginLeft:3}}></i>
                                     </div>
                                     <div className="label-info-user">Họ: {infoUser.lastName}</div>
                                     <div className="label-info-user">Tên: {infoUser.firstName}</div>

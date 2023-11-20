@@ -117,7 +117,7 @@ export function InformationAccount() {
                 <div className="">
                     <div className="row">
                         <div className="col-md-6 col-sm-12 col-xs-12 personalinfo">
-                            <h3 style={{fontSize: 25}}>CÀI ĐẶT TÀI KHOẢN</h3>
+                            <h3 style={{fontSize: 25, marginLeft:10}}>CÀI ĐẶT TÀI KHOẢN</h3>
                             {role === "ROLE_USER" &&
                                 <div className="label-info-user">
                                     {
@@ -138,11 +138,11 @@ export function InformationAccount() {
 
                                 </div>
                             }
-                            <div className="label-info-user">Nickname (tên hiển thị): {account.nickname}</div>
-                            <div className="label-info-user">Username (tên đăng nhập): {account.nickname}</div>
+                            <div className="label-info-user">Tên hiển thị: {account.nickname}</div>
+                            <div className="label-info-user">Tên đăng nhập: {account.nickname}</div>
                             <div className="label-info-user">Địa chỉ
                                 email: {account.email?.replace(/^.{5}/, '*****')}</div>
-                            <div className="label-info-user">Quyền hạn: {role}</div>
+                            <div className="label-info-user">Quyền hạn: {role.slice(5,10)}</div>
                             <div className="label-info-user">Trạng thái tài khoản: {infoUser.statusUser?.name}</div>
                             <div className="label-info-user">Trạng thái hoạt động: {account.statusAccount?.name}
                                 {account.statusAccount?.id === 1 &&
@@ -152,10 +152,11 @@ export function InformationAccount() {
                                     <a href="#" style={{textDecoration: "underline", marginLeft: 5}}>
                                         (Nhấn để bật)</a>}
                             </div>
+                            <div className="label-info-user"><a href="#" style={{color:"#354052", fontSize:20}}>CHỨC NĂNG:</a></div>
                             <div className="label-info-user"><a href="#" style={{textDecoration: "underline"}}>Đổi mật
                                 khẩu</a></div>
                             <div className="label-info-user"><a href="#"
-                                                                style={{textDecoration: "underline", color: "black"}}>Vô
+                                                                style={{textDecoration: "underline"}}>Vô
                                 hiệu hoá tài khoản!</a></div>
                         </div>
                     </div>

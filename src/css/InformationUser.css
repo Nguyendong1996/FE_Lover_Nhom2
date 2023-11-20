@@ -14,15 +14,21 @@
     position: absolute;
     right: 5px;
     top: 5px;
-    font-size: 20px;
+    font-size: 15px;
+}
+.info-user-icon:hover {
+    cursor: pointer;
 }
 .icon-setting-info {
     color: #f0564a;
     font-size: 15px;
 }
+.icon-setting-info:hover {
+    cursor: pointer;
+}
 .label-info-user {
     font-size: 15px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: #354052;
     padding: 10px;
 }

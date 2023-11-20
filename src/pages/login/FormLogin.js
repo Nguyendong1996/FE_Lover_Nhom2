@@ -4,14 +4,11 @@ import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {LoadingButton} from "./LoadingButton";
 import "../../css/FormLogin.css"
-import {AppContext} from "../../context/AppContext";
 import {Link} from "react-router-dom";
 export function FormLogin() {
 
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-    const {handleChangeLogin} = useContext(AppContext);
-    const {isLogin} = useContext(AppContext);
 
     function login(account) {
         setLoading(true)
@@ -20,7 +17,6 @@ export function FormLogin() {
             localStorage.setItem("isLogin", "true");
             localStorage.setItem("idAccount", res.data.id)
             localStorage.setItem("role", res.data.roles[0].authority)
-            handleChangeLogin(isLogin)
             setLoading(false)
             if (res.data.roles[0].authority === "ROLE_ADMIN") {
                 navigate("/home-admin/" + res.data.id)
