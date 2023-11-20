@@ -5,6 +5,7 @@ import {NotificationHomeLover} from "./NotificationHomeLover";
 import {PageOfLover} from "./PageOfLover";
 import "./HomeLover.css"
 import {EditInfoLover} from "./EditInfoLover";
+import {ListBillOfProfileLover} from "./ListBillOfProfileLover";
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
     const [notifications, setNotifications] = useState([])
@@ -150,6 +151,7 @@ export function HomeLover() {
                         {chosen === 5 && <NotificationHomeLover/>}
                         {chosen === 1 && <PageOfLover/>}
                         {chosen === 3 && <EditInfoLover/>}
+                        {chosen === 2 && <ListBillOfProfileLover/>}
                     </div>
                 </div>
             </div>
