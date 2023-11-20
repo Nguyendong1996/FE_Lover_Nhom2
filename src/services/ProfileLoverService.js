@@ -152,3 +152,12 @@ export function userSendRequestRegisterToLover(profileLover, idAccount,token) {
         )
     })
 }
+export const findAllLoverByIdRoles = (idRoles) =>{
+    return new Promise(resolve => {
+        resolve(
+            axios.post("http://localhost:8080/api/profileLoves/findAllProfileLoverByRoles/"+idRoles).then((res) =>{
+                return res.data
+            })
+        )
+    })
+}
