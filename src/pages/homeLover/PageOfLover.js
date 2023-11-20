@@ -358,6 +358,22 @@ export function PageOfLover() {
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
                                                     </div>
+                                                    <div className="top-donate-player row">
+                                                        <div className="ky-1 col-xs-1">#1</div>
+                                                        <div className="col-xs-7">
+                                                            <div className="avt avt-xs">
+                                                                <img
+                                                                    src="../resources/raw/2b0863d5-e2cb-4443-8aff-70327f5860f1__87172be0-0768-11ee-a657-a54d6be1d46a__page_avatar.jpg"
+                                                                    className="avt-img" alt="PD"/>
+                                                                <img src="../resources/raw/10.png"
+                                                                     className="vip-avatar undefined" alt="PD"
+                                                                     style={{height: "17px", width: "17px"}}/>
+                                                            </div>
+                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                        </div>
+                                                        <div className="total-amount col-xs-4">297,651,000 đ
+                                                        </div>
+                                                    </div>
                                                     <div style={{fontSize:20, fontWeight:"bold"}}>ĐÁNH GIÁ</div>
                                                     <div className="text-center review-duo-player row">
                                                         <div className="col-md-12">
