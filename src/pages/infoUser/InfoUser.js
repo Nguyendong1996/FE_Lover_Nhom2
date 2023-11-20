@@ -570,6 +570,7 @@ export function InfoUser() {
             <link rel="stylesheet" type="text/css"
                   href="../resources/9.cb7de3a7.chunk.css"/>
             <link rel="stylesheet" href="../resources/css-user-information.css"/>
+            <link rel="stylesheet" href="../resources/css-user-profile.css" />
             <div id="root" style={{marginTop: 80}}>
                 <div className="wrapper">
                     <div className="setting__main row">

@@ -119,36 +119,8 @@ export const ProfileLover = () =>{
     }
     return(
         <>
-            <title>User Profile</title>
-            <link rel="apple-touch-icon" sizes="57x57" href="https://playerduo.net/favicons/apple-icon-57x57.png" />
-            <link rel="apple-touch-icon" sizes="60x60" href="https://playerduo.net/favicons/apple-icon-60x60.png" />
-            <link rel="apple-touch-icon" sizes="72x72" href="https://playerduo.net/favicons/apple-icon-72x72.png" />
-            <link rel="apple-touch-icon" sizes="76x76" href="https://playerduo.net/favicons/apple-icon-76x76.png" />
-            <link rel="apple-touch-icon" sizes="114x114" href="https://playerduo.net/favicons/apple-icon-114x114.png" />
-            <link rel="apple-touch-icon" sizes="120x120" href="https://playerduo.net/favicons/apple-icon-120x120.png" />
-            <link rel="apple-touch-icon" sizes="144x144" href="https://playerduo.net/favicons/apple-icon-144x144.png" />
-            <link rel="apple-touch-icon" sizes="152x152" href="https://playerduo.net/favicons/apple-icon-152x152.png" />
-            <link rel="apple-touch-icon" sizes="180x180" href="https://playerduo.net/favicons/apple-icon-180x180.png" />
-            <link rel="icon" type="image/png" sizes="192x192" href="../resources/raw/android-icon-192x192.png" />
-            <link rel="icon" type="image/png" sizes="32x32" href="../resources/raw/favicon-32x32.png" />
-            <link rel="icon" type="image/png" sizes="96x96" href="../resources/raw/favicon-96x96.png" />
-            <link rel="icon" type="image/png" sizes="16x16" href="../resources/raw/favicon-16x16.png" />
-            <link rel="manifest" href="https://playerduo.net/manifest.json" />
-            <meta name="msapplication-TileColor" content="#ffffff" />
-            <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png" />
-            <meta name="theme-color" content="#ffffff" />
-            <link rel="shortcut icon" href="../resources/raw/favicon.ico" />
-            <link href="../resources/all.css" rel="stylesheet" />
-            <link href="../resources/css.css" rel="stylesheet" />
-            <title>PlayerDuo - Thuê người chơi</title>
-            <link href="../resources/8.97b85fe3.chunk.css" rel="stylesheet" />
-            <link href="../resources/main.3e229f12.chunk.css" rel="stylesheet" />
-            <link rel="stylesheet" type="text/css" href="../resources/0.cbdbec7b.chunk.css" />
-            <link rel="stylesheet" type="text/css" href="../resources/3.fe7e74cf.chunk.css" />
-            <link rel="stylesheet" type="text/css" href="../resources/10.697bc269.chunk.css" />
-            <link rel="stylesheet" href="../resources/css-user-profile.css" />
-                <div className="wrapper">
-                    <div className="container player-infomation" style={{marginLeft:'13%',marginTop:'-50%'}}>
+
+                    <div className="container player-infomation" style={{marginLeft:300}}>
                         <div className="player-profile-left-wrap col-md-3" style={{marginTop:'10px',marginLeft:'0%'}}>
                             <div className="avt-player false">
                                 <div>
@@ -178,8 +150,6 @@ export const ProfileLover = () =>{
                                     {profileLover.createdAt}
                             </span>
                             </div>
-                        </div>
-                        <div className="player-profile-right-wrap col-md-3 col-md-push-6">
                         </div>
                         <div className="player-profile-main-wrap col-md-6 col-md-pull-3" style={{marginLeft:'25%'}}>
                             <div>
@@ -920,7 +890,7 @@ export const ProfileLover = () =>{
                             </div>
                         </div>
                     </div>
-                </div>
+
         </>
     )
 }

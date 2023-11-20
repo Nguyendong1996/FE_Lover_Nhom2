@@ -7,10 +7,11 @@ export const HomeProfileLover = () =>{
     const {id} = useParams()
     return(
         <>
+
             <div className="home-flex-category" style={{marginLeft:'0%'}}>
                 <div className="fixed-cate" style={{margin:'auto'}}>
 
-                        <Link to={"/homeProfileLover"}>
+                        <Link to={"profileLover"}>
                             <h3 style={{ textAlign: "center" }}><span>ProfileLover</span></h3>
                             </Link>
 

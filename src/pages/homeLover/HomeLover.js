@@ -1,5 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
+import {findNotificationByIdAccount} from "../../services/AdminService";
+import {NotificationHomeLover} from "./NotificationHomeLover";
+import {ProfileLover} from "../HomeProfileLover/ProfileLover";
+import {PageOfLover} from "./PageOfLover";
 
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
@@ -7,7 +11,11 @@ export function HomeLover() {
     const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token")
     const {check, setCheck} = useContext(AppContext);
-
+    useEffect(() => {
+        findNotificationByIdAccount(idAccount, token).then((res)=>{
+            setNotifications(res)
+        })
+    }, [idAccount, check])
     return (
         <>
             <meta charSet="UTF-8"/>
@@ -62,14 +70,13 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {
-                                                                        chosen === 1 ? <span onClick={()=> setChosen(1)}>
+                                                                {chosen === 1 ? <span onClick={()=> setChosen(1)}>
                                                                     <i className="fas fa-user-tie"></i>
-                                                                    Thông tin cá nhân
+                                                                    Xem trang cá nhân
                                                                 </span> : <span style={{color: "#354052"}}
                                                                                 onClick={()=>setChosen(1)}>
                                                                     <i className="fas fa-user-tie"></i>
-                                                                    Thông tin cá nhân
+                                                                    Xem trang cá nhân
                                                                 </span>
                                                                 }
                                                             </div>
@@ -81,11 +88,11 @@ export function HomeLover() {
                                                                 {
                                                                     chosen === 3 ? <span onClick={()=>setChosen(3)}>
                                                                     <i className="fas fa-cog"></i>
-                                                                    Cài đặt tài khoản
+                                                                    Cập nhật thông tin
                                                                 </span> : <span style={{color: "#354052"}}
                                                                                 onClick={()=>{setChosen(3)}}>
                                                                     <i className="fas fa-cog"></i>
-                                                                    Cài đặt tài khoản
+                                                                    Cập nhật thông tin
                                                                 </span>
                                                                 }
                                                             </div>
@@ -124,6 +131,8 @@ export function HomeLover() {
                                 </div>
                             </div>
                         </div>
+                        {chosen === 5 && <NotificationHomeLover/>}
+                        {chosen === 1 && <PageOfLover/>}
                     </div>
                 </div>
             </div>
