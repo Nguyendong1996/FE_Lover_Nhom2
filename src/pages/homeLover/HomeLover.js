@@ -2,9 +2,8 @@ import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
 import {findNotificationByIdAccount} from "../../services/AdminService";
 import {NotificationHomeLover} from "./NotificationHomeLover";
-import {ProfileLover} from "../HomeProfileLover/ProfileLover";
 import {PageOfLover} from "./PageOfLover";
-
+import "./HomeLover.css"
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
     const [notifications, setNotifications] = useState([])

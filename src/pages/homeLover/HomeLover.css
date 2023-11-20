@@ -1,0 +1,7 @@
+#a-change-status {
+    width:60px;
+    text-align: center;
+}
+#a-change-status:hover {
+    cursor: pointer;
+}
