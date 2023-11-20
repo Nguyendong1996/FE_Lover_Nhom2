@@ -1,0 +1,12 @@
+#btn-2 {
+    color: #f0564a;
+    border:#f0564a ;
+}
+#btn-2:hover {
+    background-color:#f0564a ;
+    color: white;
+    border: none;
+}
+table thead tr td {
+    font-weight: bold;
+}
