@@ -12,7 +12,7 @@ const Header = () => {
     const idAccount = localStorage.getItem("idAccount")
     const role = localStorage.getItem("role")
     const navigate = useNavigate();
-
+    const isLogin = localStorage.getItem("isLogin")
     //tìm kiếm theo tên:
     function searchByName(event) {
         const value = event.target.value;
@@ -114,7 +114,7 @@ const Header = () => {
                                    href="#">
                                     <img src="../resources/raw/avatar6.png" className="avt-img" alt="PD"/></a>
                             </li>
-                            <li className={"item-icon balance"}><ButtonLogin/></li>
+                            <li className={"item-icon balance"}><ButtonLogin isLogin={isLogin}/></li>
                         </ul>
                     </div>
                 </header>

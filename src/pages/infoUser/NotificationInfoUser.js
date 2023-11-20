@@ -17,10 +17,10 @@ export function NotificationInfoUser() {
             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div className="aside">
                     <div className="row">
-                        <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: 925}}>
+                        <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: "auto"}}>
                             <div id={"div-container-info-user"}>
 
-                                <table className={"table table-striped"}>
+                                <table className={"table table-striped"} style={{width:990}}>
                                     <tbody>
                                     {notifications.map((item, index) => {
                                         return (

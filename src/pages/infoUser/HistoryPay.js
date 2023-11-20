@@ -19,17 +19,16 @@ export function HistoryPay() {
             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div className="aside">
                     <div className="row">
-                        <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: 925}}>
+                        <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: "auto"}}>
                             <div id={"div-container-info-user"}>
-
-                                <table className={"table table-striped"}>
+                                <table className={"table table-striped"} style={{width:990}}>
                                     <thead>
                                     <tr>
                                         <td>#</td>
                                         <td>Tên lover</td>
                                         <td style={{width:140}}>Thời gian tạo bill</td>
-                                        <td style={{width:310}}>Dịch vụ vip chọn thêm</td>
-                                        <td style={{width:100}}>Thời gian thuê</td>
+                                        <td style={{width:310}}>Dịch vụ vip</td>
+                                        <td style={{width:130}}>Thời gian thuê</td>
                                         <td>Tổng tiền</td>
                                         <td>Trạng thái</td>
                                         <td></td>
