@@ -116,6 +116,15 @@ export function InfoLover() {
         console.log(bill)
     }
 
+    function checkLover(){
+        if (idAccount === null) {
+            return alert("Bạn chưa đăng nhập!")
+        }
+        openModal()
+    }
+
+
+
     const [selectedOptions, setSelectedOptions] = useState([]); // Mảng chứa các lựa chọn đã chọn
 
     function handleCheckboxChange(event) {
@@ -209,8 +218,8 @@ export function InfoLover() {
                             <div className="member-since">
                                 <div>Ngày tham gia:</div>
                                 <span>
-                                {profileLover.createdAt}
-                            </span>
+        {new Date(profileLover.createdAt).toLocaleDateString()}
+    </span>
                             </div>
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
@@ -222,7 +231,7 @@ export function InfoLover() {
                                 </div>
                                 <div className="text-center">
 
-                                    <button onClick={openModal} className= "btn-my-style red">Thuê</button>
+                                    <button onClick={openModal} className= "btn-my-style red" onClick={checkLover}>Thuê</button>
 
                                     <button className="btn-my-style white">Donate</button>
                                     <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
@@ -253,19 +262,22 @@ export function InfoLover() {
                                 <tr style={{ borderBottom: "1px solid #ccc" }}>
                                     <td style={{ padding: "10px" }}>Thời gian muốn thuê:</td>
                                     <td style={{ padding: "10px" }}>
-                                        <select style={{ width: "100%" }} onChange={(e) => { changeTime(e.target.value) }}>
+                                        <select
+                                            style={{ width: "100%", padding: "10px", boxSizing: "border-box" }}
+                                            onChange={(e) => { changeTime(e.target.value) }}
+                                        >
                                             <option value="">Chọn giờ</option>
                                             {/* Các option khác */}
-                                            <option value="1">1 giờ</option>
-                                            <option value="2">2 giờ</option>
-                                            <option value="3">3 giờ</option>
-                                            <option value="4">4 giờ</option>
-                                            <option value="5">5 giờ</option>
-                                            <option value="24">1 ngày</option>
-                                            <option value="48">2 ngày</option>
-                                            <option value="168">1 tuần</option>
-                                            <option value="336">2 tuần</option>
-                                            <option value="720">1 tháng</option>
+                                            <option value="1">1 giờ</option>
+                                            <option value="2">2 giờ</option>
+                                            <option value="3">3 giờ</option>
+                                            <option value="4">4 giờ</option>
+                                            <option value="5">5 giờ</option>
+                                            <option value="24">1 ngày</option>
+                                            <option value="48">2 ngày</option>
+                                            <option value="168">1 tuần</option>
+                                            <option value="336">2 tuần</option>
+                                            <option value="720">1 tháng</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -286,10 +298,10 @@ export function InfoLover() {
                                 </tr>
                                 <tr>
                                     <td colSpan={2} style={{ padding: "10px"}}>
-                                        <button type="button" onClick={rentLover} style={{backgroundColor:"#f0564a", borderRadius:"5px", color:"#ffffff"}} >Thanh toán</button>
+                                        <button type="button" onClick={rentLover} style={{backgroundColor:"#f0564a", borderRadius:"3px", color:"#ffffff", border: "none"}} >Thanh toán</button>
                                     </td>
                                     <td style={{ padding: "10px" }}>
-                                        <button onClick={closeModal} style={{borderRadius:"5px"}}>Đóng</button>
+                                        <button onClick={closeModal} style={{borderRadius:"3px", border: "none"}}>Đóng</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -383,7 +395,7 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt=""/>
+                                                                 src={item.avatarService} alt="" style={{width:"30px", height: "30px"}}/>
                                                             <span>{item.name}
                                             </span>
                                                         </div>
@@ -399,7 +411,7 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt=""/>
+                                                                 src={item.avatarService} alt=""  style={{width:"30px", height: "30px"}}/>
                                                             <span>{item.name}</span>
                                                         </div>
                                                     </>
@@ -414,7 +426,7 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt=""/>
+                                                                 src={item.avatarService} alt=""  style={{width:"30px", height: "30px"}}/>
                                                             <span>{item.name}
                                                                 + {item.price} /h</span>
                                                         </div>
