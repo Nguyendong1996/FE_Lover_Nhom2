@@ -5,3 +5,8 @@
 #a-change-status:hover {
     cursor: pointer;
 }
+#btn-submit-1:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}
