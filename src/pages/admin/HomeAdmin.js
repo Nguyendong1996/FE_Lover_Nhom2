@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {findNotificationByIdAccount} from "../../services/AdminService"
 import {NotificationAdmin} from "./NotificationAdmin";
 import {AppContext} from "../../context/AppContext";
+import {ListProfileLover} from "./ListProfileLover";
 
 export function HomeAdmin() {
     const idAccount = localStorage.getItem("idAccount")
@@ -114,6 +115,7 @@ export function HomeAdmin() {
                             </div>
                         </div>
                         {chose === 0 && <NotificationAdmin/>}
+                        {chose === 2 && <ListProfileLover/>}
                     </div>
                 </div>
             </div>
