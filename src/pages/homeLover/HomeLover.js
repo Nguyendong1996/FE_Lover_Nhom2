@@ -4,6 +4,7 @@ import {findNotificationByIdAccount} from "../../services/AdminService";
 import {NotificationHomeLover} from "./NotificationHomeLover";
 import {PageOfLover} from "./PageOfLover";
 import "./HomeLover.css"
+import {EditInfoLover} from "./EditInfoLover";
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
     const [notifications, setNotifications] = useState([])
@@ -132,6 +133,7 @@ export function HomeLover() {
                         </div>
                         {chosen === 5 && <NotificationHomeLover/>}
                         {chosen === 1 && <PageOfLover/>}
+                        {chosen === 3 && <EditInfoLover/>}
                     </div>
                 </div>
             </div>
