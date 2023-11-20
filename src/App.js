@@ -15,6 +15,7 @@ import {ServiceProfileLover} from "./pages/HomeProfileLover/ServiceProfileLover"
 import {HomeAdmin} from "./pages/admin/HomeAdmin";
 
 import {ListBillOfProfileLover} from "./pages/HomeProfileLover/ListBillOfProfileLover";
+import {HomeLover} from "./pages/homeLover/HomeLover";
 
 function App() {
     return (
@@ -22,12 +23,7 @@ function App() {
             <Route path={"/"} element={<Layout/>}>
                 <Route path={""} element={<Home/>}></Route>
 
-                <Route path="/homeProfileLover" element={<HomeProfileLover />} >
-                    <Route index element={<ProfileLover/>} />
-                    <Route path={"information"} element={<Information/>} />
-                    <Route path={"service-profile-lover"} element={<ServiceProfileLover/>} />
-                    <Route path={"list-bill-profile-lover"} element={<ListBillOfProfileLover/>} />
-                </Route>
+                <Route path="/homeProfileLover" element={<HomeLover />} ></Route>
                 <Route path={'/info-lover/:id'} element={<InfoLover/>}></Route>
                 <Route path={"/login"} element={<FormLogin/>}></Route>
                 <Route path={"/register"} element={<FormRegister/>}></Route>
