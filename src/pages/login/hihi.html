@@ -1,0 +1,60 @@
+<div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+<div style={{marginTop: 70, width: 600}}>
+    <div>
+        <h3 style={{textAlign: "center"}}>NHẬP THÔNG TIN</h3>
+    </div>
+    <Formik
+            initialValues={account}
+            onSubmit={(account) => {
+    registerNewAccount(account)
+    }}
+    validationSchema={validationSchema}
+    >
+    <Form>
+        <Field type="text" className={"form-control"}
+               placeholder={"Tên đăng nhập"} style={{textAlign: "center", marginTop: 10}}
+        name={"username"}/>
+        <ErrorMessage name="username"/>
+        <Field type="text" className={"form-control"}
+               placeholder={"Tên hiển thị trong ứng dụng"}
+        style={{textAlign: "center", marginTop: 10}}
+        name={"nickname"}/>
+        <ErrorMessage name="nickname"/>
+        <Field type="password" className={"form-control"}
+               placeholder={"Mật khẩu"} style={{textAlign: "center", marginTop: 10}}
+        name={"password"}/>
+        <ErrorMessage name="password"/>
+        <Field type="password" className={"form-control"}
+               placeholder={"Nhập lại mật khẩu"} style={{textAlign: "center", marginTop: 10}}
+        name={"password2"}/>
+        <ErrorMessage name="password2"/>
+        <Field type="text" className={"form-control"} id={"email-form-register"}
+               placeholder={"Email"} style={{textAlign: "center", marginTop: 10}} name={"email"}/>
+        <ErrorMessage name="email"/>
+        <div style={{
+             display: "flex",
+        marginTop: 10,
+        justifyContent: "center",
+        alignItems: "center"
+        }}>
+        <input type="text" placeholder={"Nhập mã xác nhận email"}
+        className={"form-control"} id={"code-email-verification"}
+        style={{width: 300, marginRight:10}}/>
+        <Button1 loading1={!loading1}/>
+</div>
+<div style={{display: "flex", marginTop: 10, justifyContent: "center"}}>
+<Button2 loading2={!loading2}/>
+    </div>
+    </Form>
+    </Formik>
+    <div style={{textAlign:"center", marginTop:20}}>
+        <div>
+            <Link to={"/"}>Quên mật khẩu</Link>
+        </div>
+        <div style={{marginTop:10}}>
+            <Link to={"/login"}>Đăng nhập</Link>
+
+        </div>
+    </div>
+    </div>
+    </div>
