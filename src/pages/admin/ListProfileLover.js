@@ -4,7 +4,7 @@ import {findAllLoverByIdRoles} from "../../services/ProfileLoverService";
 export const ListProfileLover =() =>{
     const [profileLovers,setProfileLovers] = useState([]);
     useEffect(() =>{
-findAllLoverByIdRoles(2).then((res) =>{
+findAllLoverByIdRoles(3).then((res) =>{
     setProfileLovers(res)
     console.log(res)
 }).catch(() =>{
