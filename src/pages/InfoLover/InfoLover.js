@@ -13,10 +13,18 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        height: '50%',
-        width: '50%'
+        borderRadius: '10px',
+        border: '2px solid #ccc',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        overflow: 'hidden',
+        outline: 'none',
+        maxHeight: '90vh', // Tăng chiều cao tối đa
+        maxWidth: '90vw', // Tăng chiều rộng tối đa
+        padding: '20px',
+        boxSizing: 'border-box',
     },
 };
+
 
 export function InfoLover() {
     const [profileLover, setProfileLover] = useState({})
@@ -40,7 +48,8 @@ export function InfoLover() {
 
     function afterOpenModal() {
         // references are now sync'd and can be accessed.
-        subtitle.style.color = '#f00';
+        subtitle.style.color = '#151313FF';
+        subtitle.style.fontSize = '30px';
     }
 
     function closeModal() {
@@ -229,21 +238,24 @@ export function InfoLover() {
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
-                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Chi tiết đơn thuê</h2>
 
-                            <table>
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)} style={{ textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px" }}>
+                                <span style={{ display: "block" }}>THUÊ PLAYER</span>
+                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{ display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "10px", maxWidth: "50px" }} />
+                            </h2>
+
+                            <table style={{ width: "100%", borderCollapse: "collapse" }}>
                                 <tbody>
-                                <tr>
-                                    <td>Tên lover:</td>
-                                    <td>{profileLover.account?.nickname}</td>
+                                <tr style={{ borderBottom: "1px solid #ccc" }}>
+                                    <td style={{ padding: "10px" }}>Tên lover:</td>
+                                    <td style={{ padding: "10px" }}>{profileLover.account?.nickname}</td>
                                 </tr>
-                                <tr>
-                                    <td>Thời gian muốn thuê:</td>
-                                    <td>
-                                        <select name="" id="" onChange={(e) => {
-                                            changeTime(e.target.value)
-                                        }}>
-                                            <option value="">Chọn giờ</option>
+                                <tr style={{ borderBottom: "1px solid #ccc" }}>
+                                    <td style={{ padding: "10px" }}>Thời gian muốn thuê:</td>
+                                    <td style={{ padding: "10px" }}>
+                                        <select style={{ width: "100%" }} onChange={(e) => { changeTime(e.target.value) }}>
+                                            <option value="">Chọn giờ</option>
+                                            {/* Các option khác */}
                                             <option value="1">1 giờ</option>
                                             <option value="2">2 giờ</option>
                                             <option value="3">3 giờ</option>
@@ -257,40 +269,27 @@ export function InfoLover() {
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Chọn dịch vụ VIP:</td>
-                                    <td>
-                                        {vipService.map((item) => {
-                                            return (
-                                                <>
-                                                    <label htmlFor="">
-                                                        <input type="checkbox"
-                                                               id={"check" + item.id}
-                                                               value={item.id}
-                                                            // checked={vipServicesChecked.some((s) => s.id === item.id)}
-                                                            // onChange={(event) => changeVipServices(event, item)}
-                                                            //  onChange={getMoneyVipService}
-                                                               onChange={handleCheckboxChange}
-                                                        />
-                                                        {item.name} ({item.price}vnđ)
-                                                    </label>
-                                                    <br/>
-                                                </>
-
-                                            )
-                                        })}
+                                <tr style={{ borderBottom: "1px solid #ccc" }}>
+                                    <td style={{ padding: "10px" }}>Chọn dịch vụ VIP:</td>
+                                    <td style={{ padding: "10px" }}>
+                                        {vipService.map((item) => (
+                                            <div key={item.id} style={{ marginBottom: "5px" }}>
+                                                <input type="checkbox" id={`check${item.id}`} value={item.id} onChange={handleCheckboxChange} />
+                                                <label htmlFor={`check${item.id}`} style={{ marginLeft: "5px" }}>{item.name} ({item.price}vnđ)</label>
+                                            </div>
+                                        ))}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Tổng tiền:</td>
-                                    <td>{bill.totalMoney} vnđ</td>
+                                <tr style={{ borderBottom: "1px solid #ccc" }}>
+                                    <td style={{ padding: "10px" }}>Tổng tiền:</td>
+                                    <td style={{ padding: "10px" }}>{bill.totalMoney} vnđ</td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2}>
-                                        <button type={"button"} onClick={rentLover}>Thanh toán</button>
+                                    <td colSpan={2} style={{ padding: "10px"}}>
+                                        <button type="button" onClick={rentLover} style={{backgroundColor:"#f0564a", borderRadius:"5px", color:"#ffffff"}} >Thanh toán</button>
                                     </td>
-                                    <td>
-                                        <button onClick={closeModal}>close</button>
+                                    <td style={{ padding: "10px" }}>
+                                        <button onClick={closeModal} style={{borderRadius:"5px"}}>Đóng</button>
                                     </td>
                                 </tr>
                                 </tbody>
