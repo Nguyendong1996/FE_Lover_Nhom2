@@ -522,6 +522,7 @@ import {InformationAccount} from "./InformationAccount";
 import {AppContext} from "../../context/AppContext";
 import {findNotificationByIdAccount} from "../../services/AdminService";
 import {NotificationInfoUser} from "./NotificationInfoUser";
+import {HistoryPay} from "./HistoryPay";
 
 export function InfoUser() {
     const [chosen, setChosen] = useState(5)
@@ -533,7 +534,6 @@ export function InfoUser() {
     useEffect(() => {
         findNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
-            console.log(res)
         })
     }, [idAccount, check])
 
@@ -672,6 +672,7 @@ export function InfoUser() {
                         {chosen === 1 && <InformationUser/>}
                         {chosen === 3 && <InformationAccount/>}
                         {chosen === 5 && <NotificationInfoUser/>}
+                        {chosen === 2 && <HistoryPay/>}
                     </div>
                 </div>
             </div>

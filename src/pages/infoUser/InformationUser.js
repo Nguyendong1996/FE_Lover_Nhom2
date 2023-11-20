@@ -30,7 +30,6 @@ export function InformationUser() {
     useEffect(() => {
         findByIdAccount(id, token)
             .then((res) => {
-                console.log(res)
                 setInfoUser(res)
             })
     }, [id])
@@ -54,7 +53,6 @@ export function InformationUser() {
     // đổi ảnh đại diện:
     function updateAvt(file) {
         setLoading(true)
-        console.log(file)
         const storageRef = ref(storage, `images/${file.name + v4()}`);
         const uploadTask = uploadBytes(storageRef, file);
         uploadTask.then((snapshot) => {
