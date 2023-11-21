@@ -44,7 +44,7 @@ export function ListBillOfProfileLover() {
         // eslint-disable-next-line no-restricted-globals
        if( confirm("bạn chắc chắn đơn này đã hoàn thành")){
 
-        doneBillByLover1(bill.id, id, token)
+        doneBillByLover1(bill.id, token)
             .then(() => {
                 handleChangeCheck(check)
             })

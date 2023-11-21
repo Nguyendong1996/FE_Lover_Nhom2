@@ -15,6 +15,7 @@ export function HomeLover() {
     useEffect(() => {
         findNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
+            console.log("oke "+ res)
         })
     }, [idAccount, check])
     return (
