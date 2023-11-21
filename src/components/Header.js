@@ -4,7 +4,11 @@ import {ButtonLogin} from "../pages/login/ButtonLogin";
 import {Link} from "react-router-dom";
 import {AppContext} from "../context/AppContext";
 import {useNavigate} from "react-router";
+
 import Modal from 'react-modal';
+
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const customStyles = {
     content: {
@@ -63,6 +67,7 @@ const Header = () => {
 
     return (
         <>
+            <ToastContainer/>
             <link rel="manifest" href="https://playerduo.net/manifest.json"/>
             <meta name="msapplication-TileColor" content="#ffffff"/>
             <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png"/>
@@ -114,19 +119,19 @@ const Header = () => {
                             }
                             {role === "ROLE_USER" &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng kí!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng kí!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
 
 
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => alert("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a>
                                 </li>
                             }
                             {(role === "ROLE_USER" || role === "ROLE_LOVER") &&

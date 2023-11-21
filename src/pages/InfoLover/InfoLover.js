@@ -41,6 +41,7 @@ export function InfoLover() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const [statusProfilelover,setStatusProfileLover] = useState({})
 
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -98,6 +99,7 @@ export function InfoLover() {
                 setVipService(res.vipServices)
                 setBaseService(res.serviceLovers)
                 setLinkFb(res.facebookLink)
+                setStatusProfileLover(res.statusLover)
             })
     }, [id])
 
@@ -127,6 +129,11 @@ export function InfoLover() {
         }
         bill.accountLover.id = +profileLover.account.id;
         bill.accountUser.id = +idAccount;
+        if (statusProfilelover.id === 2){
+            alert("NCCDV [" +profileLover.account.nickname + "] Đang cung cấp dịch vụ khác ! vui lòng thử lại sau")
+        }else {
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("Bạn xác nhận muốn đặt đơn!")){
         createBill(bill, token)
             .then(() => {
                 toast.success("Tạo bill thành công!")
@@ -149,8 +156,8 @@ export function InfoLover() {
                 setSelectedOptions([])
             }).catch(() => {
             alert("Lỗi kết nối!")
-        })
-        console.log(bill)
+        })}}
+
     }
 
     function checkLover() {
