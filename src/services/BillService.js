@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "react-toastify";
 export function findAllByAccountUserId(id, token) {
     return new Promise((resolve) => {
         resolve(
@@ -61,9 +62,9 @@ export function rejectBillByIdAccountLover(idBill, token) {
                     }
                 })
                 .then((res) => {
-                    alert(res.data)
+                    return res.data
                 }).catch(() => {
-                alert("Đơn này không còn tồn tại!")
+                // toast.error("User đã huỷ đơn trước đó!")
             })
         )
     })
@@ -78,9 +79,9 @@ export function acceptBillByIdAccountLover(idBill,idAccountLover, token) {
                     }
                 })
                 .then((res) => {
-                    alert(res.data)
+                    alert(res)
                 }).catch(() => {
-                alert("Đơn này không còn tồn tại!")
+                    // toast.error("User đã huỷ đơn trước đó!")
             })
         )
     })
@@ -127,9 +128,9 @@ export function createBill(bill, token) {
                     }
                 })
                 .then(() => {
-                    alert("Đặt đơn thành thành công!")
+
                 }).catch(() => {
-                alert("Xảy ra lỗi trong quá trình tạo bill!")
+
             })
         )
     })
@@ -144,9 +145,9 @@ export function acceptBillByIdAccountLover1(idBill, token) {
                     }
                 })
                 .then((res) => {
-                    alert(res.data)
+                    return res.data
                 }).catch(() => {
-                alert("Đơn này không còn tồn tại!")
+                // alert("Đơn này không còn tồn tại!")
             })
         )
     })
