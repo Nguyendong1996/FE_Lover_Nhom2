@@ -198,7 +198,7 @@ export function HomeLover() {
 
                         {chosen === 8 && <ListBillOfProfileLover/>}
                         {chosen === 2 && <HistoryBillProfileLover/>}
-                        {chosen === 9 && <HistoryBillProfileLover/>}
+                        {chosen === 7 && <UpdateServicesLover/>}
 
                     </div>
                 </div>
