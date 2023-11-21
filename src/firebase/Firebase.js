@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCj15NVRdiyAiX7yZiSE08D5qPOZO1tIB8",
-    authDomain: "fir-upload-react-824b4.firebaseapp.com",
-    projectId: "fir-upload-react-824b4",
-    storageBucket: "fir-upload-react-824b4.appspot.com",
-    messagingSenderId: "144008163544",
-    appId: "1:144008163544:web:969a0bdb87420baf9f67ad",
-    measurementId: "G-HJ9FX2JF61"
+    apiKey: "AIzaSyAKd0NNMkKyQdQrzjxqrRSP1Md0k5YnjQ8",
+    authDomain: "lover1-f037d.firebaseapp.com",
+    projectId: "lover1-f037d",
+    storageBucket: "lover1-f037d.appspot.com",
+    messagingSenderId: "173306832244",
+    appId: "1:173306832244:web:e2e5a7255fae7b2318b821",
+    measurementId: "G-TVF8P9DTTB"
 };
 
 // Initialize Firebase
