@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from "react";
 import {findAllByAccountUserId} from "../../services/BillService"
 import {AppContext} from "../../context/AppContext";
 import "../../css/InfoUser.css"
-
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 export function HistoryPay() {
     const [bills, setBills] = useState([])
     const idAccount = localStorage.getItem("idAccount")
@@ -13,7 +14,35 @@ export function HistoryPay() {
             setBills(res);
             console.log(res)
         })
-    }, [idAccount, check])
+    }, [idAccount, check]);
+    function deleteBill() {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className="custom-confirm-alert-overlay">
+                        <div className="custom-confirm-alert">
+                            <h1 className="custom-confirm-alert-title">Xác nhận</h1>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn muốn xóa?</p>
+                            <div className="custom-confirm-alert-buttons">
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic xóa ở đây
+                                    onClose();
+                                }}>
+                                    Có
+                                </button>
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic khi không xóa ở đây
+                                    onClose();
+                                }}>
+                                    Không
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
+    }
     return (
         <>
             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -54,7 +83,7 @@ export function HistoryPay() {
                                                 <td>{item.totalMoney} vnđ</td>
                                                 <td>{item.statusBill?.name}</td>
                                                 <td>
-                                                    <button className={"btn btn-primary"} id={"btn-2"}>Xoá</button>
+                                                    <button className={"btn btn-primary"} id={"btn-2"} onClick={deleteBill}>Xoá</button>
                                                 </td>
                                             </tr>
                                         )
