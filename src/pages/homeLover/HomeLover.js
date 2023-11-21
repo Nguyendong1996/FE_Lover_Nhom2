@@ -162,11 +162,11 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 8 ? <span onClick={()=>setChosen(8)}>
+                                                                {chosen === 9 ? <span onClick={()=>setChosen(9)}>
                                                                     <i className="fas fa-album"></i>
                                                                     Album ảnh
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>{setChosen(8)}}>
+                                                                                onClick={()=>{setChosen(9)}}>
                                                                     <i className="fas fa-album"></i>
                                                                     Album ảnh
                                                                 </span>}
@@ -198,6 +198,7 @@ export function HomeLover() {
 
                         {chosen === 8 && <ListBillOfProfileLover/>}
                         {chosen === 2 && <HistoryBillProfileLover/>}
+                        {chosen === 9 && <HistoryBillProfileLover/>}
 
                     </div>
                 </div>
