@@ -23,7 +23,6 @@ export function NotificationHomeLover() {
                     <div className="row">
                         <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: "auto"}}>
                             <div id={"div-container-info-user"}>
-
                                 <table className={"table table-striped"} style={{width:990}}>
                                     <tbody>
                                     {notifications.map((item, index) => {
