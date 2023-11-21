@@ -1,6 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
-import {acceptUserToLover, findNotificationByIdAccount} from "../../services/AdminService";
+import {
+    acceptUserToLover,
+    findAllNotificationByIdAccount,
+    findNotificationByIdAccount
+} from "../../services/AdminService";
 
 export function NotificationInfoUser() {
     const idAccount = localStorage.getItem("idAccount")
@@ -8,7 +12,7 @@ export function NotificationInfoUser() {
     const [notifications, setNotifications] = useState([])
     const {check, setCheck} = useContext(AppContext);
     useEffect(() => {
-        findNotificationByIdAccount(idAccount, token).then((res) => {
+        findAllNotificationByIdAccount(idAccount, token).then((res) => {
             setNotifications(res)
         })
     }, [idAccount, check])

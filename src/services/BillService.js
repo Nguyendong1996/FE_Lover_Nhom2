@@ -101,10 +101,10 @@ export function doneBillByLover(idBill,idAccountLover, token) {
         )
     })
 }
-export function doneBillByLover1(idBill,idAccountLover, token) {
+export function doneBillByLover1(idBill, token) {
     return new Promise((resolve) => {
         resolve(
-            axios.get("http://localhost:8080/api/bill/doneBillByProfileLover/" + idBill + "/" + idAccountLover,
+            axios.get("http://localhost:8080/api/bill/doneBillByProfileLover/" + idBill,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -129,6 +129,23 @@ export function createBill(bill, token) {
                 .then(() => {
                 }).catch(() => {
                 alert("Xảy ra lỗi trong quá trình tạo bill!")
+            })
+        )
+    })
+}
+export function acceptBillByIdAccountLover1(idBill, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/lover-accept-bill/" + idBill,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    alert(res.data)
+                }).catch(() => {
+                alert("Đơn này không còn tồn tại!")
             })
         )
     })

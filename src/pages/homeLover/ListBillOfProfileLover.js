@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
 import {
-    acceptBillByIdAccountLover, doneBillByLover, doneBillByLover1,
+    acceptBillByIdAccountLover, acceptBillByIdAccountLover1, doneBillByLover, doneBillByLover1,
     findAllByAccountLoverId,
     rejectBillByIdAccountLover
 } from "../../services/BillService";
@@ -33,9 +33,10 @@ export function ListBillOfProfileLover() {
     }
 
     function acceptBill(bill) {
+        console.log(bill)
         // eslint-disable-next-line no-restricted-globals
         if(confirm("Bạn chắc chắn muốn nhận đơn này!!")){
-            acceptBillByIdAccountLover(bill.id, id, token)
+            acceptBillByIdAccountLover1(bill.id, token)
                 .then(() => {
                     handleChangeCheck(check)
                 })

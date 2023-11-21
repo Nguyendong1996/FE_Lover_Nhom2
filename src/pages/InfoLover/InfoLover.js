@@ -127,6 +127,8 @@ export function InfoLover() {
         }
         bill.accountLover.id = +profileLover.account.id;
         bill.accountUser.id = +idAccount;
+        // eslint-disable-next-line no-restricted-globals
+        if(confirm("Bạn xác nhận muốn đặt đơn!")){
         createBill(bill, token)
             .then(() => {
                 toast.success("Tạo bill thành công!")
@@ -149,8 +151,8 @@ export function InfoLover() {
                 setSelectedOptions([])
             }).catch(() => {
             alert("Lỗi kết nối!")
-        })
-        console.log(bill)
+        })}
+
     }
 
     function checkLover() {

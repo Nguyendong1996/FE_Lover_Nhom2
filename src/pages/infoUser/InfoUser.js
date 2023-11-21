@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {InformationUser} from "./InformationUser";
 import {InformationAccount} from "./InformationAccount";
 import {AppContext} from "../../context/AppContext";
-import {findNotificationByIdAccount} from "../../services/AdminService";
+import {findAllNotificationByIdAccount, findNotificationByIdAccount} from "../../services/AdminService";
 import {NotificationInfoUser} from "./NotificationInfoUser";
 import {HistoryPay} from "./HistoryPay";
 
@@ -14,7 +14,7 @@ export function InfoUser() {
     const {check, setCheck} = useContext(AppContext);
 
     useEffect(() => {
-        findNotificationByIdAccount(idAccount, token).then((res)=>{
+        findAllNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
         })
     }, [idAccount, check])

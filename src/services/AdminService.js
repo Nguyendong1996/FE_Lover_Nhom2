@@ -44,3 +44,18 @@ export function acceptUserToLover(idAccount, token) {
         )
     })
 }
+export function findAllNotificationByIdAccount(idAccount, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/admin/findAllNotificationByIdAccount/" + idAccount, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                return res.data;
+            }).catch(()=>{
+                return []
+            })
+        )
+    })
+}
