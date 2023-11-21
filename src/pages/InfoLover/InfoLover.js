@@ -484,7 +484,7 @@ export function InfoLover() {
                                                     }
                                                 </div>
                                                 {viewImage && <ModalListImage open={viewImage}
-                                                                              idLover={profileLover.account?.id}/>}
+                                                                              idLover={id}/>}
                                             </div>
                                         </div>
                                         <div className="content-player-profile">
