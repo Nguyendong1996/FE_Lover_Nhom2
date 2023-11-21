@@ -151,3 +151,88 @@ export function acceptBillByIdAccountLover1(idBill, token) {
         )
     })
 }
+export const listBillProfileLover = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/listBillByAccountProfileLoverId/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+export const listHistoryBillProfileLover = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/listHistoryBillByAccountProfileLoverId/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+export const listHistoryBillProfileUser = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/listHistoryBillByAccountProfileUserId/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+export const listBillProfileUser = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/listBillByAccountProfileUserId/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+export const cancelBillUser = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/cancelBill/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}

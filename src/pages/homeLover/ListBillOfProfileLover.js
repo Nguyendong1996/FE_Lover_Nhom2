@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
 import {
     acceptBillByIdAccountLover, acceptBillByIdAccountLover1, doneBillByLover, doneBillByLover1,
-    findAllByAccountLoverId,
+    findAllByAccountLoverId, listBillProfileLover,
     rejectBillByIdAccountLover
 } from "../../services/BillService";
 
@@ -14,7 +14,7 @@ export function ListBillOfProfileLover() {
     const {check} = useContext(AppContext);
     //state:
     useEffect(() => {
-        findAllByAccountLoverId(id, token)
+        listBillProfileLover(id, token)
             .then((res) => {
                 setBills(res)
                 console.log(res)

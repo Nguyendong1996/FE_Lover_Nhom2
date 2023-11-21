@@ -6,17 +6,25 @@ import {PageOfLover} from "./PageOfLover";
 import "./HomeLover.css"
 import {EditInfoLover} from "./EditInfoLover";
 import {ListBillOfProfileLover} from "./ListBillOfProfileLover";
+import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
+import {listBillProfileLover} from "../../services/BillService";
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
     const [notifications, setNotifications] = useState([])
     const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token")
     const {check, setCheck} = useContext(AppContext);
+    const [bills, setBills] = useState([]);
     useEffect(() => {
         findNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
             console.log("oke "+ res)
         })
+        listBillProfileLover(idAccount, token)
+            .then((res) => {
+                setBills(res)
+                console.log(res)
+            })
     }, [idAccount, check])
     return (
         <>
@@ -119,6 +127,22 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
+                                                                {
+                                                                    chosen === 8 ? <span onClick={()=>setChosen(8)}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Danh sách đơn ({bills.length})
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={()=>{setChosen(8)}}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Danh sách đơn ({bills.length})
+                                                                </span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
                                                                 {chosen === 2 ? <span onClick={()=>setChosen(2)}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
@@ -152,7 +176,8 @@ export function HomeLover() {
                         {chosen === 5 && <NotificationHomeLover/>}
                         {chosen === 1 && <PageOfLover/>}
                         {chosen === 3 && <EditInfoLover/>}
-                        {chosen === 2 && <ListBillOfProfileLover/>}
+                        {chosen === 8 && <ListBillOfProfileLover/>}
+                        {chosen === 2 && <HistoryBillProfileLover/>}
                     </div>
                 </div>
             </div>

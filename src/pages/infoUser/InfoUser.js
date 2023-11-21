@@ -5,6 +5,8 @@ import {AppContext} from "../../context/AppContext";
 import {findAllNotificationByIdAccount, findNotificationByIdAccount} from "../../services/AdminService";
 import {NotificationInfoUser} from "./NotificationInfoUser";
 import {HistoryPay} from "./HistoryPay";
+import {ListBillProfileUser} from "./ListBillProfileUser";
+import {listBillProfileUser} from "../../services/BillService";
 
 export function InfoUser() {
     const [chosen, setChosen] = useState(5)
@@ -12,10 +14,16 @@ export function InfoUser() {
     const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token")
     const {check, setCheck} = useContext(AppContext);
+    const [bills, setBills] = useState([])
+
 
     useEffect(() => {
         findAllNotificationByIdAccount(idAccount, token).then((res)=>{
             setNotifications(res)
+        })
+        listBillProfileUser(idAccount, token).then((res) => {
+            setBills(res);
+            console.log(res)
         })
     }, [idAccount, check])
 
@@ -122,6 +130,22 @@ export function InfoUser() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
+                                                                {
+                                                                    chosen === 8 ? <span onClick={()=>setChosen(8)}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Danh sách đơn DV ({bills.length})
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={()=>{setChosen(8)}}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Danh sách đơn DV ({bills.length})
+                                                                </span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
                                                                 {chosen === 2 ? <span onClick={showHistory}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
@@ -156,6 +180,7 @@ export function InfoUser() {
                         {chosen === 3 && <InformationAccount/>}
                         {chosen === 5 && <NotificationInfoUser/>}
                         {chosen === 2 && <HistoryPay/>}
+                        {chosen === 8 && <ListBillProfileUser/>}
                     </div>
                 </div>
             </div>
