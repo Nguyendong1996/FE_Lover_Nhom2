@@ -74,126 +74,126 @@ export function FormRegister() {
 
     return (
         <>
-            <link rel="shortcut icon" href="../resources/raw/favicon.ico"/>
-            <link href="/resources/all.css" rel="stylesheet"/>
-            <link href="/resources/css.css" rel="stylesheet"/>
-            <title>PlayerDuo - Thuê người yêu</title>
-            <link href="/resources/8.97b85fe3.chunk.css" rel="stylesheet"/>
-            <link href="/resources/main.3e229f12.chunk.css" rel="stylesheet"/>
-            <link rel="stylesheet" type="text/css" href="/resources/9.cb7de3a7.chunk.css"/>
-            <link rel="stylesheet" href="/resources/css-login.css"/>
-            <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-            <title>React App</title>
-            <header className="menu__header" id="header-menu">
-                <div className="navbar-header"><a href="https://playerduo.net/" className="logo"><img
-                    alt="logo playerduo"
-                    src="../resources/raw/logo.png"/></a>
-                </div>
-                <div className="navbar">
-                    <ul className="nav navbar-nav navbar-left">
-                        <li className="item-search">
-                            <nav className="Navbar__Item">
-                                <div className="Navbar__Link">
-                                    <div className="Group-search visible "><span className="search input-group"><input
-                                        disabled=""
-                                        placeholder="Nickname/Url ..."
-                                        type="text"
-                                        className="form-control"
-                                        value=""/><span
-                                        className="input-group-addon"><button disabled="" type="button"
-                                                                              className="btn btn-default"><i
-                                        className="fal fa-search" aria-hidden="true"></i></button></span></span></div>
-                                </div>
-                            </nav>
-                        </li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-center">
-                        <li className="item-icon"><a className="group-user " href="https://playerduo.net/"><i
-                            className="fal fa-home-alt"></i></a></li>
-                        <li className="item-icon"><a className="group-user " href="https://playerduo.net/stories"><i
-                            className="fal fa-camera-movie"></i></a></li>
-                        <li className="item-icon group-fb"><a className="group-user"><i
-                            className="fal fa-trophy-alt"></i></a>
-                        </li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li className="item-icon group-fb"><a className="group-user flag"><i
-                            className="fal fa-globe"></i></a>
-                        </li>
-                        <li className="item-icon group-fb"><a className="group-user"><i
-                            className="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li className="item-icon authent"><a className="money-user" href=""><i
-                            className="fal fa-power-off"></i><span>Đăng nhập</span></a>
-                        </li>
-                        <li className="item-icon mode"><a className="group-user"><i className="fas fa-moon"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div className="navbar-mobile hidden">
-                    <button type="button" className="btn-login btn btn-default"><span>Đăng nhập</span></button>
-                    <a className="btn-bars"><i className="fal fa-bars"></i></a>
-                    <div className="flex-side hidden">
-                        <div className="overlay"></div>
-                        <div className="content">
-                            <div className="box-search">
-                                <nav className="Navbar__Item">
-                                    <div className="Navbar__Link">
-                                        <div className="Group-search visible "><span
-                                            className="search input-group"><input
-                                            disabled=""
-                                            placeholder="Nickname/Url ..."
-                                            type="text"
-                                            className="form-control"
-                                            value=""/><span
-                                            className="input-group-addon"><button disabled="" type="button"
-                                                                                  className="btn btn-default"><i
-                                            className="fal fa-search" aria-hidden="true"></i></button></span></span>
-                                        </div>
-                                    </div>
-                                </nav>
-                                <a className="btn-close"><i className="fal fa-times fa-2x"></i></a></div>
-                            <ul className="list-page"><a href="https://playerduo.net/">
-                                <li className="item-icon "><a className="group-user"><i className="fal fa-home-alt"></i>
-                                    <span>Trang chủ</span></a></li>
-                            </a><a href="https://playerduo.net/stories">
-                                <li className="item-icon "><a className="group-user"><i
-                                    className="fal fa-camera-movie"></i> Stories</a>
-                                </li>
-                            </a>
-                                <li className="item-icon"><a className="group-user"><i
-                                    className="fal fa-trophy-alt"></i> <span>Bảng xếp hạng</span></a>
-                                </li>
-                            </ul>
-                            <div className="list-mode">
-                                <div className="item"><p className="title"><span>Chế độ</span></p><a
-                                    className="func mode"><i
-                                    className="fas fa-moon op"></i><i className="fas fa-sun false"></i></a></div>
-                                <div className="item"><p className="title"><span>Cộng đồng</span></p>
-                                    <div className="func group"><a href="https://www.facebook.com/groups/playerduovn"
-                                                                   target="_blank" rel="noopener noreferrer"><i
-                                        className="fal fa-globe"></i></a><a href="https://www.facebook.com/playerduo"
-                                                                            target="_blank" rel="noopener noreferrer"><i
-                                        className="fab fa-facebook-f"></i></a></div>
-                                </div>
-                                <div className="item"><p className="title"><span>Ngôn ngữ</span></p><a
-                                    className="func lang"><img
-                                    src="../resources/raw/1.png" className="flag op" alt="PD"/><img
-                                    src="../resources/raw/2.png"
-                                    className="flag false"
-                                    alt="PD"/></a>
-                                </div>
-                                <div className="item"><p className="title"><span>Tải App</span></p>
-                                    <div className="func app"><a href="https://testflight.apple.com/join/r6H9YvY4"
-                                                                 target="_blank"
-                                                                 rel="noopener noreferrer" download="">PlayerChat</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            {/*<link rel="shortcut icon" href="../resources/raw/favicon.ico"/>*/}
+            {/*<link href="/resources/all.css" rel="stylesheet"/>*/}
+            {/*<link href="/resources/css.css" rel="stylesheet"/>*/}
+            {/*<title>PlayerDuo - Thuê người yêu</title>*/}
+            {/*<link href="/resources/8.97b85fe3.chunk.css" rel="stylesheet"/>*/}
+            {/*<link href="/resources/main.3e229f12.chunk.css" rel="stylesheet"/>*/}
+            {/*<link rel="stylesheet" type="text/css" href="/resources/9.cb7de3a7.chunk.css"/>*/}
+            {/*<link rel="stylesheet" href="/resources/css-login.css"/>*/}
+            {/*<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>*/}
+            {/*<title>React App</title>*/}
+            {/*<header className="menu__header" id="header-menu">*/}
+            {/*    <div className="navbar-header"><a href="https://playerduo.net/" className="logo"><img*/}
+            {/*        alt="logo playerduo"*/}
+            {/*        src="../resources/raw/logo.png"/></a>*/}
+            {/*    </div>*/}
+            {/*    <div className="navbar">*/}
+            {/*        <ul className="nav navbar-nav navbar-left">*/}
+            {/*            <li className="item-search">*/}
+            {/*                <nav className="Navbar__Item">*/}
+            {/*                    <div className="Navbar__Link">*/}
+            {/*                        <div className="Group-search visible "><span className="search input-group"><input*/}
+            {/*                            disabled=""*/}
+            {/*                            placeholder="Nickname/Url ..."*/}
+            {/*                            type="text"*/}
+            {/*                            className="form-control"*/}
+            {/*                            value=""/><span*/}
+            {/*                            className="input-group-addon"><button disabled="" type="button"*/}
+            {/*                                                                  className="btn btn-default"><i*/}
+            {/*                            className="fal fa-search" aria-hidden="true"></i></button></span></span></div>*/}
+            {/*                    </div>*/}
+            {/*                </nav>*/}
+            {/*            </li>*/}
+            {/*        </ul>*/}
+            {/*        <ul className="nav navbar-nav navbar-center">*/}
+            {/*            <li className="item-icon"><a className="group-user " href="https://playerduo.net/"><i*/}
+            {/*                className="fal fa-home-alt"></i></a></li>*/}
+            {/*            <li className="item-icon"><a className="group-user " href="https://playerduo.net/stories"><i*/}
+            {/*                className="fal fa-camera-movie"></i></a></li>*/}
+            {/*            <li className="item-icon group-fb"><a className="group-user"><i*/}
+            {/*                className="fal fa-trophy-alt"></i></a>*/}
+            {/*            </li>*/}
+            {/*        </ul>*/}
+            {/*        <ul className="nav navbar-nav navbar-right">*/}
+            {/*            <li className="item-icon group-fb"><a className="group-user flag"><i*/}
+            {/*                className="fal fa-globe"></i></a>*/}
+            {/*            </li>*/}
+            {/*            <li className="item-icon group-fb"><a className="group-user"><i*/}
+            {/*                className="fab fa-facebook-f"></i></a>*/}
+            {/*            </li>*/}
+            {/*            <li className="item-icon authent"><a className="money-user" href=""><i*/}
+            {/*                className="fal fa-power-off"></i><span>Đăng nhập</span></a>*/}
+            {/*            </li>*/}
+            {/*            <li className="item-icon mode"><a className="group-user"><i className="fas fa-moon"></i></a>*/}
+            {/*            </li>*/}
+            {/*        </ul>*/}
+            {/*    </div>*/}
+            {/*    <div className="navbar-mobile hidden">*/}
+            {/*        <button type="button" className="btn-login btn btn-default"><span>Đăng nhập</span></button>*/}
+            {/*        <a className="btn-bars"><i className="fal fa-bars"></i></a>*/}
+            {/*        <div className="flex-side hidden">*/}
+            {/*            <div className="overlay"></div>*/}
+            {/*            <div className="content">*/}
+            {/*                <div className="box-search">*/}
+            {/*                    <nav className="Navbar__Item">*/}
+            {/*                        <div className="Navbar__Link">*/}
+            {/*                            <div className="Group-search visible "><span*/}
+            {/*                                className="search input-group"><input*/}
+            {/*                                disabled=""*/}
+            {/*                                placeholder="Nickname/Url ..."*/}
+            {/*                                type="text"*/}
+            {/*                                className="form-control"*/}
+            {/*                                value=""/><span*/}
+            {/*                                className="input-group-addon"><button disabled="" type="button"*/}
+            {/*                                                                      className="btn btn-default"><i*/}
+            {/*                                className="fal fa-search" aria-hidden="true"></i></button></span></span>*/}
+            {/*                            </div>*/}
+            {/*                        </div>*/}
+            {/*                    </nav>*/}
+            {/*                    <a className="btn-close"><i className="fal fa-times fa-2x"></i></a></div>*/}
+            {/*                <ul className="list-page"><a href="https://playerduo.net/">*/}
+            {/*                    <li className="item-icon "><a className="group-user"><i className="fal fa-home-alt"></i>*/}
+            {/*                        <span>Trang chủ</span></a></li>*/}
+            {/*                </a><a href="https://playerduo.net/stories">*/}
+            {/*                    <li className="item-icon "><a className="group-user"><i*/}
+            {/*                        className="fal fa-camera-movie"></i> Stories</a>*/}
+            {/*                    </li>*/}
+            {/*                </a>*/}
+            {/*                    <li className="item-icon"><a className="group-user"><i*/}
+            {/*                        className="fal fa-trophy-alt"></i> <span>Bảng xếp hạng</span></a>*/}
+            {/*                    </li>*/}
+            {/*                </ul>*/}
+            {/*                <div className="list-mode">*/}
+            {/*                    <div className="item"><p className="title"><span>Chế độ</span></p><a*/}
+            {/*                        className="func mode"><i*/}
+            {/*                        className="fas fa-moon op"></i><i className="fas fa-sun false"></i></a></div>*/}
+            {/*                    <div className="item"><p className="title"><span>Cộng đồng</span></p>*/}
+            {/*                        <div className="func group"><a href="https://www.facebook.com/groups/playerduovn"*/}
+            {/*                                                       target="_blank" rel="noopener noreferrer"><i*/}
+            {/*                            className="fal fa-globe"></i></a><a href="https://www.facebook.com/playerduo"*/}
+            {/*                                                                target="_blank" rel="noopener noreferrer"><i*/}
+            {/*                            className="fab fa-facebook-f"></i></a></div>*/}
+            {/*                    </div>*/}
+            {/*                    <div className="item"><p className="title"><span>Ngôn ngữ</span></p><a*/}
+            {/*                        className="func lang"><img*/}
+            {/*                        src="../resources/raw/1.png" className="flag op" alt="PD"/><img*/}
+            {/*                        src="../resources/raw/2.png"*/}
+            {/*                        className="flag false"*/}
+            {/*                        alt="PD"/></a>*/}
+            {/*                    </div>*/}
+            {/*                    <div className="item"><p className="title"><span>Tải App</span></p>*/}
+            {/*                        <div className="func app"><a href="https://testflight.apple.com/join/r6H9YvY4"*/}
+            {/*                                                     target="_blank"*/}
+            {/*                                                     rel="noopener noreferrer" download="">PlayerChat</a>*/}
+            {/*                        </div>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</header>*/}
             <div className="notifications-wrapper"></div>
             <div className="main-singin-box">
                 <div className="wrapper" style={{backgroundColor: "#eee9e9"}}>
