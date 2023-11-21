@@ -1,10 +1,13 @@
 import {Field, Form, Formik} from "formik";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {createProfileLover, findAllFreeService, findByIdLover} from "../../services/ProfileLoverService";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../firebase/Firebase";
 import {v4} from "uuid";
 import {RingLoader} from "react-spinners";
+import {ModalListImage} from "../InfoLover/ModalListImage";
+import {AppContext} from "../../context/AppContext";
+import {findImagesByIdLover} from "../../services/ImageService";
 
 
 export function PageOfLover() {
@@ -111,6 +114,16 @@ export function PageOfLover() {
             })
         })
     }
+    // xử lí modal ảnh
+    const [images, setImages] = useState([])
+    const {viewImage, setViewImage} = useContext(AppContext);
+    useEffect(() => {
+        findImagesByIdLover(id)
+            .then((res) => {
+                setImages(res)
+            })
+    }, [id])
+
 
     if (loading) {
         return (
@@ -204,7 +217,43 @@ export function PageOfLover() {
                                             <div>
 
                                                 <h3 style={{textAlign: "center", fontWeight:"bold"}}>THÔNG TIN</h3>
-                                                <div style={{fontSize: 15}}>
+                                                <div
+                                                    style={{display: "flex", textAlign: "center", position: "relative", cursor:"pointer"}}
+                                                    onClick={() => setViewImage(true)}>
+                                                    {images.slice(0, 4).map((item) => {
+                                                        return (
+                                                            <div>
+                                                                <img src={item.urlImage} alt="" style={{
+                                                                    width: 130,
+                                                                    height: 130,
+                                                                    marginLeft: 10,
+                                                                    borderRadius: 3
+                                                                }}/>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    {
+                                                        (images.length > 4) &&
+                                                        <div style={{
+                                                            position: "absolute",
+                                                            backgroundColor: 'rgba(26,24,24,0.62)',
+                                                            width: 130,
+                                                            height: 130,
+                                                            borderRadius: 3,
+                                                            left: "66%",
+                                                            justifyContent: "center",
+                                                            alignItems: "center",
+                                                            display: "flex"
+                                                        }}><span style={{
+                                                            color: "white",
+                                                            fontSize: 40,
+                                                            fontWeight: "normal"
+                                                        }}>+{images.length - 4}</span></div>
+                                                    }
+                                                </div>
+                                                {viewImage && <ModalListImage open={viewImage}
+                                                                              idLover={profileLover.account?.id}/>}
+                                                <div style={{fontSize: 15, marginTop:10}}>
                                                     <div
                                                         style={{marginBottom: 5}}>Tên: {profileLover.account?.nickname}</div>
                                                     <div style={{marginBottom: 5}}>Địa
@@ -230,45 +279,6 @@ export function PageOfLover() {
                                                         }}>Mô tả về bản thân: {profileLover.description}</span>
                                                     </div>
                                                     <br/>
-                                                    <div className=""
-                                                         style={{display: "flex", justifyContent: "center"}}>
-                                                        <img src={profileLover.avatarImage} alt="Avatar"
-                                                             style={{
-                                                                 width: 100,
-                                                                 height: 100,
-                                                                 borderRadius: 5,
-                                                                 marginRight: 10
-                                                             }}/>
-                                                        <img src={profileLover.avatarImage} alt="Avatar"
-                                                             style={{
-                                                                 width: 100,
-                                                                 height: 100,
-                                                                 borderRadius: 5,
-                                                                 marginRight: 10
-                                                             }}/>
-                                                        <img src={profileLover.avatarImage} alt="Avatar"
-                                                             style={{
-                                                                 width: 100,
-                                                                 height: 100,
-                                                                 borderRadius: 5,
-                                                                 marginRight: 10
-                                                             }}/>
-                                                        <img src={profileLover.avatarImage} alt="Avatar"
-                                                             style={{
-                                                                 width: 100,
-                                                                 height: 100,
-                                                                 borderRadius: 5,
-                                                                 marginRight: 10
-                                                             }}/>
-                                                        <img src={profileLover.avatarImage} alt="Avatar"
-                                                             style={{
-                                                                 width: 100,
-                                                                 height: 100,
-                                                                 borderRadius: 5,
-                                                                 marginRight: 10
-                                                             }}/>
-                                                    </div>
-                                                    <br/>
                                                     <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ CƠ BẢN</div>
                                                     {profileLover.serviceLovers?.map((item) => {
                                                         return (
@@ -277,6 +287,7 @@ export function PageOfLover() {
                                                             </div>
                                                         )
                                                     })}
+                                                    <br/>
                                                     <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ VIP</div>
                                                     {profileLover.vipServices?.map((item) => {
                                                         return (
@@ -285,6 +296,7 @@ export function PageOfLover() {
                                                             </div>
                                                         )
                                                     })}
+                                                    <br/>
                                                     <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ FREE</div>
                                                     {profileLover.freeServices?.map((item) => {
                                                         return (
@@ -293,6 +305,7 @@ export function PageOfLover() {
                                                             </div>
                                                         )
                                                     })}
+                                                    <br/>
                                                     <div style={{fontSize:20, fontWeight:"bold"}}>TOP DONATE THÁNG</div>
                                                     <div className="top-donate-player row">
                                                         <div className="ky-1 col-xs-1">#1</div>
