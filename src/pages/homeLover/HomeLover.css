@@ -1,0 +1,20 @@
+#a-change-status {
+    width:60px;
+    text-align: center;
+}
+#a-change-status:hover {
+    cursor: pointer;
+}
+#btn-submit-1:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}
+#btn-submit-2 {
+    color: #f0564a;
+}
+#btn-submit-2:hover {
+    color: white;
+    background-color: #f0564a;
+    border: none;
+}

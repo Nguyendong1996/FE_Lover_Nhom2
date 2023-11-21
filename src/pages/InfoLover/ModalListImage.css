@@ -1,0 +1,54 @@
+
+
+.prev {
+    position: absolute;
+    top: 40%;
+    left: 0%;
+    font-size: 40px;
+    color: white;
+}
+.prev:hover {
+    cursor: pointer;
+    color: #f0564a;
+}
+
+.next {
+    position: absolute;
+    top: 40%;
+    right: 0%;
+    font-size: 40px;
+    color: white;
+}
+.next:hover {
+    cursor: pointer;
+    color: #f0564a;
+}
+
+
+.main {
+    text-align: center;
+}
+
+.image-main {
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.list-img {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.image-in-list {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+.active-modal-image {
+    border-radius: 5px;
+    border: 2px solid crimson;
+}
+#container-modal-list-image {
+    background: transparent;
+}
