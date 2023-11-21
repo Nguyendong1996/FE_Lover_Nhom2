@@ -41,8 +41,8 @@ export function InfoLover() {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
-    const [statusProfilelover,setStatusProfileLover] = useState({})
-
+    const [statusProfilelover, setStatusProfileLover] = useState({})
+    const {check, setCheck} = useContext(AppContext);
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -129,34 +129,37 @@ export function InfoLover() {
         }
         bill.accountLover.id = +profileLover.account.id;
         bill.accountUser.id = +idAccount;
-        if (statusProfilelover.id === 2){
-            alert("NCCDV [" +profileLover.account.nickname + "] Đang cung cấp dịch vụ khác ! vui lòng thử lại sau")
-        }else {
-        // eslint-disable-next-line no-restricted-globals
-        if(confirm("Bạn xác nhận muốn đặt đơn!")){
-        createBill(bill, token)
-            .then(() => {
-                toast.success("Tạo bill thành công!")
-                setIsOpen(false)
-                setBill({
-                    time: "",
-                    accountUser: {
-                        id: 0,
-                    },
-                    accountLover: {
-                        id: 0,
-                    },
-                    vipServices: [0],
-                    totalMoney: 0,
-                    statusBill: {
-                        id: 1
-                    },
-                })
-                setMoneyTime(0)
-                setSelectedOptions([])
-            }).catch(() => {
-            alert("Lỗi kết nối!")
-        })}}
+        if (parseInt(statusProfilelover.id) === 2) {
+            toast.error("Lover [" + profileLover.account.nickname + "] đang cung cấp dịch vụ khác! Vui lòng thử lại sau!")
+        } else if (parseInt(statusProfilelover.id) === 3) {
+            toast.error("Lover [" + profileLover.account.nickname + "] đang tạm thời không cung cấp dịch vụ!")
+        } else {
+            // eslint-disable-next-line no-restricted-globals
+            createBill(bill, token)
+                .then(() => {
+                    toast.success("Tạo bill thành công!")
+                    setCheck(!check)
+                    setIsOpen(false)
+                    setBill({
+                        time: "",
+                        accountUser: {
+                            id: 0,
+                        },
+                        accountLover: {
+                            id: 0,
+                        },
+                        vipServices: [0],
+                        totalMoney: 0,
+                        statusBill: {
+                            id: 1
+                        },
+                    })
+                    setMoneyTime(0)
+                    setSelectedOptions([])
+                }).catch(() => {
+                alert("Lỗi kết nối!")
+            })
+        }
 
     }
 
@@ -167,6 +170,9 @@ export function InfoLover() {
         console.log(profileLover)
         if (profileLover.statusLover.id === 2) {
             return toast.error("Lover đang được thuê!")
+        }
+        if (profileLover.statusLover.id === 3) {
+            return toast.error("Lover tạm thời không cung cấp dịch vụ!")
         }
         openModal()
     }
@@ -354,14 +360,15 @@ export function InfoLover() {
                                 </tr>
                                 <tr style={{borderBottom: "1px solid #ccc"}}>
                                     <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
-                                    <td style={{padding: "10px"}}>
+                                    <td style={{textAlign: "left"}}>
                                         {vipService.map((item) => (
-                                            <div key={item.id} style={{marginBottom: "5px"}}>
+                                            <>
                                                 <input type="checkbox" id={`check${item.id}`} value={item.id}
                                                        onChange={handleCheckboxChange}/>
                                                 <label htmlFor={`check${item.id}`}
                                                        style={{marginLeft: "5px"}}>{item.name} (+{item.price}vnđ)</label>
-                                            </div>
+                                                <br/>
+                                            </>
                                         ))}
                                     </td>
                                 </tr>
@@ -371,22 +378,25 @@ export function InfoLover() {
                                 </tr>
                                 <tr>
                                     <td colSpan={2} style={{padding: "10px"}}>
-                                        <button type="button" onClick={rentLover} style={{
-                                            backgroundColor: "#f0564a",
-                                            borderRadius: "3px",
-                                            color: "#ffffff",
-                                            border: "none"
-                                        }}>Thanh toán
-                                        </button>
                                     </td>
                                     <td style={{padding: "10px"}}>
-                                        <button onClick={closeModal}
-                                                style={{borderRadius: "3px", border: "none"}}>Đóng
-                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+                            <div style={{textAlign: "center"}}>
+                                <button type="button" onClick={rentLover} style={{
+                                    backgroundColor: "#f0564a",
+                                    borderRadius: "3px",
+                                    color: "#ffffff",
+                                    border: "none",
+                                    height: 30, marginLeft: 10, marginRight: 20,
+                                }}>Thanh toán
+                                </button>
+                                <button onClick={closeModal}
+                                        style={{borderRadius: "3px", border: "none", marginRight: 20, height: 30}}>Đóng
+                                </button>
+                            </div>
                         </Modal>
                         {/*end modal*/}
                         <div className="player-profile-main-wrap col-md-6 col-md-pull-3">
@@ -435,7 +445,12 @@ export function InfoLover() {
                                         <div className="title-player-profile row">
                                             <div className="col-xs-6">
                                                 <div
-                                                    style={{display: "flex", textAlign: "center", position: "relative", cursor:"pointer"}}
+                                                    style={{
+                                                        display: "flex",
+                                                        textAlign: "center",
+                                                        position: "relative",
+                                                        cursor: "pointer"
+                                                    }}
                                                     onClick={() => setViewImage(true)}>
                                                     {images.slice(0, 4).map((item) => {
                                                         return (

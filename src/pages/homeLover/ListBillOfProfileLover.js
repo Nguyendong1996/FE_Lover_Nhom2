@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {AppContext} from "../../context/AppContext";
 import {
     acceptBillByIdAccountLover, acceptBillByIdAccountLover1, doneBillByLover, doneBillByLover1,
@@ -6,6 +6,9 @@ import {
     rejectBillByIdAccountLover
 } from "../../services/BillService";
 import "./HomeLover.css"
+import {confirmAlert} from "react-confirm-alert";
+import {deleteNotificationById} from "../../services/inforUserService";
+import {toast} from "react-toastify";
 export function ListBillOfProfileLover() {
     const token = localStorage.getItem("token")
     let id = localStorage.getItem("idAccount")
@@ -23,35 +26,117 @@ export function ListBillOfProfileLover() {
 
     //function:
     function rejectBill(bill) {
-        if (window.confirm("Bạn có chắc chắn từ chối đơn này không?")) {
-            console.log(bill)
-            rejectBillByIdAccountLover(bill.id, token)
-                .then(() => {
-                    handleChangeCheck(check)
-                })
-        }
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (
+                    <div className="custom-confirm-alert-overlay">
+                        <div className="custom-confirm-alert">
+                            <span></span>
+                            <h3 className="custom-confirm-alert-title">XÁC NHẬN</h3>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn từ chối đơn này không?</p>
+                            <div className="custom-confirm-alert-buttons">
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    rejectBillByIdAccountLover(bill.id, token)
+                                        .then((res) => {
+                                            if (res === 1) {
+                                                toast.error("Đơn đã được người đặt huỷ trước đó!")
+                                            }
+                                            if (res === 2) {
+                                                toast.success("Bạn đã từ chối đơn thành cônǵ!")
+                                            }
+                                            handleChangeCheck(check)
+                                        })
+                                    onClose();
+                                }}>
+                                    Có
+                                </button>
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic khi không xóa ở đây
+                                    onClose();
+                                }}>
+                                    Không
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
     }
 
     function acceptBill(bill) {
-        console.log(bill)
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm("Bạn chắc chắn muốn nhận đơn này!!")) {
-            acceptBillByIdAccountLover1(bill.id, token)
-                .then(() => {
-                    handleChangeCheck(check)
-                })
-        }
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (
+                    <div className="custom-confirm-alert-overlay">
+                        <div className="custom-confirm-alert">
+                            <span></span>
+                            <h3 className="custom-confirm-alert-title">XÁC NHẬN</h3>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn xác nhận đơn này không?</p>
+                            <div className="custom-confirm-alert-buttons">
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    acceptBillByIdAccountLover1(bill.id, token)
+                                            .then((res) => {
+                                                console.log(res)
+                                                handleChangeCheck(check)
+                                                if (res === 1) {
+                                                    return toast.error("Bạn đang có 1 đơn chưa hoàn thành!")
+                                                }
+                                                if (res === 2) {
+                                                    return toast.error("Đơn này đã được người thuê huỷ trước đó!")
+                                                }
+                                                toast.success(res)
+                                            })
+                                    onClose();
+                                }}>
+                                    Có
+                                </button>
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic khi không xóa ở đây
+                                    onClose();
+                                }}>
+                                    Không
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
     }
 
     function doneBill(bill) {
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm("bạn chắc chắn đơn này đã hoàn thành")) {
-
-            doneBillByLover1(bill.id, id, token)
-                .then(() => {
-                    handleChangeCheck(check)
-                })
-        }
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (
+                    <div className="custom-confirm-alert-overlay">
+                        <div className="custom-confirm-alert">
+                            <span></span>
+                            <h3 className="custom-confirm-alert-title">XÁC NHẬN</h3>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn đơn này đã hoàn thành không?</p>
+                            <div className="custom-confirm-alert-buttons">
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    doneBillByLover1(bill.id, id, token)
+                                        .then(() => {
+                                            toast.success("Chúc mừng bạn đã hoàn thành đơn của mình!")
+                                            handleChangeCheck(check)
+                                        })
+                                    onClose();
+                                }}>
+                                    Có
+                                </button>
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic khi không xóa ở đây
+                                    onClose();
+                                }}>
+                                    Không
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
     }
 
     return (

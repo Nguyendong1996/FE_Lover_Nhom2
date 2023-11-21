@@ -9,6 +9,7 @@ import {AppContext} from "../../context/AppContext";
 import "../../css/InfoUser.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import {toast} from "react-toastify";
 export function ListBillProfileUser() {
     const [bills, setBills] = useState([])
     const idAccount = localStorage.getItem("idAccount")
@@ -20,18 +21,22 @@ export function ListBillProfileUser() {
             console.log(res)
         })
     }, [idAccount, check]);
-    function deleteBill(idBill) {
+    function cancelBill(id){
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className="custom-confirm-alert-overlay">
                         <div className="custom-confirm-alert">
-                            <h1 className="custom-confirm-alert-title">Xác nhận</h1>
-                            <p className="custom-confirm-alert-message">Bạn có chắc chắn muốn Huỷ đơn không?</p>
+                            <h1 className="custom-confirm-alert-title">XÁC NHẬN</h1>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn huỷ đơn không?</p>
                             <div className="custom-confirm-alert-buttons">
                                 <button className="custom-confirm-alert-button" onClick={() => {
                                     // Xử lý logic xóa ở đây
-                                    cancelBill(idBill)
+                                    cancelBillUser(id,token).then((res) =>{
+                                            setCheck(!check)
+                                            toast.success(res)
+                                        }
+                                    )
                                     onClose();
                                 }}>
                                     Có
@@ -49,16 +54,7 @@ export function ListBillProfileUser() {
             }
         });
     }
-    function cancelBill(id){
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm("Bạn có chắc chắn muốn Huỷ đơn không?")){
-            cancelBillUser(id,token).then(() =>{
-                setCheck(!check)
-                alert("bạn huỷ đơn thành công")
-                }
-            )
-        }
-    }
+
     return (
         <>
             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">

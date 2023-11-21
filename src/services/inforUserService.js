@@ -64,3 +64,19 @@ export function findByIdAccount(id, token) {
         )
     })
 }
+export function deleteNotificationById(id, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.delete("http://localhost:8080/api/profileUser/deleteNotificationById/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+
+                }).catch(() => {
+            })
+        )
+    })
+}
