@@ -4,9 +4,31 @@ import {ButtonLogin} from "../pages/login/ButtonLogin";
 import {Link} from "react-router-dom";
 import {AppContext} from "../context/AppContext";
 import {useNavigate} from "react-router";
+
+import Modal from 'react-modal';
+
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '10px',
+        border: '2px solid #ccc',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        overflow: 'hidden',
+        outline: 'none',
+        maxHeight: '90vh', // Tăng chiều cao tối đa
+        maxWidth: '90vw', // Tăng chiều rộng tối đa
+        padding: '20px',
+        boxSizing: 'border-box',
+    },
+};
 const Header = () => {
     const {handleSearchChange} = useContext(AppContext);
     const {setVisibleProducts} = useContext(AppContext);
@@ -15,7 +37,8 @@ const Header = () => {
     const role = localStorage.getItem("role")
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin")
-
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    let subtitle;
     //tìm kiếm theo tên:
     function searchByName(event) {
         const value = event.target.value;
@@ -25,6 +48,23 @@ const Header = () => {
     }
 
     const [chosen, setChosen] = useState(1)
+
+
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        subtitle.style.color = '#151313FF';
+        subtitle.style.fontSize = '30px';
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     return (
         <>
             <ToastContainer/>
@@ -105,8 +145,8 @@ const Header = () => {
                                 </li>
                             }
 
-                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TOP LOVER</a></li>
-                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TOP USER</a></li>
+                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}} onClick={openModal}>TOP LOVER</a></li>
+                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}} onClick={openModal}>TOP USER</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li className="item-icon notificate dropdown"><a id="basic-nav-dropdown" role="button"
@@ -127,6 +167,133 @@ const Header = () => {
                             </li>
                             <li className={"item-icon balance"}><ButtonLogin isLogin={isLogin}/></li>
                         </ul>
+
+                        {/*start modal TOP LOVER*/}
+                        <Modal
+                            isOpen={modalIsOpen}
+                            onAfterOpen={afterOpenModal}
+                            onRequestClose={closeModal}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}
+                                style={{textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px"}}>
+                                <span style={{display: "block"}}>TOP LOVER</span>
+                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{
+                                    display: "block",
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    marginTop: "10px",
+                                    maxWidth: "50px"
+                                }}/>
+                            </h2>
+
+                            <table style={{width: "100%", borderCollapse: "collapse"}}>
+                                <tbody>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Tên lover:</td>
+
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Thời gian muốn thuê:</td>
+                                    <td style={{padding: "10px"}}>
+
+                                    </td>
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
+                                    <td style={{padding: "10px"}}>
+
+                                    </td>
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2} style={{padding: "10px"}}>
+                                        <button type="button" style={{
+                                            backgroundColor: "#f0564a",
+                                            borderRadius: "3px",
+                                            color: "#ffffff",
+                                            border: "none"
+                                        }}>Thanh toán
+                                        </button>
+                                    </td>
+                                    <td style={{padding: "10px"}}>
+                                        <button onClick={closeModal}
+                                                style={{borderRadius: "3px", border: "none"}}>Đóng
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </Modal>
+                        {/*end modal*/}
+
+
+
+
+                        {/*start modal TOP USER*/}
+                        <Modal
+                            isOpen={modalIsOpen}
+                            onAfterOpen={afterOpenModal}
+                            onRequestClose={closeModal}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}
+                                style={{textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px"}}>
+                                <span style={{display: "block"}}>TOP USER</span>
+                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{
+                                    display: "block",
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    marginTop: "10px",
+                                    maxWidth: "50px"
+                                }}/>
+                            </h2>
+
+                            <table style={{width: "100%", borderCollapse: "collapse"}}>
+                                <tbody>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Tên lover:</td>
+
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Thời gian muốn thuê:</td>
+                                    <td style={{padding: "10px"}}>
+
+                                    </td>
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
+                                    <td style={{padding: "10px"}}>
+
+                                    </td>
+                                </tr>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                </tr>
+                                <tr>
+                                    <td colSpan={2} style={{padding: "10px"}}>
+                                        <button type="button" style={{
+                                            backgroundColor: "#f0564a",
+                                            borderRadius: "3px",
+                                            color: "#ffffff",
+                                            border: "none"
+                                        }}>Thanh toán
+                                        </button>
+                                    </td>
+                                    <td style={{padding: "10px"}}>
+                                        <button onClick={closeModal}
+                                                style={{borderRadius: "3px", border: "none"}}>Đóng
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </Modal>
+                        {/*end modal*/}
                     </div>
                 </header>
             </div>
