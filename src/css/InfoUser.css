@@ -1,12 +1,29 @@
 #btn-2 {
     color: #f0564a;
-    border:#f0564a ;
+    border: #f0564a;
 }
+
 #btn-2:hover {
-    background-color:#f0564a ;
+    background-color: #f0564a;
     color: white;
     border: none;
 }
+
 table thead tr td {
     font-weight: bold;
+}
+
+.custom-confirm-alert {
+    background-color: orangered
+}
+
+.custom-confirm-alert-title {
+}
+
+.custom-confirm-alert-message {
+    /* Tùy chỉnh các thuộc tính CSS của thông điệp trong hộp thoại xác nhận ở đây */
+}
+
+.custom-confirm-alert-button {
+    /* Tùy chỉnh các thuộc tính CSS của nút trong hộp thoại xác nhận ở đây */
 }

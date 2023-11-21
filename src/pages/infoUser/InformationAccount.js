@@ -139,7 +139,7 @@ export function InformationAccount() {
                                 </div>
                             }
                             <div className="label-info-user">Tên hiển thị: {account.nickname}</div>
-                            <div className="label-info-user">Tên đăng nhập: {account.nickname}</div>
+                            <div className="label-info-user">Tên đăng nhập: {account.username}</div>
                             <div className="label-info-user">Địa chỉ
                                 email: {account.email?.replace(/^.{5}/, '*****')}</div>
                             <div className="label-info-user">Quyền hạn: {role.slice(5,10)}</div>

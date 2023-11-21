@@ -1,9 +1,12 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useContext, useEffect, useLayoutEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import {findByIdLover} from "../../services/ProfileLoverService";
 import {findImagesByIdLover} from "../../services/ImageService";
 import {createBill} from "../../services/BillService";
 import Modal from 'react-modal';
+import {toast, ToastContainer} from "react-toastify";
+import {ModalListImage} from "./ModalListImage";
+import {AppContext} from "../../context/AppContext";
 
 const customStyles = {
     content: {
@@ -34,7 +37,7 @@ export function InfoLover() {
     const [baseService, setBaseService] = useState([])
     const [linkFb, setLinkFb] = useState("")
     const [images, setImages] = useState([])
-    const [idAccount, setIdAccount] = useState(localStorage.getItem("idAccount"));
+    const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -54,7 +57,23 @@ export function InfoLover() {
     }
 
     function closeModal() {
+        setMoneyTime(0)
+        setBill({
+            time: "",
+            accountUser: {
+                id: 0,
+            },
+            accountLover: {
+                id: 0,
+            },
+            vipServices: [0],
+            totalMoney: 0,
+            statusBill: {
+                id: 1
+            },
+        })
         setIsOpen(false);
+        setSelectedOptions([])
     }
 
     const [bill, setBill] = useState({
@@ -103,10 +122,10 @@ export function InfoLover() {
 
     function rentLover() {
         if (idAccount === null) {
-            return alert("Bạn chưa đăng nhập!")
+            return toast.error("Bạn chưa đăng nhập!")
         }
         if (bill.time === "") {
-            return alert("Bạn chưa chọn giờ!")
+            return toast.error("Bạn chưa chọn giờ!")
         }
         bill.accountLover.id = +profileLover.account.id;
         bill.accountUser.id = +idAccount;
@@ -117,19 +136,40 @@ export function InfoLover() {
         if(confirm("Bạn xác nhận muốn đặt đơn!")){
         createBill(bill, token)
             .then(() => {
+                toast.success("Tạo bill thành công!")
+                setIsOpen(false)
+                setBill({
+                    time: "",
+                    accountUser: {
+                        id: 0,
+                    },
+                    accountLover: {
+                        id: 0,
+                    },
+                    vipServices: [0],
+                    totalMoney: 0,
+                    statusBill: {
+                        id: 1
+                    },
+                })
+                setMoneyTime(0)
+                setSelectedOptions([])
             }).catch(() => {
             alert("Lỗi kết nối!")
         })}}
 
     }
 
-    function checkLover(){
+    function checkLover() {
         if (idAccount === null) {
-            return alert("Bạn chưa đăng nhập!")
+            return toast.error("Bạn phải đăng nhập trước!")
+        }
+        console.log(profileLover)
+        if (profileLover.statusLover.id === 2) {
+            return toast.error("Lover đang được thuê!")
         }
         openModal()
     }
-
 
 
     const [selectedOptions, setSelectedOptions] = useState([]); // Mảng chứa các lựa chọn đã chọn
@@ -160,16 +200,19 @@ export function InfoLover() {
         }
         money += moneyTime;
         bill.totalMoney = money;
-        console.log(bill.totalMoney)
         setBill({...bill, vipServices: arr})
-        console.log(arr)
     }
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0)
     });
+
+    //modal ảnh
+    const {viewImage, setViewImage} = useContext(AppContext);
+
     return (
         <>
+            <ToastContainer/>
             <link rel="manifest" href="https://playerduo.net/manifest.json"/>
             <meta name="msapplication-TileColor" content="#ffffff"/>
             <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png"/>
@@ -230,19 +273,30 @@ export function InfoLover() {
                             </div>
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
-                            <div className="right-player-profile" style={{marginTop: "80px"}}><p className="price-player-profile">{profileLover.price} / giờ</p>
+                            <div className="right-player-profile" style={{marginTop: "80px"}}><p
+                                className="price-player-profile">{profileLover.price} vnđ/giờ</p>
                                 <div className="rateting-style"><i className="fas fa-star"></i><i
                                     className="fas fa-star"></i><i
                                     className="fas fa-star"></i><i className="fas fa-star"></i><i
                                     className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
                                 </div>
                                 <div className="text-center">
+                                    {(parseInt(idAccount) === profileLover.account?.id)
+                                        ?
+                                        <p style={{fontSize: 20, fontWeight: "bold"}}>(TRANG CỦA BẠN)</p>
+                                        :
+                                        <>
+                                            <button onClick={openModal} className="btn-my-style red"
+                                                    onClick={checkLover}>Thuê
+                                            </button>
+                                            <button className="btn-my-style white">Donate</button>
+                                            <button className="btn-my-style white"><i
+                                                className="fas fa-comment-alt"></i>Chat
+                                            </button>
+                                        </>
+                                    }
 
-                                    <button onClick={openModal} className= "btn-my-style red" onClick={checkLover}>Thuê</button>
 
-                                    <button className="btn-my-style white">Donate</button>
-                                    <button className="btn-my-style white"><i className="fas fa-comment-alt"></i>Chat
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -255,23 +309,33 @@ export function InfoLover() {
                             contentLabel="Example Modal"
                         >
 
-                            <h2 ref={(_subtitle) => (subtitle = _subtitle)} style={{ textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px" }}>
-                                <span style={{ display: "block" }}>THUÊ PLAYER</span>
-                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{ display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "10px", maxWidth: "50px" }} />
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}
+                                style={{textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px"}}>
+                                <span style={{display: "block"}}>THUÊ PLAYER</span>
+                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{
+                                    display: "block",
+                                    marginLeft: "auto",
+                                    marginRight: "auto",
+                                    marginTop: "10px",
+                                    maxWidth: "50px"
+                                }}/>
                             </h2>
 
-                            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                            <table style={{width: "100%", borderCollapse: "collapse"}}>
                                 <tbody>
-                                <tr style={{ borderBottom: "1px solid #ccc" }}>
-                                    <td style={{ padding: "10px" }}>Tên lover:</td>
-                                    <td style={{ padding: "10px" }}>{profileLover.account?.nickname}</td>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Tên lover:</td>
+                                    <td style={{padding: "10px"}}>{profileLover.account?.nickname}</td>
                                 </tr>
-                                <tr style={{ borderBottom: "1px solid #ccc" }}>
-                                    <td style={{ padding: "10px" }}>Thời gian muốn thuê:</td>
-                                    <td style={{ padding: "10px" }}>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Thời gian muốn thuê:</td>
+                                    <td style={{padding: "10px"}}>
                                         <select
-                                            style={{ width: "100%", padding: "10px", boxSizing: "border-box" }}
-                                            onChange={(e) => { changeTime(e.target.value) }}
+                                            style={{width: "100%", padding: "10px", boxSizing: "border-box"}}
+                                            onChange={(e) => {
+                                                changeTime(e.target.value)
+                                            }}
+                                            className={"form-control"}
                                         >
                                             <option value="">Chọn giờ</option>
                                             {/* Các option khác */}
@@ -288,27 +352,37 @@ export function InfoLover() {
                                         </select>
                                     </td>
                                 </tr>
-                                <tr style={{ borderBottom: "1px solid #ccc" }}>
-                                    <td style={{ padding: "10px" }}>Chọn dịch vụ VIP:</td>
-                                    <td style={{ padding: "10px" }}>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
+                                    <td style={{padding: "10px"}}>
                                         {vipService.map((item) => (
-                                            <div key={item.id} style={{ marginBottom: "5px" }}>
-                                                <input type="checkbox" id={`check${item.id}`} value={item.id} onChange={handleCheckboxChange} />
-                                                <label htmlFor={`check${item.id}`} style={{ marginLeft: "5px" }}>{item.name} ({item.price}vnđ)</label>
+                                            <div key={item.id} style={{marginBottom: "5px"}}>
+                                                <input type="checkbox" id={`check${item.id}`} value={item.id}
+                                                       onChange={handleCheckboxChange}/>
+                                                <label htmlFor={`check${item.id}`}
+                                                       style={{marginLeft: "5px"}}>{item.name} (+{item.price}vnđ)</label>
                                             </div>
                                         ))}
                                     </td>
                                 </tr>
-                                <tr style={{ borderBottom: "1px solid #ccc" }}>
-                                    <td style={{ padding: "10px" }}>Tổng tiền:</td>
-                                    <td style={{ padding: "10px" }}>{bill.totalMoney} vnđ</td>
+                                <tr style={{borderBottom: "1px solid #ccc"}}>
+                                    <td style={{padding: "10px"}}>Tổng tiền:</td>
+                                    <td style={{padding: "10px"}}>{bill.totalMoney} vnđ</td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2} style={{ padding: "10px"}}>
-                                        <button type="button" onClick={rentLover} style={{backgroundColor:"#f0564a", borderRadius:"3px", color:"#ffffff", border: "none"}} >Thanh toán</button>
+                                    <td colSpan={2} style={{padding: "10px"}}>
+                                        <button type="button" onClick={rentLover} style={{
+                                            backgroundColor: "#f0564a",
+                                            borderRadius: "3px",
+                                            color: "#ffffff",
+                                            border: "none"
+                                        }}>Thanh toán
+                                        </button>
                                     </td>
-                                    <td style={{ padding: "10px" }}>
-                                        <button onClick={closeModal} style={{borderRadius:"3px", border: "none"}}>Đóng</button>
+                                    <td style={{padding: "10px"}}>
+                                        <button onClick={closeModal}
+                                                style={{borderRadius: "3px", border: "none"}}>Đóng
+                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -358,38 +432,53 @@ export function InfoLover() {
                                             <div className="col-xs-6"><span>Thông tin <i
                                                 className="bi bi-info-circle"></i></span></div>
                                         </div>
+                                        <div className="title-player-profile row">
+                                            <div className="col-xs-6">
+                                                <div
+                                                    style={{display: "flex", textAlign: "center", position: "relative", cursor:"pointer"}}
+                                                    onClick={() => setViewImage(true)}>
+                                                    {images.slice(0, 4).map((item) => {
+                                                        return (
+                                                            <div>
+                                                                <img src={item.urlImage} alt="" style={{
+                                                                    width: 130,
+                                                                    height: 130,
+                                                                    marginLeft: 10,
+                                                                    borderRadius: 3
+                                                                }}/>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    {
+                                                        (images.length > 4) &&
+                                                        <div style={{
+                                                            position: "absolute",
+                                                            backgroundColor: 'rgba(26,24,24,0.62)',
+                                                            width: 130,
+                                                            height: 130,
+                                                            borderRadius: 3,
+                                                            left: "145%",
+                                                            justifyContent: "center",
+                                                            alignItems: "center",
+                                                            display: "flex"
+                                                        }}><span style={{
+                                                            color: "white",
+                                                            fontSize: 40,
+                                                            fontWeight: "normal"
+                                                        }}>+{images.length - 4}</span></div>
+                                                    }
+                                                </div>
+                                                {viewImage && <ModalListImage open={viewImage}
+                                                                              idLover={profileLover.account?.id}/>}
+                                            </div>
+                                        </div>
                                         <div className="content-player-profile">
-                                            {/*<div className={"container-list-image-info-lover"} data-bs-toggle={"modal"}*/}
-                                            {/*     data-bs-target={"#list-image-info"}>*/}
-                                            {/*    <div style={{position: "relative"}}>*/}
-                                            {/*        {images.length <= 4 &&*/}
-                                            {/*            images.map((item) => {*/}
-                                            {/*                return (*/}
-                                            {/*                    <>*/}
-                                            {/*                        <img src={item.urlImage} className="img-info-list-image" alt=""/>*/}
-                                            {/*                    </>*/}
-                                            {/*                )*/}
-                                            {/*            })*/}
-                                            {/*        }*/}
-                                            {/*        {images.length >= 4 &&*/}
-                                            {/*            images.slice(0, 4).map((item) => {*/}
-                                            {/*                return (*/}
-                                            {/*                    <>*/}
-                                            {/*                        <img src={item.urlImage} className="img-info-list-image" alt=""/>*/}
-                                            {/*                        <div className={"img-info-list-image-fade-dive"}>+{images.length - 4}</div>*/}
-                                            {/*                    </>*/}
-                                            {/*                )*/}
-                                            {/*            })*/}
-
-                                            {/*        }*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
                                             <p>Tên: {profileLover.account?.nickname} </p>
                                             <p>Địa Chỉ: {profileLover.city?.name}</p>
                                             <p>Năm Sinh: 2000 </p>
                                             <p>Chiều Cao: {profileLover.height}</p>
                                             <p>Cân Nặng: {profileLover.weight}</p>
-                                            <p> Sở thích: {profileLover.hobby}</p>
+                                            <p>Sở thích: {profileLover.hobby}</p>
                                             <p>Mô tả về bản thân: {profileLover.description}</p>
                                             <p>Yêu cầu với người thuê: {profileLover.requestToUser}</p>
 
@@ -402,7 +491,8 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt="" style={{width:"30px", height: "30px"}}/>
+                                                                 src={item.avatarService} alt=""
+                                                                 style={{width: "30px", height: "30px"}}/>
                                                             <span>{item.name}
                                             </span>
                                                         </div>
@@ -418,7 +508,8 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt=""  style={{width:"30px", height: "30px"}}/>
+                                                                 src={item.avatarService} alt=""
+                                                                 style={{width: "30px", height: "30px"}}/>
                                                             <span>{item.name}</span>
                                                         </div>
                                                     </>
@@ -433,7 +524,8 @@ export function InfoLover() {
                                                     <>
                                                         <div>
                                                             <img className={"info-info-image"}
-                                                                 src={item.avatarService} alt=""  style={{width:"30px", height: "30px"}}/>
+                                                                 src={item.avatarService} alt=""
+                                                                 style={{width: "30px", height: "30px"}}/>
                                                             <span>{item.name}
                                                                 + {item.price} /h</span>
                                                         </div>
