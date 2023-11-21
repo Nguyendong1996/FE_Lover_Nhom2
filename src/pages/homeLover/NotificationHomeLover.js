@@ -31,6 +31,7 @@ export function NotificationHomeLover() {
                                             <tr>
                                                 <td>{index + 1}.</td>
                                                 <td style={{width: 750}}>{item.content}</td>
+                                                <td style={{width: 200}}>{item.timeSend}</td>
                                                 <td>
                                                     <button className={"btn btn-primary"} id={"btn-1"}>Xoá</button>
                                                 </td>

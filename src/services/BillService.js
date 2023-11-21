@@ -127,6 +127,7 @@ export function createBill(bill, token) {
                     }
                 })
                 .then(() => {
+                    alert("Đặt đơn thành thành công!")
                 }).catch(() => {
                 alert("Xảy ra lỗi trong quá trình tạo bill!")
             })
