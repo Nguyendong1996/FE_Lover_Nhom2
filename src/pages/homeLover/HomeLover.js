@@ -6,8 +6,12 @@ import {PageOfLover} from "./PageOfLover";
 import "./HomeLover.css"
 import {EditInfoLover} from "./EditInfoLover";
 import {ListBillOfProfileLover} from "./ListBillOfProfileLover";
+
+import {UpdateServicesLover} from "./UpdateServicesLover";
+
 import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
 import {listBillProfileLover} from "../../services/BillService";
+
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
     const [notifications, setNotifications] = useState([])
@@ -158,6 +162,21 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
+                                                                {chosen === 8 ? <span onClick={()=>setChosen(8)}>
+                                                                    <i className="fas fa-album"></i>
+                                                                    Album ảnh
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={()=>{setChosen(8)}}>
+                                                                    <i className="fas fa-album"></i>
+                                                                    Album ảnh
+                                                                </span>}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
                                                                 <span style={{color: "#354052"}}>
                                                                     <i className="fas fa-wallet"></i> Ví
                                                                 </span>
@@ -176,8 +195,10 @@ export function HomeLover() {
                         {chosen === 5 && <NotificationHomeLover/>}
                         {chosen === 1 && <PageOfLover/>}
                         {chosen === 3 && <EditInfoLover/>}
+
                         {chosen === 8 && <ListBillOfProfileLover/>}
                         {chosen === 2 && <HistoryBillProfileLover/>}
+
                     </div>
                 </div>
             </div>

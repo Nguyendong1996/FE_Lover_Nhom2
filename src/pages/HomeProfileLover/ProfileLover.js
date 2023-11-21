@@ -125,7 +125,7 @@ export const ProfileLover = () =>{
                             <div className="avt-player false">
                                 <div>
                                     <div className="d-flex img-avatar">
-                                        <div className="cropimg-avatar div-info-user-1">
+                                        <div className="cropimg-avatar div-info-user-1" >
                                             <img src={profileLover.avatarImage} alt=""
                                                  style={{width: 300, height: 300, borderRadius: 10}} onClick={showModalChoseImage}/>
                                             <input type="file" id={"input-avatar-profile-user"}
