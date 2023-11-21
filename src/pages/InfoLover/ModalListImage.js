@@ -94,6 +94,7 @@ export function ModalListImage(props) {
             setImages(res)
         })
     }, [props.idLover])
+    setTimeout(showDemo, 500)
     return (
         <>
             {/*start modal*/}

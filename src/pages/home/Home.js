@@ -235,7 +235,7 @@ const Home = () => {
                                             <div className="col-md-3" key={key} style={{marginBottom: 20}}>
                                                 <div className="player-information-card-wrap">
                                                     <div className="player-avatar">
-                                                        <Link to={"/info-lover/" + item.account?.id}>
+                                                        <Link to={"/info-lover/" + item.id}>
                                                             <img src={item.avatarImage} className alt="PD"
                                                                  id="avt-img-reponsiver"
                                                                  style={{height: "100%", width: "100%"}}/>
