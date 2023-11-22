@@ -8,6 +8,7 @@ export const AppProvider = ({children}) => {
     const [idFreeService, setIdFreeService] = useState(0);
     const [idBaseService, setIdBaseService] = useState(0);
     const [viewImage, setViewImage] = useState(false);
+    const [showChat, setShowChat] = useState(false);
 
 
     const [check, setCheck] = useState(false);
@@ -44,7 +45,7 @@ export const AppProvider = ({children}) => {
             check, setCheck,
             visibleProducts,
             setVisibleProducts,
-            viewImage, setViewImage,
+            viewImage, setViewImage, showChat, setShowChat,
             handleChangeVisibleProducts,
             handleChangeCheck,
             handleFreeServiceChange,
