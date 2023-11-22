@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {} from '../css/Header.css'
 import {ButtonLogin} from "../pages/login/ButtonLogin";
 import {Link} from "react-router-dom";
@@ -38,6 +38,17 @@ const Header = () => {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin")
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    const initialChosen = localStorage.getItem('chosen') || 1;
+    const [chosen, setChosen] = useState(Number(initialChosen));
+
+    // Lưu trạng thái vào localStorage mỗi khi biến 'chosen' thay đổi
+    useEffect(() => {
+        localStorage.setItem('chosen', chosen);
+    }, [chosen]);
+
+    const handleItemClick = (index) => {
+        setChosen(index);
+    };
     let subtitle;
     //tìm kiếm theo tên:
     function searchByName(event) {
@@ -47,7 +58,7 @@ const Header = () => {
         navigate("")
     }
 
-    const [chosen, setChosen] = useState(1)
+
 
 
 
@@ -107,15 +118,24 @@ const Header = () => {
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-center">
-                            <li className={"header-li-1"}><Link to={"/"}>
-                                <a href="#" style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}
-                                   onClick={() => {
-                                       setChosen(1)
-                                   }}>TRANG CHỦ</a></Link></li>
+                            <li className={`header-li-1 ${chosen === 1 ? 'chosen' : ''}`}>
+                                <Link to={"/"}>
+                                    <a href="#" style={{fontWeight: "bold", color: chosen === 1 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(1)}>
+                                        TRANG CHỦ
+                                    </a>
+                                </Link>
+                            </li>
 
                             {(role === "ROLE_LOVER") &&
-                                <li className={"header-li-1"}><Link to={"/homeProfileLover"}>
-                                    <a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a></Link></li>
+                                <li className={`header-li-1 ${chosen === 2 ? 'chosen' : ''}`}>
+                                    {(role === "ROLE_LOVER") && (
+                                        <Link to={"/homeProfileLover"}>
+                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 2 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(2)}>
+                                                TRANG LOVER
+                                            </a>
+                                        </Link>
+                                    )}
+                                </li>
                             }
                             {role === "ROLE_USER" &&
                                 <li className={"header-li-1"}>
@@ -135,8 +155,14 @@ const Header = () => {
                                 </li>
                             }
                             {(role === "ROLE_USER" || role === "ROLE_LOVER") &&
-                                <li className={"header-li-1"}>
-                                    <Link to={"/info-user/" + idAccount}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a></Link>
+                                <li className={`header-li-1 ${chosen === 3 ? 'chosen' : ''}`}>
+                                    {(role === "ROLE_LOVER") && (
+                                        <Link to={"/info-user/" + idAccount}>
+                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(3)}>
+                                                TRANG USER
+                                            </a>
+                                        </Link>
+                                    )}
                                 </li>
                             }
                             {role === "ROLE_ADMIN" &&
@@ -145,8 +171,38 @@ const Header = () => {
                                 </li>
                             }
 
-                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}} onClick={openModal}>TOP LOVER</a></li>
-                            <li className={"header-li-1"}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}} onClick={openModal}>TOP USER</a></li>
+                            <li className={`header-li-1 ${chosen === 4 ? 'chosen' : ''}`}>
+                                <a
+                                    href="#"
+                                    style={{
+                                        fontWeight: "bold",
+                                        color: chosen === 4 ? "#d00d0d" : "rgb(53, 64, 82)",
+                                    }}
+                                    onClick={(event) => {
+                                        handleItemClick(4);
+                                        openModal();
+                                        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+                                    }}
+                                >
+                                    TOP LOVER
+                                </a>
+                            </li>
+                            <li className={`header-li-1 ${chosen === 5 ? 'chosen' : ''}`}>
+                                <a
+                                    href="#"
+                                    style={{
+                                        fontWeight: "bold",
+                                        color: chosen === 5 ? "#d00d0d" : "rgb(53, 64, 82)",
+                                    }}
+                                    onClick={(event) => {
+                                        handleItemClick(5);
+                                        openModal();
+                                        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
+                                    }}
+                                >
+                                    TOP USER
+                                </a>
+                            </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li className="item-icon notificate dropdown"><a id="basic-nav-dropdown" role="button"
