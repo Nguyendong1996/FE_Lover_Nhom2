@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {findByIdAccount} from "../services/inforUserService";
 
 const customStyles = {
     content: {
@@ -37,14 +38,22 @@ const Header = () => {
     const role = localStorage.getItem("role")
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin")
+    const token = localStorage.getItem("token")
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const initialChosen = localStorage.getItem('chosen') || 1;
     const [chosen, setChosen] = useState(Number(initialChosen));
+    const [image, setImage] = useState(String);
 
     // Lưu trạng thái vào localStorage mỗi khi biến 'chosen' thay đổi
     useEffect(() => {
         localStorage.setItem('chosen', chosen);
-    }, [chosen]);
+        if (idAccount == null){
+            setImage("../resources/raw/avatar6.png")
+        }else {
+        findByIdAccount(idAccount,token).then((res) =>{
+            setImage(res.avatarImage)
+        })}
+    }, [chosen,idAccount]);
 
     const handleItemClick = (index) => {
         setChosen(index);
@@ -219,7 +228,7 @@ const Header = () => {
                                    className="dropdown-toggle"
                                    aria-haspopup="true" aria-expanded="false"
                                    href="#">
-                                    <img src="../resources/raw/avatar6.png" className="avt-img" alt="PD"/></a>
+                                    <img src={image} className="avt-img" alt="PD"/></a>
                             </li>
                             <li className={"item-icon balance"}><ButtonLogin isLogin={isLogin}/></li>
                         </ul>
