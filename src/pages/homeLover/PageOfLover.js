@@ -10,7 +10,7 @@ import {AppContext} from "../../context/AppContext";
 import {findImagesByIdLover} from "../../services/ImageService";
 
 
-export function PageOfLover() {
+export function PageOfLover(props) {
     const [profileLover, setProfileLover] = useState({})
     const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState(false);
@@ -118,11 +118,11 @@ export function PageOfLover() {
     const [images, setImages] = useState([])
     const {viewImage, setViewImage} = useContext(AppContext);
     useEffect(() => {
-        findImagesByIdLover(id)
+        findImagesByIdLover(props.idLover)
             .then((res) => {
                 setImages(res)
             })
-    }, [id])
+    }, [props.idLover])
 
 
     if (loading) {

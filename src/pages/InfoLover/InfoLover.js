@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useLayoutEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import {findByIdLover} from "../../services/ProfileLoverService";
+import {findByIdLover, findByIdLover2} from "../../services/ProfileLoverService";
 import {findImagesByIdLover} from "../../services/ImageService";
 import {createBill} from "../../services/BillService";
 import Modal from 'react-modal';
@@ -92,7 +92,7 @@ export function InfoLover() {
     })
     const [moneyTime, setMoneyTime] = useState(0)
     useEffect(() => {
-        findByIdLover(id)
+        findByIdLover2(id)
             .then((res) => {
                 setProfileLover(res)
                 setFreeService(res.freeServices)
