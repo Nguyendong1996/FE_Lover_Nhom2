@@ -13,6 +13,15 @@ export const findAllLover = () =>{
 export const findByIdLover = (id) =>{
     return new Promise( resolve => {
         resolve(
+            axios.get("http://localhost:8080/api/profileLoves/findByIdAccount/" + id).then((res) =>{
+                return res.data
+            })
+        )
+    })
+}
+export const findByIdLover2 = (id) =>{
+    return new Promise( resolve => {
+        resolve(
             axios.get("http://localhost:8080/api/profileLover/findById/" + id).then((res) =>{
                 return res.data
             })

@@ -11,6 +11,7 @@ import {UpdateServicesLover} from "./UpdateServicesLover";
 
 import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
 import {listBillProfileLover} from "../../services/BillService";
+import {findByIdLover} from "../../services/ProfileLoverService";
 
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
@@ -19,10 +20,16 @@ export function HomeLover() {
     const token = localStorage.getItem("token")
     const {check, setCheck} = useContext(AppContext);
     const [bills, setBills] = useState([]);
+    const [profileLover, setProfileLover] = useState({})
     useEffect(() => {
-        findNotificationByIdAccount(idAccount, token).then((res)=>{
+        findByIdLover(idAccount).then((res) => {
+            setProfileLover(res)
+        })
+    }, [idAccount])
+    useEffect(() => {
+        findNotificationByIdAccount(idAccount, token).then((res) => {
             setNotifications(res)
-            console.log("oke "+ res)
+            console.log("oke " + res)
         })
         listBillProfileLover(idAccount, token)
             .then((res) => {
@@ -30,6 +37,7 @@ export function HomeLover() {
                 console.log(res)
             })
     }, [idAccount, check])
+
     return (
         <>
             <meta charSet="UTF-8"/>
@@ -84,11 +92,11 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 1 ? <span onClick={()=> setChosen(1)}>
+                                                                {chosen === 1 ? <span onClick={() => setChosen(1)}>
                                                                     <i className="fas fa-user-tie"></i>
                                                                     Xem trang cá nhân
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>setChosen(1)}>
+                                                                                onClick={() => setChosen(1)}>
                                                                     <i className="fas fa-user-tie"></i>
                                                                     Xem trang cá nhân
                                                                 </span>
@@ -100,11 +108,13 @@ export function HomeLover() {
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
                                                                 {
-                                                                    chosen === 3 ? <span onClick={()=>setChosen(3)}>
+                                                                    chosen === 3 ? <span onClick={() => setChosen(3)}>
                                                                     <i className="fas fa-cog"></i>
                                                                     Cập nhật thông tin
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>{setChosen(3)}}>
+                                                                                onClick={() => {
+                                                                                    setChosen(3)
+                                                                                }}>
                                                                     <i className="fas fa-cog"></i>
                                                                     Cập nhật thông tin
                                                                 </span>
@@ -116,11 +126,13 @@ export function HomeLover() {
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
                                                                 {
-                                                                    chosen === 7 ? <span onClick={()=>setChosen(7)}>
+                                                                    chosen === 7 ? <span onClick={() => setChosen(7)}>
                                                                     <i className="fas fa-list"></i>
                                                                     Cập nhật dịch vụ
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>{setChosen(7)}}>
+                                                                                onClick={() => {
+                                                                                    setChosen(7)
+                                                                                }}>
                                                                     <i className="fas fa-list"></i>
                                                                     Cập nhật dịch vụ
                                                                 </span>
@@ -132,11 +144,13 @@ export function HomeLover() {
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
                                                                 {
-                                                                    chosen === 8 ? <span onClick={()=>setChosen(8)}>
+                                                                    chosen === 8 ? <span onClick={() => setChosen(8)}>
                                                                     <i className="fas fa-list"></i>
                                                                     Danh sách đơn ({bills.length})
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>{setChosen(8)}}>
+                                                                                onClick={() => {
+                                                                                    setChosen(8)
+                                                                                }}>
                                                                     <i className="fas fa-list"></i>
                                                                     Danh sách đơn ({bills.length})
                                                                 </span>
@@ -147,11 +161,13 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 2 ? <span onClick={()=>setChosen(2)}>
+                                                                {chosen === 2 ? <span onClick={() => setChosen(2)}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                    onClick={()=>{setChosen(2)}}>
+                                                                                onClick={() => {
+                                                                                    setChosen(2)
+                                                                                }}>
                                                                     <i className="fas fa-history"></i>
                                                                     Lịch sử giao dịch
                                                                 </span>}
@@ -162,11 +178,13 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 9 ? <span onClick={()=>setChosen(9)}>
+                                                                {chosen === 9 ? <span onClick={() => setChosen(9)}>
                                                                     <i className="fas fa-album"></i>
                                                                     Album ảnh
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={()=>{setChosen(9)}}>
+                                                                                onClick={() => {
+                                                                                    setChosen(9)
+                                                                                }}>
                                                                     <i className="fas fa-album"></i>
                                                                     Album ảnh
                                                                 </span>}
@@ -193,7 +211,7 @@ export function HomeLover() {
                             </div>
                         </div>
                         {chosen === 5 && <NotificationHomeLover/>}
-                        {chosen === 1 && <PageOfLover/>}
+                        {chosen === 1 && <PageOfLover idLover={profileLover.account?.id}/>}
                         {chosen === 3 && <EditInfoLover/>}
 
                         {chosen === 8 && <ListBillOfProfileLover/>}
