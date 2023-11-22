@@ -12,6 +12,7 @@ import {UpdateServicesLover} from "./UpdateServicesLover";
 import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
 import {listBillProfileLover} from "../../services/BillService";
 import {findByIdLover} from "../../services/ProfileLoverService";
+import {ListImageProfileLover} from "./ListImageProfileLover";
 
 export function HomeLover() {
     const [chosen, setChosen] = useState(5)
@@ -217,6 +218,7 @@ export function HomeLover() {
                         {chosen === 8 && <ListBillOfProfileLover/>}
                         {chosen === 2 && <HistoryBillProfileLover/>}
                         {chosen === 7 && <UpdateServicesLover/>}
+                        {chosen === 9 && <ListImageProfileLover/>}
 
                     </div>
                 </div>
