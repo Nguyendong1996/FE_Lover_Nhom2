@@ -19,6 +19,7 @@ import {ListBillOfProfileLover} from "./pages/HomeProfileLover/ListBillOfProfile
 import {HomeLover} from "./pages/homeLover/HomeLover";
 import {InformationUser} from "./pages/infoUser/InformationUser";
 import {ToastContainer} from "react-toastify";
+import ChatRoom from "./message/ChatRoom";
 
 
 
@@ -36,7 +37,8 @@ function App() {
                 <Route path={"/info-user/:id"} element={<InfoUser/>}></Route>
                 <Route path={"/home-admin/:id"} element={<HomeAdmin/>}></Route>
             </Route>
-      </Routes>
+            <Route path={"/demo/:id"} element={<ChatRoom/>}></Route>
+        </Routes>
     )
 }
 
