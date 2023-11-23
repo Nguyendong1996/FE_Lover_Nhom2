@@ -145,7 +145,7 @@ export function UpdateServicesLover() {
                 <div style={{}}>
                     <div style={{}}>
                         <div className="service-selet-wrapper" style={{width: 700, display: "flex"}}>
-                            <div style={{fontWeight: "bold", fontSize: 20, marginTop: 5}}>DỊCH VỤ CẦN CẬP NHẬT:
+                            <div style={{fontWeight: "bold", fontSize: 20, marginTop: 5}}>DỊCH VỤ CẦN CẬP NHẬP:
                             </div>
                             <div>
                                 <select onChange={handleServiceChange}
@@ -161,23 +161,79 @@ export function UpdateServicesLover() {
                         <br/>
                         <span style={{fontWeight: "bold", fontSize: 15}}>LỰA CHỌN CỦA BẠN:</span>
                         <div style={{marginTop: 10}}>
-                            <div>
-                                {selectedService.map((service) => (
-                                    <>
-                                        <input
-                                            type="checkbox"
-                                            id={`service-${service.id}`}
-                                            checked={selectedServices.includes(service.id)}
-                                            onChange={() => handleCheckboxChange(service.id)}
-                                        />
-                                        <label
-                                            htmlFor={`service-${service.id}`}
-                                            style={{fontSize: 15}}>{service.name}</label>
-                                    </>
-                                ))}
-                                <button onClick={handleUpdateService} className="btn btn-danger"
-                                        style={{marginLeft: 10, border: "2px solid"}} id={"btn-submit-2"}><span
-                                    style={{fontWeight: "bold"}}>CẬP NHẬT</span></button>
+                            <div style={{display: "flex", flexWrap: "wrap"}}>
+                                <div style={{flexBasis: "50%", maxWidth: "50%", boxSizing: "border-box"}}>
+                                    {selectedService.slice(0, 5).map((service) => (
+                                        <div key={service.id} style={{display: "flex", alignItems: "center", marginBottom: 8}}>
+                                            <input
+                                                type="checkbox"
+                                                id={`service-${service.id}`}
+                                                checked={selectedServices.includes(service.id)}
+                                                onChange={() => handleCheckboxChange(service.id)}
+                                                style={{marginRight: 8}}
+                                            />
+                                            <label
+                                                htmlFor={`service-${service.id}`}
+                                                style={{
+                                                    fontSize: 15,
+                                                    marginLeft: 5,
+                                                    userSelect: "none",
+                                                    cursor: "pointer",
+                                                    display: "inline-block",
+                                                    padding: "8px",
+                                                    borderRadius: "5px",
+                                                    border: selectedServices.includes(service.id) ,
+                                                    backgroundColor: selectedServices.includes(service.id) ,
+                                                    color: selectedServices.includes(service.id) ,
+                                                }}
+                                            >
+                                                {service.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div style={{flexBasis: "50%", maxWidth: "50%", boxSizing: "border-box"}}>
+                                    {selectedService.slice(5, 10).map((service) => (
+                                        <div key={service.id} style={{display: "flex", alignItems: "center", marginBottom: 8}}>
+                                            <input
+                                                type="checkbox"
+                                                id={`service-${service.id}`}
+                                                checked={selectedServices.includes(service.id)}
+                                                onChange={() => handleCheckboxChange(service.id)}
+                                                style={{marginRight: 8}}
+                                            />
+                                            <label
+                                                htmlFor={`service-${service.id}`}
+                                                style={{
+                                                    fontSize: 15,
+                                                    marginLeft: 5,
+                                                    userSelect: "none",
+                                                    cursor: "pointer",
+                                                    display: "inline-block",
+                                                    padding: "8px",
+                                                    borderRadius: "5px",
+                                                    border: selectedServices.includes(service.id) ,
+                                                    backgroundColor: selectedServices.includes(service.id),
+                                                    color: selectedServices.includes(service.id),
+                                                }}
+                                            >
+                                                {service.name}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                                <button
+                                    onClick={handleUpdateService}
+                                    className="btn btn-danger"
+                                    style={{
+                                        marginLeft: 10,
+                                        border: "2px solid",
+                                        display: selectedService.length > 0 ? "inline-block" : "none"
+                                    }}
+                                    id={"btn-submit-2"}
+                                >
+                                    <span style={{fontWeight: "bold"}}>CẬP NHẬP</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -195,9 +251,11 @@ export function UpdateServicesLover() {
                             return (
                                 <>
                                     <div style={{marginBottom: 10}}>
+                                        <img className={"info-info-image"}
+                                             src={service.avatarService} alt=""
+                                             style={{width: "30px", height: "30px"}}/>
                                                         <span style={{
                                                             marginLeft: 3,
-                                                            fontStyle: "italic"
                                                         }}>{service.name}</span>
                                     </div>
                                 </>
@@ -213,9 +271,11 @@ export function UpdateServicesLover() {
                             return (
                                 <>
                                     <div style={{marginBottom: 10}}>
+                                        <img className={"info-info-image"}
+                                             src={service.avatarService} alt=""
+                                             style={{width: "30px", height: "30px"}}/>
                                                         <span style={{
                                                             marginLeft: 3,
-                                                            fontStyle: "italic"
                                                         }}>{service.name}</span>
                                     </div>
                                 </>
@@ -231,9 +291,11 @@ export function UpdateServicesLover() {
                             return (
                                 <>
                                     <div style={{marginBottom: 10}}>
+                                        <img className={"info-info-image"}
+                                             src={service.avatarService} alt=""
+                                             style={{width: "30px", height: "30px"}}/>
                                         <span style={{
                                             marginLeft: 3,
-                                            fontStyle: "italic"
                                         }}>{service.name}</span>
                                     </div>
                                 </>
