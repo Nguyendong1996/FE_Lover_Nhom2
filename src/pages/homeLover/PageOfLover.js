@@ -252,7 +252,7 @@ export function PageOfLover(props) {
                                                     }
                                                 </div>
                                                 {viewImage && <ModalListImage open={viewImage}
-                                                                              idLover={profileLover.account?.id}/>}
+                                                                              idLover={profileLover.id}/>}
                                                 <div style={{fontSize: 15, marginTop:10}}>
                                                     <div
                                                         style={{marginBottom: 5}}>Tên: {profileLover.account?.nickname}</div>

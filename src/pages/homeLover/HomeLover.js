@@ -212,13 +212,13 @@ export function HomeLover() {
                             </div>
                         </div>
                         {chosen === 5 && <NotificationHomeLover/>}
-                        {chosen === 1 && <PageOfLover idLover={profileLover.account?.id}/>}
+                        {chosen === 1 && <PageOfLover idLover={profileLover.id}/>}
                         {chosen === 3 && <EditInfoLover/>}
 
                         {chosen === 8 && <ListBillOfProfileLover/>}
                         {chosen === 2 && <HistoryBillProfileLover/>}
                         {chosen === 7 && <UpdateServicesLover/>}
-                        {chosen === 9 && <ListImageProfileLover/>}
+                        {chosen === 9 && <ListImageProfileLover profleLover = {profileLover}/>}
 
                     </div>
                 </div>

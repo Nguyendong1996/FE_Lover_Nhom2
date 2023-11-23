@@ -11,9 +11,10 @@
 
 .image-item img {
     width: 100%;
-    height:110%;
+    height:330px;
 }
 .image-frame {
+    flex: 0 5 20%;
     width: 100%; /* Độ rộng khung ảnh */
     height: 330px; /* Chiều cao khung ảnh */
     border: 3px solid #ccc; /* Viền khung ảnh */
