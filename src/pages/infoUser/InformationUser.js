@@ -7,6 +7,8 @@ import {storage} from "../../firebase/Firebase"
 import Modal from "react-modal";
 import {Field, Form, Formik} from "formik";
 import "../../css/InformationUser.css"
+import {toast} from "react-toastify";
+import {confirmAlert} from 'react-confirm-alert';
 
 const customStyles = {
     content: {
@@ -52,19 +54,23 @@ export function InformationUser() {
 
     // đổi ảnh đại diện:
     function updateAvt(file) {
-        setLoading(true)
-        const storageRef = ref(storage, `images/${file.name + v4()}`);
-        const uploadTask = uploadBytes(storageRef, file);
-        uploadTask.then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
-                infoUser.avatarImage = url;
-                updateAvatarUser(url, id, token)
-                    .then(() => {
-                        alert("Cập nhật ảnh đại diện thành công!");
-                        setLoading(false);
+        confirmAlert({
+            customUI: ({onClose}) => {
+                setLoading(true)
+                const storageRef = ref(storage, `images/${file.name + v4()}`);
+                const uploadTask = uploadBytes(storageRef, file);
+                uploadTask.then((snapshot) => {
+                    getDownloadURL(snapshot.ref).then((url) => {
+                        infoUser.avatarImage = url;
+                        updateAvatarUser(url, id, token)
+                            .then(() => {
+                                toast.success("Cập nhập thành công!")
+                                setLoading(false);
+                            })
                     })
-            })
-        })
+                })
+            }
+        });
     }
 
     function showModalChoseImage() {
@@ -94,18 +100,21 @@ export function InformationUser() {
 
     // cập nhật thông tin user
     function updateInfoProfileUser(infoUser) {
+        confirmAlert({
+            customUI: ({onClose}) => {
         updateInfoUser(infoUser, token)
             .then((res) => {
                 setInfoUser(res)
-                alert("Update thành công!")
+                toast.success("Cập nhập thành công!")
                 document.getElementById("")
                 setIsOpen(false)
             })
             .catch(() => {
-                alert("Xảy ra lỗi không thể update!")
+                toast.success("Cập nhập xa ra lỗi!")
             })
+            }
+        });
     }
-
 
 
     return (
@@ -140,14 +149,16 @@ export function InformationUser() {
                                 </div>
                                 <div className={"div-info-user-2"}>
                                     <div className="label-info-user">
-                                        Cập nhật lần cuối: {infoUser.updateAt?.slice(0,10)}
-                                        <i className="fas fa-cog icon-setting-info" onClick={openModal} style={{marginLeft:3}}></i>
+                                        Cập nhật lần cuối: {infoUser.updateAt?.slice(0, 10)}
+                                        <i className="fas fa-cog icon-setting-info" onClick={openModal}
+                                           style={{marginLeft: 3}}></i>
                                     </div>
                                     <div className="label-info-user">Họ: {infoUser.lastName}</div>
                                     <div className="label-info-user">Tên: {infoUser.firstName}</div>
                                     <div className="label-info-user">Số căn cước công
                                         dân: {infoUser.citizenNumber}</div>
-                                    <div className="label-info-user">Ngày tham gia: {infoUser.createAt?.slice(0,10)}</div>
+                                    <div className="label-info-user">Ngày tham
+                                        gia: {infoUser.createAt?.slice(0, 10)}</div>
                                     <div className="label-info-user">Số điện thoại: {infoUser.phoneNumber}</div>
                                 </div>
                             </div>

@@ -47,7 +47,7 @@ const Header = () => {
     // Lưu trạng thái vào localStorage mỗi khi biến 'chosen' thay đổi
     useEffect(() => {
         localStorage.setItem('chosen', chosen);
-        if (idAccount == null){
+        if (idAccount == null || role === "ROLE_ADMIN"){
             setImage("../resources/raw/avatar6.png")
         }else {
         findByIdAccount(idAccount,token).then((res) =>{
@@ -174,6 +174,19 @@ const Header = () => {
                                     )}
                                 </li>
                             }
+
+                            {(role === "ROLE_USER" ) &&
+                                <li className={`header-li-1 ${chosen === 3 ? 'chosen' : ''}`}>
+                                    {(role === "ROLE_USER") && (
+                                        <Link to={"/info-user/" + idAccount}>
+                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(3)}>
+                                                TRANG USER
+                                            </a>
+                                        </Link>
+                                    )}
+                                </li>
+                            }
+
                             {role === "ROLE_ADMIN" &&
                                 <li className={"header-li-1"}>
                                     <Link to={"/home-admin/" + idAccount}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG ADMIN</a></Link>
