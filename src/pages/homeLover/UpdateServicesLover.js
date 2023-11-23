@@ -10,6 +10,7 @@ import {findAllVipService} from "../../services/VipService";
 
 import './HomeLover.css'
 import {toast, ToastContainer} from "react-toastify";
+import {confirmAlert} from 'react-confirm-alert';
 
 export function UpdateServicesLover() {
     const [serviceProfileLover, setServiceProfileLover] = useState([])
@@ -62,12 +63,16 @@ export function UpdateServicesLover() {
         });
     };
     const handleSubmit = () => {
-        updateListService(profileLover.id, selectedServices).then(() => {
-            setCheck(!check);
-            setIsExpanded(!isExpanded)
-            return toast.success("Cập nhật dịch vụ cơ bản thành công!")
+        confirmAlert({
+            customUI: ({onClose}) => {
+                updateListService(profileLover.id, selectedServices).then(() => {
+                    setCheck(!check);
+                    setIsExpanded(!isExpanded)
+                    return toast.success("Cập nhật dịch vụ cơ bản thành công!")
 
-        })
+                })
+            }
+        });
     };
     const handleUpdateService = () => {
         switch (count) {
@@ -86,18 +91,26 @@ export function UpdateServicesLover() {
         }
     }
     const updateFreeService = () => {
-        updateListFreeService(profileLover.id, selectedServices).then(() => {
-            setCheck(!check)
-            setIsExpanded(!isExpanded)
-            return toast.success("Cập nhập dịch vụ miễn phí thành công")
-        })
+        confirmAlert({
+            customUI: ({onClose}) => {
+                updateListFreeService(profileLover.id, selectedServices).then(() => {
+                    setCheck(!check)
+                    setIsExpanded(!isExpanded)
+                    return toast.success("Cập nhập dịch vụ miễn phí thành công")
+                })
+            }
+        });
     }
     const updateVipService = () => {
-        updateListVipService(profileLover.id, selectedServices).then(() => {
-            setCheck(!check)
-            setIsExpanded(!isExpanded)
-            return toast.success("Cập nhập dịch vụ VIP thành công")
-        })
+        confirmAlert({
+            customUI: ({onClose}) => {
+                updateListVipService(profileLover.id, selectedServices).then(() => {
+                    setCheck(!check)
+                    setIsExpanded(!isExpanded)
+                    return toast.success("Cập nhập dịch vụ VIP thành công")
+                })
+            }
+        });
     }
     const handleServiceChange = (event) => {
         const value = event.target.value;
@@ -175,7 +188,7 @@ export function UpdateServicesLover() {
                 <div style={{display: "flex"}}>
                     <div style={{}}>
                         <div style={{}}>
-                            <span style={{fontWeight: "bold", color: "grey", fontSize:15}}>DỊCH VỤ CƠ BẢN:</span>
+                            <span style={{fontWeight: "bold", color: "grey", fontSize: 15}}>DỊCH VỤ CƠ BẢN:</span>
                         </div>
                         <br/>
                         {service.map((service) => {
@@ -191,7 +204,7 @@ export function UpdateServicesLover() {
                             )
                         })}
                     </div>
-                    <div style={{marginLeft:200}}>
+                    <div style={{marginLeft: 200}}>
                         <div style={{}}>
                             <span style={{fontWeight: "bold", color: "grey"}}>DỊCH VỤ VIP:</span>
                         </div>
@@ -209,7 +222,7 @@ export function UpdateServicesLover() {
                             )
                         })}
                     </div>
-                    <div style={{marginLeft:200}}>
+                    <div style={{marginLeft: 200}}>
                         <div style={{}}>
                             <span style={{fontWeight: "bold", color: "grey"}}>DỊCH VỤ FREE:</span>
                         </div>
