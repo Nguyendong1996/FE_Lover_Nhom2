@@ -141,77 +141,84 @@ export function ListBillOfProfileLover() {
 
     return (
         <>
-            <div style={{marginLeft:15, width:1050}}>
-                <table className={"table table-striped"}>
+            <div className="bill-table-container">
+                <table className="table table-striped">
                     <thead>
                     <tr>
-                        <th style={{}}>#</th>
-                        <th>Người đặt</th>
-                        <th>Thời gian đặt</th>
-                        <th>Đặt lúc</th>
-                        <th>Danh sách dịch vụ Vip được yêu cầu</th>
-                        <th>Tổng tiền</th>
-                        <th>Trạng thái</th>
+                        <th>#</th>
+                        <th>Người đặt</th>
+                        <th>Thời gian đặt</th>
+                        <th>Đặt lúc</th>
+                        <th>Danh sách dịch vụ Vip được yêu cầu</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {bills.map((item, index) => {
-                        return (
-                            <>
-                                <tr>
-                                    <td>{index + 1}</td>
-                                    <td>{item.accountUser?.nickname}</td>
-                                    <td>{item.time} giờ</td>
-                                    <td>{item.createdAt}</td>
-                                    <td>{item.vipServices?.map((item2) => {
-                                        return (
-                                            <>
-                                                {item2.name} ({item2.price} vnđ/giờ)
-                                                <br/>
-                                            </>
-                                        )
-                                    })
-                                    }</td>
-                                    <td>{item.totalMoney} vnđ</td>
-                                    <td>{item.statusBill?.name}</td>
-                                    {item.statusBill?.id === 3 && <>
-                                        <td></td>
-                                        <td></td>
-                                    </>}
-                                    {item.statusBill?.id === 1 &&
-                                        <td>
-                                            <button className={'btn btn-primary'}
-                                                    onClick={() => {
-                                                        acceptBill(item)
-                                                    }}>Xác nhận
-                                            </button>
-                                        </td>}
-                                    {item.statusBill?.id === 2 && <></>}
-                                    {item.statusBill?.id === 1 &&
-                                        <td>
-                                            <button className={'btn btn-danger'}
-                                                    onClick={() => {
-                                                        rejectBill(item)
-                                                    }}>Từ chối
-                                            </button>
-                                        </td>}
-                                    {item.statusBill?.id === 2 &&
-                                        <td colSpan={2} style={{textAlign: "center"}}>
-                                            <button className={'btn btn-success'}
-                                                    id={"btn-submit-2"}
-                                                    onClick={() => {
-                                                        doneBill(item)
-                                                    }}
-                                            >Hoàn thành
-                                            </button>
-                                        </td>
-                                    }
-                                </tr>
-                            </>
-                        )
-                    })}
+                    {bills.map((item, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.accountUser?.nickname}</td>
+                            <td>{item.time} giờ</td>
+                            <td>{item.createdAt}</td>
+                            <td>
+                                {item.vipServices?.map((item2, serviceIndex) => (
+                                    <span key={serviceIndex}>
+                                {item2.name} ({item2.price} vnđ/giờ)
+                                <br />
+                            </span>
+                                ))}
+                            </td>
+                            <td>{item.totalMoney} vnđ</td>
+                            <td>{item.statusBill?.name}</td>
+                            {item.statusBill?.id === 3 && (
+                                <>
+                                    <td></td>
+                                    <td></td>
+                                </>
+                            )}
+                            {item.statusBill?.id === 1 && (
+                                <td>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            acceptBill(item);
+                                        }}
+                                    >
+                                        Xác nhận
+                                    </button>
+                                </td>
+                            )}
+                            {item.statusBill?.id === 2 && <></>}
+                            {item.statusBill?.id === 1 && (
+                                <td>
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => {
+                                            rejectBill(item);
+                                        }}
+                                    >
+                                        Từ chối
+                                    </button>
+                                </td>
+                            )}
+                            {item.statusBill?.id === 2 && (
+                                <td colSpan={2} className="btn-cell">
+                                    <button
+                                        className="btn btn-success"
+                                        id={"btn-submit-2"}
+                                        onClick={() => {
+                                            doneBill(item);
+                                        }}
+                                    >
+                                        Hoàn thành
+                                    </button>
+                                </td>
+                            )}
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

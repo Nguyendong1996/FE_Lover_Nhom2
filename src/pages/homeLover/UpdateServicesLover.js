@@ -10,7 +10,7 @@ import {findAllVipService} from "../../services/VipService";
 
 import './HomeLover.css'
 import {toast, ToastContainer} from "react-toastify";
-import {confirmAlert} from 'react-confirm-alert';
+
 
 export function UpdateServicesLover() {
     const [serviceProfileLover, setServiceProfileLover] = useState([])
@@ -63,16 +63,12 @@ export function UpdateServicesLover() {
         });
     };
     const handleSubmit = () => {
-        confirmAlert({
-            customUI: ({onClose}) => {
                 updateListService(profileLover.id, selectedServices).then(() => {
                     setCheck(!check);
                     setIsExpanded(!isExpanded)
                     return toast.success("Cập nhật dịch vụ cơ bản thành công!")
 
                 })
-            }
-        });
     };
     const handleUpdateService = () => {
         switch (count) {
@@ -91,26 +87,18 @@ export function UpdateServicesLover() {
         }
     }
     const updateFreeService = () => {
-        confirmAlert({
-            customUI: ({onClose}) => {
                 updateListFreeService(profileLover.id, selectedServices).then(() => {
                     setCheck(!check)
                     setIsExpanded(!isExpanded)
                     return toast.success("Cập nhập dịch vụ miễn phí thành công")
                 })
-            }
-        });
     }
     const updateVipService = () => {
-        confirmAlert({
-            customUI: ({onClose}) => {
                 updateListVipService(profileLover.id, selectedServices).then(() => {
                     setCheck(!check)
                     setIsExpanded(!isExpanded)
                     return toast.success("Cập nhập dịch vụ VIP thành công")
                 })
-            }
-        });
     }
     const handleServiceChange = (event) => {
         const value = event.target.value;
