@@ -10,6 +10,7 @@ import {
     findAllCountry,
     userSendRequestRegisterToLover
 } from "../../services/ProfileLoverService"
+import {toast, ToastContainer} from 'react-toastify';
 import {fireChangeForInputTimeIfValid} from "@testing-library/user-event/dist/keyboard/shared";
 
 const customStyles = {
@@ -95,7 +96,7 @@ export function InformationAccount() {
                 setIsOpen(false)
                 setCheck(!check)
             }).catch(() => {
-            alert("Lỗi kết nối!")
+            toast.error("Lỗi kết nối!")
         })
         console.log(newProfileLover)
     }

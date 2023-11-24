@@ -8,6 +8,7 @@ import {
 } from "../../services/ProfileLoverService";
 import {useNavigate} from "react-router";
 import './HomeLover.css'
+import {toast, ToastContainer} from 'react-toastify';
 export function EditInfoLover() {
     const [gender, setGender] = useState([])
     const [country, setCountry] = useState([])
@@ -64,7 +65,7 @@ export function EditInfoLover() {
             requestToUser: values.requestToUser,
         };
         updateProfileLover(updatedProfileLover, navigate).then(() => {
-                return alert("update thanh cong !!!")
+                return toast.success("update thanh cong !!!")
             }
         );
     };
