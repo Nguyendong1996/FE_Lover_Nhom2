@@ -5,6 +5,9 @@ import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "../../firebase/Firebase";
 import {v4} from "uuid";
 import {RingLoader} from "react-spinners";
+import {confirmAlert} from "react-confirm-alert";
+import {deleteNotificationById} from "../../services/inforUserService";
+import {toast} from "react-toastify";
 
 export const ListImageProfileLover = (drops) => {
     const [images, setImages] = useState([])
@@ -73,14 +76,47 @@ export const ListImageProfileLover = (drops) => {
         const fileInput = document.getElementById('input-avatar-profile-user1');
         fileInput.click();
     }
-    function deleteImage1(id){
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm("ban co muon xoa anh nay khong ?")){
-            deleteImage(id).then((res) =>{
-                setCount(count -1)
-            })
-        }
+     function deleteImage1(id) {
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (
+                    <div className="custom-confirm-alert-overlay">
+                        <div className="custom-confirm-alert">
+                            <span></span>
+                            <h3 className="custom-confirm-alert-title">XÁC NHẬN</h3>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn xoá không?</p>
+                            <div className="custom-confirm-alert-buttons">
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    deleteImage(id).then((res) =>{
+                                                    setCount(count -1)
+                                                })
+                                    onClose();
+                                }}>
+                                    Có
+                                </button>
+                                <button className="custom-confirm-alert-button" onClick={() => {
+                                    // Xử lý logic khi không xóa ở đây
+                                    onClose();
+                                }}>
+                                    Không
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
     }
+
+
+    // function deleteImage1(id){
+    //     // eslint-disable-next-line no-restricted-globals
+    //     if (confirm("Bạn muốn xóa ảnh không ?")){
+    //         deleteImage(id).then((res) =>{
+    //             setCount(count -1)
+    //         })
+    //     }
+    // }
 
     if (loading) {
         return (
@@ -95,13 +131,13 @@ export const ListImageProfileLover = (drops) => {
     }
     return (
         <>
-            <div className="list-container" style={{marginTop: '-40%', marginLeft: '25%'}}>
+            <div className="list-container" style={{marginTop: '-31.5%', marginLeft: '25%'}}>
                 <div className="image-list">
                     {images.map((image, index) => {
 
                         return (
                             <div className="image-item" key={index}>
-                                <i className="fas fa-times" onClick={() =>{deleteImage1(image.id)}}></i>
+                                <i className="fas fa-trash-alt" onClick={() =>{deleteImage1(image.id)}}></i>
                                 <img src={image.urlImage} alt={image.alt} onClick={() =>{showModalChoseImage(image.id)}}/>
                                 <input
                                     type="file"
@@ -117,8 +153,8 @@ export const ListImageProfileLover = (drops) => {
                     <div className="image-item">
                         { count < 10  && <div className="image-frame">
                             <div>
-                                <img src="../image/img_5.png" alt="Them anh"
-                                     style={{width: '100%', height: '100%', borderRadius: 10}}
+                                <img src="../image/img_6.jpg" alt="Them anh"
+                                     style={{width: '60%', height: '60%', borderRadius: 10}}
                                      onClick={showModalChoseImage1}/>
                                 <input type="file" id={"input-avatar-profile-user1"}
                                        onChange={(event) => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from 'react-toastify';
 export function findAllByAccountUserId(id, token) {
     return new Promise((resolve) => {
         resolve(
@@ -97,7 +97,7 @@ export function doneBillByLover(idBill,idAccountLover, token) {
                 })
                 .then(() => {
                 }).catch(() => {
-                alert("Xảy ra lỗi ở phía máy chủ!")
+                toast.error("Xảy ra lỗi ở phía máy chủ!")
             })
         )
     })
@@ -113,7 +113,7 @@ export function doneBillByLover1(idBill, token) {
                 })
                 .then(() => {
                 }).catch(() => {
-                alert("Xảy ra lỗi ở phía máy chủ!")
+                toast.error("Xảy ra lỗi ở phía máy chủ!")
             })
         )
     })
