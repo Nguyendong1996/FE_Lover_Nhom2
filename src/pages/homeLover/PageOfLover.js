@@ -8,7 +8,7 @@ import {RingLoader} from "react-spinners";
 import {ModalListImage} from "../InfoLover/ModalListImage";
 import {AppContext} from "../../context/AppContext";
 import {findImagesByIdLover} from "../../services/ImageService";
-
+import {toast, ToastContainer} from 'react-toastify';
 
 export function PageOfLover(props) {
     const [profileLover, setProfileLover] = useState({})
@@ -35,36 +35,34 @@ export function PageOfLover(props) {
     }, [loading, check])
     const updateStatusLover = () => {
         if (profileLover.statusLover?.id === 2) {
-            alert("Đang trong quá trình cung cấp dịch vụ! Không được thay đổi thông tin!!!");
+            toast.error("Đang trong quá trình cung cấp dịch vụ !!");
         } else {
             // eslint-disable-next-line no-restricted-globals
-            if (confirm("Bạn có muốn thay đổi trạng thái hoạt động không?")) {
-                let newIdStatus;
-                if (profileLover.statusLover?.id === 1) {
-                    newIdStatus = 3;
-                    alert("Bạn đã tắt trạng thái hoạt động");
-                    setStatus(false);
-                } else if (profileLover.statusLover?.id === 3) {
-                    newIdStatus = 1;
-                    alert("Bạn đã bật trạng thái hoạt động");
-                    setStatus(true);
-                }
-
-                const updatedProfileLover = {
-                    ...profileLover,
-                    account: {
-                        id: id,
-                    },
-                    statusLover: {
-                        id: newIdStatus,
-                    },
-                };
-
-                createProfileLover(updatedProfileLover).then(() => {
-                    setCheck(!check)
-                    // Thực hiện các hành động khác sau khi đã gọi createProfileLover
-                });
+            let newIdStatus;
+            if (profileLover.statusLover?.id === 1) {
+                newIdStatus = 3;
+                toast.success("Đã tắt trạng thái hoạt động ")
+                setStatus(false);
+            } else if (profileLover.statusLover?.id === 3) {
+                newIdStatus = 1;
+                toast.success(" Đã bật trạng thái hoạt động");
+                setStatus(true);
             }
+
+            const updatedProfileLover = {
+                ...profileLover,
+                account: {
+                    id: id,
+                },
+                statusLover: {
+                    id: newIdStatus,
+                },
+            };
+
+            createProfileLover(updatedProfileLover).then(() => {
+                setCheck(!check)
+                // Thực hiện các hành động khác sau khi đã gọi createProfileLover
+            });
         }
     };
 
@@ -81,7 +79,7 @@ export function PageOfLover(props) {
         }
         createProfileLover(updatedProfileLover).then(() => {
                 setCheck(!check)
-                return alert("update thanh cong !!!")
+                return  toast.success("update thanh cong !!!")
             }
         );
         setIsEditingPrice(false); // Tắt chế độ chỉnh sửa
@@ -108,12 +106,13 @@ export function PageOfLover(props) {
                 }
                 createProfileLover(updatedProfileLover)
                     .then(() => {
-                        alert("Cập nhật ảnh đại diện thành công!");
+                        toast.success("Cập nhật ảnh đại diện thành công!");
                         setLoading(false);
                     })
             })
         })
     }
+
     // xử lí modal ảnh
     const [images, setImages] = useState([])
     const {viewImage, setViewImage} = useContext(AppContext);
@@ -216,9 +215,14 @@ export function PageOfLover(props) {
                                         <div>
                                             <div>
 
-                                                <h3 style={{textAlign: "center", fontWeight:"bold"}}>THÔNG TIN</h3>
+                                                <h3 style={{textAlign: "center", fontWeight: "bold"}}>THÔNG TIN</h3>
                                                 <div
-                                                    style={{display: "flex", textAlign: "center", position: "relative", cursor:"pointer"}}
+                                                    style={{
+                                                        display: "flex",
+                                                        textAlign: "center",
+                                                        position: "relative",
+                                                        cursor: "pointer"
+                                                    }}
                                                     onClick={() => setViewImage(true)}>
                                                     {images.slice(0, 4).map((item) => {
                                                         return (
@@ -253,7 +257,7 @@ export function PageOfLover(props) {
                                                 </div>
                                                 {viewImage && <ModalListImage open={viewImage}
                                                                               idLover={profileLover.id}/>}
-                                                <div style={{fontSize: 15, marginTop:10}}>
+                                                <div style={{fontSize: 15, marginTop: 10}}>
                                                     <div
                                                         style={{marginBottom: 5}}>Tên: {profileLover.account?.nickname}</div>
                                                     <div style={{marginBottom: 5}}>Địa
@@ -279,34 +283,36 @@ export function PageOfLover(props) {
                                                         }}>Mô tả về bản thân: {profileLover.description}</span>
                                                     </div>
                                                     <br/>
-                                                    <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ CƠ BẢN</div>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>DỊCH VỤ CƠ BẢN
+                                                    </div>
                                                     {profileLover.serviceLovers?.map((item) => {
                                                         return (
-                                                            <div style={{fontSize:15, marginTop:5}}>
+                                                            <div style={{fontSize: 15, marginTop: 5}}>
                                                                 {item.name}
                                                             </div>
                                                         )
                                                     })}
                                                     <br/>
-                                                    <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ VIP</div>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>DỊCH VỤ VIP</div>
                                                     {profileLover.vipServices?.map((item) => {
                                                         return (
-                                                            <div style={{fontSize:15, marginTop:5}}>
+                                                            <div style={{fontSize: 15, marginTop: 5}}>
                                                                 {item.name}
                                                             </div>
                                                         )
                                                     })}
                                                     <br/>
-                                                    <div style={{fontSize:20, fontWeight:"bold"}}>DỊCH VỤ FREE</div>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>DỊCH VỤ FREE</div>
                                                     {profileLover.freeServices?.map((item) => {
                                                         return (
-                                                            <div style={{fontSize:15, marginTop:5}}>
+                                                            <div style={{fontSize: 15, marginTop: 5}}>
                                                                 {item.name}
                                                             </div>
                                                         )
                                                     })}
                                                     <br/>
-                                                    <div style={{fontSize:20, fontWeight:"bold"}}>TOP DONATE THÁNG</div>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>TOP DONATE THÁNG
+                                                    </div>
                                                     <div className="top-donate-player row">
                                                         <div className="ky-1 col-xs-1">#1</div>
                                                         <div className="col-xs-7">
@@ -318,7 +324,8 @@ export function PageOfLover(props) {
                                                                      className="vip-avatar undefined" alt="PD"
                                                                      style={{height: "17px", width: "17px"}}/>
                                                             </div>
-                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                            <span
+                                                                className="name-player-review color-vip-10">bun bun</span>
                                                         </div>
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
@@ -334,7 +341,8 @@ export function PageOfLover(props) {
                                                                      className="vip-avatar undefined" alt="PD"
                                                                      style={{height: "17px", width: "17px"}}/>
                                                             </div>
-                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                            <span
+                                                                className="name-player-review color-vip-10">bun bun</span>
                                                         </div>
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
@@ -350,7 +358,8 @@ export function PageOfLover(props) {
                                                                      className="vip-avatar undefined" alt="PD"
                                                                      style={{height: "17px", width: "17px"}}/>
                                                             </div>
-                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                            <span
+                                                                className="name-player-review color-vip-10">bun bun</span>
                                                         </div>
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
@@ -366,7 +375,8 @@ export function PageOfLover(props) {
                                                                      className="vip-avatar undefined" alt="PD"
                                                                      style={{height: "17px", width: "17px"}}/>
                                                             </div>
-                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                            <span
+                                                                className="name-player-review color-vip-10">bun bun</span>
                                                         </div>
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
@@ -382,12 +392,13 @@ export function PageOfLover(props) {
                                                                      className="vip-avatar undefined" alt="PD"
                                                                      style={{height: "17px", width: "17px"}}/>
                                                             </div>
-                                                            <span className="name-player-review color-vip-10">bun bun</span>
+                                                            <span
+                                                                className="name-player-review color-vip-10">bun bun</span>
                                                         </div>
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
                                                     </div>
-                                                    <div style={{fontSize:20, fontWeight:"bold"}}>ĐÁNH GIÁ</div>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>ĐÁNH GIÁ</div>
                                                     <div className="text-center review-duo-player row">
                                                         <div className="col-md-12">
                                                             <div className="full-size">
@@ -419,7 +430,8 @@ export function PageOfLover(props) {
                                                                         <span
                                                                             className="time-rent-review">(<span>Thuê</span>&nbsp;2h)</span>
                                                                     </div>
-                                                                    <p className="content-player-review">Dễ thương</p></div>
+                                                                    <p className="content-player-review">Dễ thương</p>
+                                                                </div>
                                                             </div>
                                                             <div className="full-size">
                                                                 <div className="review-image-small">
@@ -592,7 +604,8 @@ export function PageOfLover(props) {
                                                                         <span
                                                                             className="time-rent-review">(<span>Thuê</span>&nbsp;1h)</span>
                                                                     </div>
-                                                                    <p className="content-player-review">Thủy no1 =))</p>
+                                                                    <p className="content-player-review">Thủy no1
+                                                                        =))</p>
                                                                 </div>
                                                             </div>
                                                             <div className="full-size">
@@ -682,7 +695,8 @@ export function PageOfLover(props) {
                                                                         <span
                                                                             className="time-rent-review">(<span>Thuê</span>&nbsp;8h)</span>
                                                                     </div>
-                                                                    <p className="content-player-review">sap xep lai thoi
+                                                                    <p className="content-player-review">sap xep lai
+                                                                        thoi
                                                                         gian ngu nghi nhe</p></div>
                                                             </div>
                                                         </div>

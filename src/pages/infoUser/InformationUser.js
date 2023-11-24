@@ -110,7 +110,7 @@ export function InformationUser() {
                 setIsOpen(false)
             })
             .catch(() => {
-                toast.success("Cập nhập xa ra lỗi!")
+                toast.error("Cập nhập xa ra lỗi!")
             })
             }
         });

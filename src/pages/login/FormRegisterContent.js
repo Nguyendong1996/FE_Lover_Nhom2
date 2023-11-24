@@ -3,7 +3,7 @@ import {LoadingButton} from "./LoadingButton";
 import React, {useState} from "react";
 import * as Yup from "yup";
 import axios from "axios";
-
+import {toast, ToastContainer} from 'react-toastify';
 export function FormRegisterContent({prop}) {
     const [account] = useState({
         nickname: "",
@@ -25,7 +25,7 @@ export function FormRegisterContent({prop}) {
     function sendCodeToEmail() {
         let email = document.getElementById("email-form-register").value;
         if (email === "") {
-            return alert("Bạn chưa nhập email!")
+            return   toast.error("Bạn chưa nhập email!")
         }
         setLoading1(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail/" + email).then((res) => {
@@ -37,7 +37,7 @@ export function FormRegisterContent({prop}) {
     function registerNewAccount(account) {
         let code = document.getElementById("code-email-verification").value;
         if (code === "") {
-            return alert("Hãy điền mã xác nhận")
+            return   toast.error("Hãy điền mã xác nhận")
         }
         setLoading2(true)
         try {
@@ -46,7 +46,7 @@ export function FormRegisterContent({prop}) {
                 setLoading2(false)
             })
         } catch (error) {
-            alert("Không thể kết nối đến máy chủ!")
+            toast.error("Không thể kết nối đến máy chủ!")
         }
     }
 
