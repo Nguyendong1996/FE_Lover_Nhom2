@@ -22,15 +22,14 @@ export function PageOfLover(props) {
         findByIdLover(id).then((res) => {
             setProfileLover(res)
             console.log(res)
+            console.log(props.idLover)
             if (res.statusLover?.id === 1 || res.statusLover?.id === 2) {
-                console.log(status)
                 setStatus(true);
             }
         }).catch(() => {
             return {}
         })
         findAllFreeService().then((res) => {
-            console.log(res)
         })
     }, [loading, check])
     const updateStatusLover = () => {
