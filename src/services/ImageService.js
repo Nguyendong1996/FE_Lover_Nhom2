@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import {toast, ToastContainer} from 'react-toastify';
 export const findImagesByIdLover = (id) => {
     return new Promise(resolve => {
         resolve(
@@ -13,7 +13,7 @@ export const saveImage =(image) =>{
     return new Promise(resolve => {
         resolve(
             axios.post("http://localhost:8080/api/image", image).then(() =>{
-                return alert("thêm ảnh thành công")
+                return toast.success("Thêm ảnh thành công")
             })
         )
     })
@@ -22,9 +22,9 @@ export const deleteImage = (id) =>{
     return new Promise(resolve => {
         resolve(
             axios.delete("http://localhost:8080/api/image/"+id).then(() =>{
-                return alert("xoa anh thanh cong")
+                return toast.success("Xóa ảnh thành công")
             }).catch(() =>{
-                return alert("anh khong ton tai")
+                return toast.error("Ảnh không tồn tại!")
             })
         )
     })

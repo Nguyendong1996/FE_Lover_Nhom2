@@ -35,14 +35,14 @@ export function FormLogin() {
     function sendCode() {
         let email = document.getElementById("email-form-forgot-password").value;
         if (email === "") {
-            return alert("Bạn chưa nhập email!")
+            return toast.error("Bạn chưa nhập email!")
         }
         setLoading(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail2/" + email).then((res) => {
             alert(res.data);
             setLoading(true)
         }).catch(() => {
-            alert("Địa chỉ email không đúng!")
+            toast.error("Địa chỉ email không đúng!")
             setLoading(true)
         })
     }

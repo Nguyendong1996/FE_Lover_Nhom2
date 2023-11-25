@@ -54,8 +54,6 @@ export function InformationUser() {
 
     // đổi ảnh đại diện:
     function updateAvt(file) {
-        confirmAlert({
-            customUI: ({onClose}) => {
                 setLoading(true)
                 const storageRef = ref(storage, `images/${file.name + v4()}`);
                 const uploadTask = uploadBytes(storageRef, file);
@@ -69,8 +67,6 @@ export function InformationUser() {
                             })
                     })
                 })
-            }
-        });
     }
 
     function showModalChoseImage() {
@@ -100,8 +96,7 @@ export function InformationUser() {
 
     // cập nhật thông tin user
     function updateInfoProfileUser(infoUser) {
-        confirmAlert({
-            customUI: ({onClose}) => {
+
         updateInfoUser(infoUser, token)
             .then((res) => {
                 setInfoUser(res)
@@ -110,10 +105,8 @@ export function InformationUser() {
                 setIsOpen(false)
             })
             .catch(() => {
-                toast.success("Cập nhập xa ra lỗi!")
+                toast.error("Cập nhập xa ra lỗi!")
             })
-            }
-        });
     }
 
 
