@@ -69,9 +69,9 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 5 ? <span><i className="fas fa-bell">
+                                                                {chosen === 1 ? <span><i className="fas fa-bell">
                                                                     </i>Thông báo ({notifications.length})</span> :
-                                                                    <span onClick={() => setChosen(5)}
+                                                                    <span onClick={() => setChosen(1)}
                                                                           style={{color: "#354052"}}>
                                                                         <i className="fas fa-bell"></i>Thông báo ({notifications.length})</span>
                                                                 }
@@ -93,11 +93,11 @@ export function HomeLover() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
-                                                                {chosen === 1 ? <span onClick={() => setChosen(1)}>
+                                                                {chosen === 5 ? <span onClick={() => setChosen(5)}>
                                                                     <i className="fas fa-user-tie"></i>
                                                                     Xem trang cá nhân
                                                                 </span> : <span style={{color: "#354052"}}
-                                                                                onClick={() => setChosen(1)}>
+                                                                                onClick={() => setChosen(5)}>
                                                                     <i className="fas fa-user-tie"></i>
                                                                     Xem trang cá nhân
                                                                 </span>
@@ -211,8 +211,8 @@ export function HomeLover() {
                                 </div>
                             </div>
                         </div>
-                        {chosen === 5 && <NotificationHomeLover/>}
-                        {chosen === 1 && <PageOfLover idLover={profileLover.id}/>}
+                        {chosen === 1 && <NotificationHomeLover/>}
+                        {chosen === 5 && <PageOfLover idLover={profileLover.id}/>}
                         {chosen === 3 && <EditInfoLover/>}
 
                         {chosen === 8 && <ListBillOfProfileLover/>}
