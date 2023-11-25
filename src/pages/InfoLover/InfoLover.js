@@ -8,9 +8,9 @@ import {toast, ToastContainer} from "react-toastify";
 import {ModalListImage} from "./ModalListImage";
 import {AppContext} from "../../context/AppContext";
 import {Comment} from "./Comment";
-import {Message} from "../../message/Message";
-import ChatRoom from "../../message/ChatRoom";
 import {Link} from "react-router-dom";
+import {ChatRoom} from "../../message/ChatRoom";
+import axios from "axios";
 
 const customStyles = {
     content: {
@@ -222,6 +222,12 @@ export function InfoLover() {
     // chat:
     const {showChat, setShowChat} = useContext(AppContext);
 
+    function chat() {
+        setShowChat(true)
+        axios.get("http://localhost:8080/createFirstMessage/" + idAccount + "/" + profileLover.account.id).then(() => {
+        })
+    }
+
     return (
         <>
             <ToastContainer/>
@@ -246,9 +252,9 @@ export function InfoLover() {
                     <audio src="../resources/raw/unconvinced.1de6c75d.mp3"/>
                 </div>
                 <div className="notifications-wrapper"/>
-                {/*{*/}
-                {/*    showChat &&  <Message idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>*/}
-                {/*}*/}
+                {
+                    showChat &&  <ChatRoom idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
+                }
                 <div className="wrapper">
                     <div className="container player-infomation">
                         <div className="player-profile-left-wrap col-md-3">
@@ -301,9 +307,7 @@ export function InfoLover() {
                                                     onClick={checkLover}>Thuê
                                             </button>
                                             <button className="btn-my-style white">Donate</button>
-                                            <button className="btn-my-style white" onClick={()=>setShowChat(true)}><i className="fas fa-comment-alt"></i>Chat
-                                            </button>
-                                            <Link to={"/demo/" + profileLover.account?.id}><button>Demo</button></Link>
+                                            <button className="btn-my-style white" onClick={chat}><i className="fas fa-comment-alt"></i>Chat</button>
                                         </>
                                     }
                                 </div>

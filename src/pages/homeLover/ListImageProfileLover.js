@@ -131,7 +131,9 @@ export const ListImageProfileLover = (drops) => {
     }
     return (
         <>
+
             <div className="list-container" style={{marginTop: '-31.5%', marginLeft: '25%'}}>
+
                 <div className="image-list">
                     {images.map((image, index) => {
 
