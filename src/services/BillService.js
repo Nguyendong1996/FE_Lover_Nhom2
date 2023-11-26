@@ -135,6 +135,23 @@ export function createBill(bill, token) {
         )
     })
 }
+export function save(bill, token) {
+    return new Promise((resolve) => {
+        resolve(
+            axios.post("http://localhost:8080/api/bill/createBills", bill,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(() => {
+
+                }).catch(() => {
+
+            })
+        )
+    })
+}
 export function acceptBillByIdAccountLover1(idBill, token) {
     return new Promise((resolve) => {
         resolve(
@@ -224,6 +241,24 @@ export const cancelBillUser = (id,token) =>{
     return new Promise((resolve) => {
         resolve(
             axios.get("http://localhost:8080/api/bill/cancelBill/" + id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}
+
+export const listBillProfileUserByEvaluate = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/bill/listBillProfileUserByEvaluate/" + id,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
