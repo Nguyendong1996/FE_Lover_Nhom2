@@ -10,7 +10,7 @@ import {listBillProfileUser} from "../../services/BillService";
 import {Evaluate} from "./Evaluate";
 
 export function InfoUser() {
-    const [chosen, setChosen] = useState(5)
+    const [chosen, setChosen] = useState(1)
     const [notifications, setNotifications] = useState([])
     const idAccount = localStorage.getItem("idAccount")
     const token = localStorage.getItem("token")

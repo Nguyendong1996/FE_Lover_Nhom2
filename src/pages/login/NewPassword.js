@@ -6,7 +6,7 @@ import {LoadingButton} from "./LoadingButton";
 import "../../css/FormLogin.css"
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
-
+import {toast, ToastContainer} from 'react-toastify';
 export function NewPassword() {
     const [account] = useState({
         nickname: "",
@@ -32,7 +32,7 @@ export function NewPassword() {
     function changePassword(account) {
         let code = document.getElementById("code-email-verification-2").value;
         if (code === "") {
-            return alert("Hãy điền mã xác nhận")
+            return toast.error("Hãy điền mã xác nhận")
         }
         setLoading2(true)
         try {
@@ -41,20 +41,20 @@ export function NewPassword() {
                 setLoading2(false)
             })
         } catch (error) {
-            alert("Không thể kết nối đến máy chủ!")
+            toast.error("Không thể kết nối đến máy chủ!")
         }
     }
     function sendCode() {
         let email = document.getElementById("email-form-forgot-password").value;
         if (email === "") {
-            return alert("Bạn chưa nhập email!")
+            return toast.error("Bạn chưa nhập email!")
         }
         setLoading1(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail2/" + email).then((res) => {
             alert(res.data);
             setLoading1(true)
         }).catch(() => {
-            alert("Địa chỉ email không đúng!")
+            toast.error("Địa chỉ email không đúng!")
             setLoading1(true)
         })
     }

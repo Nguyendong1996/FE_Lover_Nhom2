@@ -47,18 +47,20 @@ const Header = () => {
     // Lưu trạng thái vào localStorage mỗi khi biến 'chosen' thay đổi
     useEffect(() => {
         localStorage.setItem('chosen', chosen);
-        if (idAccount == null || role === "ROLE_ADMIN"){
+        if (idAccount == null || role === "ROLE_ADMIN") {
             setImage("../resources/raw/avatar6.png")
-        }else {
-        findByIdAccount(idAccount,token).then((res) =>{
-            setImage(res.avatarImage)
-        })}
-    }, [chosen,idAccount]);
+        } else {
+            findByIdAccount(idAccount, token).then((res) => {
+                setImage(res.avatarImage)
+            })
+        }
+    }, [chosen, idAccount]);
 
     const handleItemClick = (index) => {
         setChosen(index);
     };
     let subtitle;
+
     //tìm kiếm theo tên:
     function searchByName(event) {
         const value = event.target.value;
@@ -66,9 +68,6 @@ const Header = () => {
         setVisibleProducts(4)
         navigate("")
     }
-
-
-
 
 
     function openModal() {
@@ -129,7 +128,9 @@ const Header = () => {
                         <ul className="nav navbar-nav navbar-center">
                             <li className={`header-li-1 ${chosen === 1 ? 'chosen' : ''}`}>
                                 <Link to={"/"}>
-                                    <a href="#" style={{fontWeight: "bold", color: chosen === 1 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(1)}>
+                                    <a href="#"
+                                       style={{fontWeight: "bold", color: chosen === 1 ? "#d00d0d" : "rgb(53, 64, 82)"}}
+                                       onClick={() => handleItemClick(1)}>
                                         TRANG CHỦ
                                     </a>
                                 </Link>
@@ -139,7 +140,10 @@ const Header = () => {
                                 <li className={`header-li-1 ${chosen === 2 ? 'chosen' : ''}`}>
                                     {(role === "ROLE_LOVER") && (
                                         <Link to={"/homeProfileLover"}>
-                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 2 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(2)}>
+                                            <a href={"#"} style={{
+                                                fontWeight: "bold",
+                                                color: chosen === 2 ? "#d00d0d" : "rgb(53, 64, 82)"
+                                            }} onClick={() => handleItemClick(2)}>
                                                 TRANG LOVER
                                             </a>
                                         </Link>
@@ -148,26 +152,32 @@ const Header = () => {
                             }
                             {role === "ROLE_USER" &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng kí!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng kí!")}
+                                       style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")}
+                                       style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG LOVER</a>
                                 </li>
                             }
 
 
                             {role === null &&
                                 <li className={"header-li-1"}>
-                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a>
+                                    <a href="#" onClick={() => toast.error("Bạn chưa đăng nhập!")}
+                                       style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG USER</a>
                                 </li>
                             }
                             {(role === "ROLE_USER" || role === "ROLE_LOVER") &&
                                 <li className={`header-li-1 ${chosen === 3 ? 'chosen' : ''}`}>
                                     {(role === "ROLE_LOVER") && (
                                         <Link to={"/info-user/" + idAccount}>
-                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(3)}>
+                                            <a href={"#"} style={{
+                                                fontWeight: "bold",
+                                                color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"
+                                            }} onClick={() => handleItemClick(3)}>
                                                 TRANG USER
                                             </a>
                                         </Link>
@@ -175,11 +185,14 @@ const Header = () => {
                                 </li>
                             }
 
-                            {(role === "ROLE_USER" ) &&
+                            {(role === "ROLE_USER") &&
                                 <li className={`header-li-1 ${chosen === 3 ? 'chosen' : ''}`}>
                                     {(role === "ROLE_USER") && (
                                         <Link to={"/info-user/" + idAccount}>
-                                            <a href={"#"} style={{fontWeight: "bold", color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"}} onClick={() => handleItemClick(3)}>
+                                            <a href={"#"} style={{
+                                                fontWeight: "bold",
+                                                color: chosen === 3 ? "#d00d0d" : "rgb(53, 64, 82)"
+                                            }} onClick={() => handleItemClick(3)}>
                                                 TRANG USER
                                             </a>
                                         </Link>
@@ -189,7 +202,10 @@ const Header = () => {
 
                             {role === "ROLE_ADMIN" &&
                                 <li className={"header-li-1"}>
-                                    <Link to={"/home-admin/" + idAccount}><a href={"#"} style={{fontWeight: "bold", color: "rgb(53, 64, 82)"}}>TRANG ADMIN</a></Link>
+                                    <Link to={"/home-admin/" + idAccount}><a href={"#"} style={{
+                                        fontWeight: "bold",
+                                        color: "rgb(53, 64, 82)"
+                                    }}>TRANG ADMIN</a></Link>
                                 </li>
                             }
 
@@ -241,7 +257,7 @@ const Header = () => {
                                    className="dropdown-toggle"
                                    aria-haspopup="true" aria-expanded="false"
                                    href="#">
-                                    <img src={image} className="avt-img" alt="PD"/></a>
+                                    <img src={image} className="avt-img" alt="PD" style={{width:50, height:50}}/></a>
                             </li>
                             <li className={"item-icon balance"}><ButtonLogin isLogin={isLogin}/></li>
                         </ul>
@@ -307,8 +323,6 @@ const Header = () => {
                             </table>
                         </Modal>
                         {/*end modal*/}
-
-
 
 
                         {/*start modal TOP USER*/}

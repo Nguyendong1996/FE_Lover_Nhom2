@@ -8,17 +8,13 @@ import {NewPassword} from "./pages/login/NewPassword"
 import {InfoLover} from "./pages/InfoLover/InfoLover";
 import {InfoUser} from "./pages/infoUser/InfoUser";
 
-import {HomeProfileLover} from "./pages/HomeProfileLover/HomeProfileLover";
-import {ProfileLover} from "./pages/HomeProfileLover/ProfileLover";
-import {Information} from "./pages/HomeProfileLover/Information";
-import {ServiceProfileLover} from "./pages/HomeProfileLover/ServiceProfileLover";
+
 
 import {HomeAdmin} from "./pages/admin/HomeAdmin";
 
-import {ListBillOfProfileLover} from "./pages/HomeProfileLover/ListBillOfProfileLover";
+
 import {HomeLover} from "./pages/homeLover/HomeLover";
-import {InformationUser} from "./pages/infoUser/InformationUser";
-import {ToastContainer} from "react-toastify";
+
 
 
 
@@ -36,7 +32,7 @@ function App() {
                 <Route path={"/info-user/:id"} element={<InfoUser/>}></Route>
                 <Route path={"/home-admin/:id"} element={<HomeAdmin/>}></Route>
             </Route>
-      </Routes>
+        </Routes>
     )
 }
 

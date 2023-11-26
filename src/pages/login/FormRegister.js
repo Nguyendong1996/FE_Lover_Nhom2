@@ -6,7 +6,7 @@ import {LoadingButton} from "./LoadingButton";
 import "../../css/FormLogin.css"
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
-
+import {toast, ToastContainer} from 'react-toastify';
 export function FormRegister() {
     const [account] = useState({
         nickname: "",
@@ -29,7 +29,7 @@ export function FormRegister() {
     function sendCodeToEmail() {
         let email = document.getElementById("email-form-register").value;
         if (email === "") {
-            return alert("Bạn chưa nhập email!")
+            return toast.error("Bạn chưa nhập email!")
         }
         setLoading1(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail/" + email).then((res) => {
@@ -41,32 +41,38 @@ export function FormRegister() {
     function registerNewAccount(account) {
         let code = document.getElementById("code-email-verification").value;
         if (code === "") {
-            return alert("Hãy điền mã xác nhận")
+            return toast.error("Hãy điền mã xác nhận")
         }
         setLoading2(true)
+        console.log(code, account)
+        const account2 = {
+            username: account.username,
+            email: account.email,
+            password: account.password,
+            nickname: account.nickname
+        }
         try {
-            axios.post("http://localhost:8080/api/createNewAccount/" + code, account).then((res) => {
+            axios.post("http://localhost:8080/api/createNewAccount/" + code, account2).then((res) => {
                 setLoading2(false)
-                console.log(res.data)
                 if (res.data === 1) {
-                    return alert("Nickname đã tồn tại!")
+                    return toast.error("Nickname đã tồn tại!")
                 }
                 if (res.data === 2) {
-                    return alert("Username đã tồn tại!")
+                    return  toast.error("Username đã tồn tại!")
                 }
                 if (res.data === 3) {
-                    return alert("Email đã tồn tại!")
+                    return  toast.error("Email đã tồn tại!")
                 }
                 if (res.data === 4) {
-                    alert("Tạo tài khoản thành công!")
+                    toast.success("Tạo tài khoản thành công!")
                     navigate("/login")
                 }
                 if (res.data === 5) {
-                    return alert("Mã xác nhận không khớp!")
+                    return  toast.error("Mã xác nhận không khớp!")
                 }
             })
         } catch (error) {
-            alert("Không thể kết nối đến máy chủ!")
+            toast.error("Không thể kết nối đến máy chủ!")
         }
     }
 

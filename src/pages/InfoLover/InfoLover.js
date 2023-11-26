@@ -10,7 +10,9 @@ import {AppContext} from "../../context/AppContext";
 import {Comment} from "./Comment";
 import {Message} from "../../message/Message";
 import {findAllByIdAccountReceive} from "../../services/CommentService";
-
+import {Link} from "react-router-dom";
+import {ChatRoom} from "../../message/ChatRoom";
+import axios from "axios";
 const customStyles = {
     content: {
         top: '50%',
@@ -236,6 +238,12 @@ export function InfoLover() {
     // chat:
     const {showChat, setShowChat} = useContext(AppContext);
 
+    function chat() {
+        setShowChat(true)
+        axios.get("http://localhost:8080/createFirstMessage/" + idAccount + "/" + profileLover.account.id).then(() => {
+        })
+    }
+
     return (
         <>
             <ToastContainer/>
@@ -261,7 +269,7 @@ export function InfoLover() {
                 </div>
                 <div className="notifications-wrapper"/>
                 {
-                    showChat &&  <Message idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
+                    showChat &&  <ChatRoom idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
                 }
                 <div className="wrapper">
                     <div className="container player-infomation">
@@ -315,12 +323,9 @@ export function InfoLover() {
                                                     onClick={checkLover}>Thuê
                                             </button>
                                             <button className="btn-my-style white">Donate</button>
-                                            <button className="btn-my-style white" onClick={()=>setShowChat(true)}><i className="fas fa-comment-alt"></i>Chat
-                                            </button>
+                                            <button className="btn-my-style white" onClick={chat}><i className="fas fa-comment-alt"></i>Chat</button>
                                         </>
                                     }
-
-
                                 </div>
                             </div>
                         </div>
