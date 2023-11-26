@@ -44,10 +44,16 @@ export function FormRegister() {
             return toast.error("Hãy điền mã xác nhận")
         }
         setLoading2(true)
+        console.log(code, account)
+        const account2 = {
+            username: account.username,
+            email: account.email,
+            password: account.password,
+            nickname: account.nickname
+        }
         try {
-            axios.post("http://localhost:8080/api/createNewAccount/" + code, account).then((res) => {
+            axios.post("http://localhost:8080/api/createNewAccount/" + code, account2).then((res) => {
                 setLoading2(false)
-                console.log(res.data)
                 if (res.data === 1) {
                     return toast.error("Nickname đã tồn tại!")
                 }

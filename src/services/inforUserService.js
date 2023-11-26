@@ -42,7 +42,6 @@ export function updateAvatarUser(url, id, token) {
                         Authorization: `Bearer ${token}`
                     }
                 }).catch(() => {
-                alert("Lỗi!")
             })
         )
     })
