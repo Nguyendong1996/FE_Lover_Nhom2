@@ -8,9 +8,7 @@ import {AppContext} from "../../context/AppContext";
 import "../../css/InfoUser.css"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {Message} from "../../message/Message";
 import {FormComment} from "../../comment/FormComment";
-import {Button, Modal} from "react-bootstrap";
 export function Evaluate() {
     const [bills, setBills] = useState([])
     const [bill, setBill] = useState({})

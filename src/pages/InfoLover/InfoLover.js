@@ -8,7 +8,6 @@ import {toast, ToastContainer} from "react-toastify";
 import {ModalListImage} from "./ModalListImage";
 import {AppContext} from "../../context/AppContext";
 import {Comment} from "./Comment";
-import {Message} from "../../message/Message";
 import {findAllByIdAccountReceive} from "../../services/CommentService";
 import {Link} from "react-router-dom";
 import {ChatRoom} from "../../message/ChatRoom";

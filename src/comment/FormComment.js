@@ -3,7 +3,6 @@ import "./FormComment.css"
 import {AppContext} from "../context/AppContext";
 import {Field, Form, Formik} from "formik";
 import {createCommentByBill} from "../services/CommentService";
-import {findByIdLover} from "../services/ProfileLoverService";
 import {createBill, save} from "../services/BillService";
 
 export function FormComment(props) {
