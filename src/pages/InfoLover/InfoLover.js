@@ -8,10 +8,11 @@ import {toast, ToastContainer} from "react-toastify";
 import {ModalListImage} from "./ModalListImage";
 import {AppContext} from "../../context/AppContext";
 import {Comment} from "./Comment";
+import {Message} from "../../message/Message";
+import {findAllByIdAccountReceive} from "../../services/CommentService";
 import {Link} from "react-router-dom";
 import {ChatRoom} from "../../message/ChatRoom";
 import axios from "axios";
-
 const customStyles = {
     content: {
         top: '50%',
@@ -49,6 +50,7 @@ export function InfoLover() {
     const {check, setCheck} = useContext(AppContext);
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [idAccountProfileLover,setIdAccountProfileLover] = useState(2)
 
     function openModal() {
         setIsOpen(true);
@@ -104,8 +106,10 @@ export function InfoLover() {
                 setBaseService(res.serviceLovers)
                 setLinkFb(res.facebookLink)
                 setStatusProfileLover(res.statusLover)
+                setIdAccountProfileLover(res.account?.id)
+                console.log(idAccountProfileLover)
             })
-    }, [id])
+    }, [id,idAccountProfileLover])
 
     useEffect(() => {
         findImagesByIdLover(id)
@@ -113,6 +117,18 @@ export function InfoLover() {
                 setImages(res)
             })
     }, [id])
+    const [comment,setComment] =useState([]);
+
+    useEffect(() => {
+        findAllByIdAccountReceive(idAccountProfileLover,token)
+            .then((res) => {
+                setComment(res);
+                console.log(res);
+            })
+            .catch(() => {
+                return [];
+            });
+    }, [idAccountProfileLover, id]);
 
 
     function changeTime(time) {
@@ -910,7 +926,7 @@ export function InfoLover() {
                                                     <div className="col-xs-6"><span>Đánh giá</span>
                                                     </div>
                                                 </div>
-                                                <Comment/>
+                                                <Comment id ={idAccountProfileLover}/>
                                             </div>
                                         </div>
                                     </div>

@@ -1,0 +1,53 @@
+.message__popup--icon {
+    border: 1px solid black;
+}
+#btn-chat-1 {
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    color: #f0564a;
+    margin-right: 3px;
+    border-radius: 10px;
+}
+#btn-chat-1:hover {
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    background-color: #f0564a;
+}
+.star-rating {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse; /* Đổi hướng từ phải sang trái */
+}
+.star-rating {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.star-rating h4 {
+    margin-right: 10px;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/lover1-f037d.appspot.com/o/images%2Fngoisao.jpegac1d94f8-e2c7-4df8-a069-f864a72a0d67?alt=media&token=edc74de7-e512-49b3-b244-d54f6cf5a390"); /* Đường dẫn đến hình ảnh ngôi sao */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    filter: brightness(150%); /* Thay đổi độ sáng của hình ảnh khi được chọn */
+}
