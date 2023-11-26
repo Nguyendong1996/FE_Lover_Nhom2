@@ -20,6 +20,7 @@ export function FormLogin() {
             localStorage.setItem("idAccount", res.data.id)
             localStorage.setItem("role", res.data.roles[0].authority)
             setLoading(false)
+            console.log(res.data.token)
             if (res.data.roles[0].authority === "ROLE_ADMIN") {
                 navigate("/home-admin/" + res.data.id)
             } else {

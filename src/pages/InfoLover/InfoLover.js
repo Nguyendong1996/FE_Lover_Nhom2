@@ -253,7 +253,7 @@ export function InfoLover() {
                 </div>
                 <div className="notifications-wrapper"/>
                 {
-                    showChat &&  <ChatRoom idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
+                    showChat && <ChatRoom idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
                 }
                 <div className="wrapper">
                     <div className="container player-infomation">
@@ -307,7 +307,9 @@ export function InfoLover() {
                                                     onClick={checkLover}>Thuê
                                             </button>
                                             <button className="btn-my-style white">Donate</button>
-                                            <button className="btn-my-style white" onClick={chat}><i className="fas fa-comment-alt"></i>Chat</button>
+                                            <button className="btn-my-style white" onClick={chat}><i
+                                                className="fas fa-comment-alt"></i>Chat
+                                            </button>
                                         </>
                                     }
                                 </div>
