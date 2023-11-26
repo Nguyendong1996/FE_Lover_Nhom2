@@ -170,3 +170,12 @@ export const findAllLoverByIdRoles = (idRoles) =>{
         )
     })
 }
+export const updateProfileLoverByComment = (profileLover) =>{
+    return new Promise(resolve => {
+        resolve(
+            axios.post("http://localhost:8080/api/profileLoves",profileLover).then(() =>{
+                }
+            )
+        )
+    })
+}
