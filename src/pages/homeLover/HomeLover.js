@@ -13,7 +13,11 @@ import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
 import {listBillProfileLover} from "../../services/BillService";
 import {findByIdLover} from "../../services/ProfileLoverService";
 import {ListImageProfileLover} from "./ListImageProfileLover";
+
 import {ChatRoom} from "../../message/ChatRoom";
+
+import {Comment} from "../InfoLover/Comment";
+
 
 export function HomeLover() {
     const [chosen, setChosen] = useState(1)
@@ -230,7 +234,6 @@ export function HomeLover() {
                         {chosen === 2 && <HistoryBillProfileLover/>}
                         {chosen === 7 && <UpdateServicesLover/>}
                         {chosen === 9 && <ListImageProfileLover profleLover = {profileLover}/>}
-
                     </div>
                 </div>
             </div>

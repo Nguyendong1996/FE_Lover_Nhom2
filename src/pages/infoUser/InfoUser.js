@@ -7,8 +7,12 @@ import {NotificationInfoUser} from "./NotificationInfoUser";
 import {HistoryPay} from "./HistoryPay";
 import {ListBillProfileUser} from "./ListBillProfileUser";
 import {listBillProfileUser} from "../../services/BillService";
+
 import {ChatRoom} from "../../message/ChatRoom";
 import {findByIdAccount} from "../../services/inforUserService";
+
+import {Evaluate} from "./Evaluate";
+
 
 export function InfoUser() {
     const [chosen, setChosen] = useState(1)
@@ -180,6 +184,22 @@ export function InfoUser() {
                                                     <div className="menu__setting--sub panel panel-default">
                                                         <div className="panel-heading">
                                                             <div className="active panel-title">
+                                                                {
+                                                                    chosen === 9 ? <span onClick={()=>setChosen(9)}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    đánh giá ({bills.length})
+                                                                </span> : <span style={{color: "#354052"}}
+                                                                                onClick={()=>{setChosen(9)}}>
+                                                                    <i className="fas fa-list"></i>
+                                                                    Đánh Giá ({bills.length})
+                                                                </span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="menu__setting--sub panel panel-default">
+                                                        <div className="panel-heading">
+                                                            <div className="active panel-title">
                                                                 <span style={{color: "#354052"}}>
                                                                     <i className="fas fa-wallet"></i> Ví
                                                                 </span>
@@ -200,6 +220,7 @@ export function InfoUser() {
                         {chosen === 5 && <NotificationInfoUser/>}
                         {chosen === 2 && <HistoryPay/>}
                         {chosen === 8 && <ListBillProfileUser/>}
+                        {chosen === 9 && <Evaluate/>}
                     </div>
                 </div>
             </div>
