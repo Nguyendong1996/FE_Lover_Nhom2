@@ -7,7 +7,12 @@ import {NotificationInfoUser} from "./NotificationInfoUser";
 import {HistoryPay} from "./HistoryPay";
 import {ListBillProfileUser} from "./ListBillProfileUser";
 import {listBillProfileUser} from "../../services/BillService";
+
+import {ChatRoom} from "../../message/ChatRoom";
+import {findByIdAccount} from "../../services/inforUserService";
+
 import {Evaluate} from "./Evaluate";
+
 
 export function InfoUser() {
     const [chosen, setChosen] = useState(1)
@@ -44,6 +49,19 @@ export function InfoUser() {
         setChosen(4)
     }
 
+    const {showChat, setShowChat} = useContext(AppContext);
+
+    function showMessage2() {
+        setShowChat(true);
+        setChosen(6)
+    }
+    const [profileUser, setProfileUser] = useState({})
+    useEffect(()=>{
+        findByIdAccount().then((res)=>{
+            setProfileUser(res)
+        })
+    },[])
+
     return (
         <>
             <meta charSet="UTF-8"/>
@@ -62,6 +80,10 @@ export function InfoUser() {
                   href="../resources/9.cb7de3a7.chunk.css"/>
             <link rel="stylesheet" href="../resources/css-user-information.css"/>
             <link rel="stylesheet" href="../resources/css-user-profile.css" />
+            <div className="notifications-wrapper"/>
+            {
+                showChat && <ChatRoom idLover={idAccount} nickname={profileUser.account?.nickname}/>
+            }
             <div id="root" style={{marginTop: 80}}>
                 <div className="wrapper">
                     <div className="setting__main row">
@@ -89,7 +111,7 @@ export function InfoUser() {
                                                             <div className="active panel-title">
                                                                 {chosen === 6
                                                                     ? <span><i className="fas fa-comment"></i>Tin nhắn</span>
-                                                                    : <span onClick={() => setChosen(6)}
+                                                                    : <span onClick={showMessage2}
                                                                             style={{color: "#354052"}}><i
                                                                         className="fas fa-comment"></i>Tin nhắn</span>
                                                                 }

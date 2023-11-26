@@ -13,7 +13,11 @@ import {HistoryBillProfileLover} from "./HistoryBillProfileLover";
 import {listBillProfileLover} from "../../services/BillService";
 import {findByIdLover} from "../../services/ProfileLoverService";
 import {ListImageProfileLover} from "./ListImageProfileLover";
+
+import {ChatRoom} from "../../message/ChatRoom";
+
 import {Comment} from "../InfoLover/Comment";
+
 
 export function HomeLover() {
     const [chosen, setChosen] = useState(1)
@@ -40,6 +44,12 @@ export function HomeLover() {
             })
     }, [idAccount, check])
 
+    const {showChat, setShowChat} = useContext(AppContext);
+    function showMessage() {
+        setShowChat(true);
+        setChosen(6)
+    }
+
     return (
         <>
             <meta charSet="UTF-8"/>
@@ -57,6 +67,10 @@ export function HomeLover() {
             <link rel="stylesheet" type="text/css"
                   href="../resources/9.cb7de3a7.chunk.css"/>
             <link rel="stylesheet" href="../resources/css-user-information.css"/>
+            <div className="notifications-wrapper"/>
+            {
+                showChat && <ChatRoom idLover={profileLover.account.id} nickname={profileLover.account.nickname}/>
+            }
             <div id="root" style={{marginTop: 80}}>
                 <div className="wrapper">
                     <div className="setting__main row">
@@ -84,7 +98,7 @@ export function HomeLover() {
                                                             <div className="active panel-title">
                                                                 {chosen === 6
                                                                     ? <span><i className="fas fa-comment"></i>Tin nhắn</span>
-                                                                    : <span onClick={() => setChosen(6)}
+                                                                    : <span onClick={showMessage}
                                                                             style={{color: "#354052"}}><i
                                                                         className="fas fa-comment"></i>Tin nhắn</span>
                                                                 }
