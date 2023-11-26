@@ -2,12 +2,27 @@ import React, {useContext, useEffect, useState} from "react";
 import "./FormComment.css"
 import {AppContext} from "../context/AppContext";
 import {Field, Form, Formik} from "formik";
-import {createCommentByBill} from "../services/CommentService";
+import {createCommentByBill, findAllByIdAccountReceive} from "../services/CommentService";
 import {createBill, save} from "../services/BillService";
+import {findByIdLover, updateProfileLover, updateProfileLoverByComment} from "../services/ProfileLoverService";
+import {toast} from "react-toastify";
 
 export function FormComment(props) {
     const {showComment, setShowComment} = useContext(AppContext);
     const token = localStorage.getItem("token")
+    const [profileLover,setProfileLover] = useState({})
+    const [comments,setComment] = useState([]);
+
+    useEffect(() =>{
+        findByIdLover(props.bill.accountLover?.id).then((res) =>{
+            setProfileLover(res)
+        }).catch(() =>{
+            return {}
+        })
+        findAllByIdAccountReceive(props.bill.accountLover?.id).then((res) =>{
+            setComment(res)
+        }).catch(() =>{return []})
+    },[props.bill],showComment)
     const handleSubmit = (values) => {
         const comment = {
             accountSend:{
@@ -26,13 +41,17 @@ export function FormComment(props) {
             ... props.bill,
            assessment:true,
         }
-        console.log(comment);
+        const profileLovers = {
+            ...profileLover,
+            averageRateScore:(parseFloat(profileLover.averageRateScore)*comments.length + parseFloat(values.rating))/(comments.length+1),
+        }
         createCommentByBill(comment).then(() =>{
-            alert("cam on ban da danh gia")
+            toast.success("Cảm ơn bạn đã đánh giá chất lượng dịch vụ")
         })
         save(bills,token).then(() =>{
         })
-
+        updateProfileLoverByComment(profileLovers).then()
+setShowComment(!showComment)
     };
     return (
         <>
