@@ -71,6 +71,7 @@ export function NotificationInfoUser() {
                                             <tr>
                                                 <td>{index + 1}.</td>
                                                 <td style={{width: 750}}>{item.content}</td>
+                                                <td style={{width: 200}}>{item.timeSend.slice(0,10)} <br/> {item.timeSend.slice(11,19)}</td>
                                                 <td>
                                                     <button className={"btn btn-primary"} id={"btn-1"}
                                                             onClick={() => {
