@@ -33,7 +33,13 @@ export function FormRegister() {
         }
         setLoading1(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail/" + email).then((res) => {
-            alert(res.data);
+
+            if (res.data === 1) {
+                toast.error("Email này đã được sử dụng")
+            }
+            if (res.data === 2) {
+                toast.success("Mã xác nhận đã gửi đến email của bạn!")
+            }
             setLoading1(false)
         })
     }

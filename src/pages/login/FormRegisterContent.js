@@ -29,7 +29,7 @@ export function FormRegisterContent({prop}) {
         }
         setLoading1(true)
         axios.post("http://localhost:8080/api/sendCodeToEmail/" + email).then((res) => {
-            alert(res.data);
+            toast.success(res.data);
             setLoading1(false)
         })
     }

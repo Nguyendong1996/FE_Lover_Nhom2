@@ -92,7 +92,7 @@ export function InformationAccount() {
         }
         userSendRequestRegisterToLover(newProfileLover, id, token)
             .then((res) => {
-                alert(res)
+                toast.success(res)
                 setIsOpen(false)
                 setCheck(!check)
             }).catch(() => {
