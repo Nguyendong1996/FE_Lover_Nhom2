@@ -2,7 +2,12 @@ import React, {useContext, useEffect, useState} from "react";
 import "./FormComment.css"
 import {AppContext} from "../context/AppContext";
 import {Field, Form, Formik} from "formik";
-import {createCommentByBill, findAllByIdAccountReceive, findCommentByIdBill} from "../services/CommentService";
+import {
+    createCommentByBill,
+    findAllByIdAccountReceive,
+    findCommentByIdBill,
+    updateCommentByBill
+} from "../services/CommentService";
 import {createBill, save} from "../services/BillService";
 import {findByIdLover, updateProfileLover, updateProfileLoverByComment} from "../services/ProfileLoverService";
 import {toast} from "react-toastify";
@@ -66,8 +71,14 @@ export function FormComment(props) {
                 content: values.content,
                 rating: values.rating,
             }
-            createCommentByBill(comment).then(() => {
+            const profileLovers = {
+                ...profileLover,
+                averageRateScore: (parseFloat(profileLover.averageRateScore) * comments.length + parseFloat(values.rating) - parseFloat(commentDTO.rating)) / (comments.length),
+            }
+            updateCommentByBill(comment).then(() => {
                 toast.success(" bạn đã sửa đánh giá chất lượng dịch vụ thành công")
+                updateProfileLoverByComment(profileLovers).then()
+                setShowComment(!showComment)
             })
         }
     };
