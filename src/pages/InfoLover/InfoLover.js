@@ -118,7 +118,7 @@ export function InfoLover() {
             .catch(() => {
                 return [];
             });
-    }, [id, idAccountProfileLover,comment])
+    }, [id, idAccountProfileLover])
 
     useEffect(() => {
         findImagesByIdLover(id)
