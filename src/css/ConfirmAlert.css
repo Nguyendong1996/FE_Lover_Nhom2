@@ -23,10 +23,10 @@
     background-color: #f0564a;
     border: none;
     border-radius: 2px;
-    /*margin-left: 10px;*/
+    margin-left: 10px;
     width: 70px;
     height: 30px;
-    /*margin-right: 10px;*/
+    margin-right: 10px;
 }
 .custom-confirm-alert-button:hover {
     color: #f0564a;

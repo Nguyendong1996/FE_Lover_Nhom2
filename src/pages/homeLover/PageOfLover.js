@@ -11,6 +11,7 @@ import {findImagesByIdLover} from "../../services/ImageService";
 import {findAllByIdAccountReceive} from "../../services/CommentService";
 import {Comment} from "../InfoLover/Comment";
 import {toast, ToastContainer} from 'react-toastify';
+
 export function PageOfLover(props) {
     const [profileLover, setProfileLover] = useState({})
     const [loading, setLoading] = useState(false)
@@ -18,7 +19,7 @@ export function PageOfLover(props) {
     const [check, setCheck] = useState(false);
     let id = localStorage.getItem("idAccount");
     const [isEditingPrice, setIsEditingPrice] = useState(false);
-    const [comment,setComment] =useState([]);
+    const [comment, setComment] = useState([]);
 
     useEffect(() => {
         findByIdLover(id).then((res) => {
@@ -80,7 +81,7 @@ export function PageOfLover(props) {
         }
         createProfileLover(updatedProfileLover).then(() => {
                 setCheck(!check)
-                return  toast.success("update thanh cong !!!")
+                return toast.success("update thanh cong !!!")
             }
         );
         setIsEditingPrice(false); // Tắt chế độ chỉnh sửa
@@ -193,10 +194,10 @@ export function PageOfLover(props) {
                                     <div>
                                         <div className="nav-player-profile row"
                                              style={{color: "#f0564a", fontWeight: "bold"}}>
-                                            <div className="col-md-3 col-xs-6" style={{width: 130, marginLeft: 50}}>
+                                            <div className="col-md-3 col-xs-6" style={{width: 130, marginLeft: 10}}>
                                                 <div className="item-nav-name"><span>Số Lượt thuê</span></div>
                                                 <div className="item-nav-value">{profileLover.totalViews}
-                                                    <span>Lượt</span></div>
+                                                    <span> Lượt</span></div>
                                             </div>
                                             <div className="col-md-3 col-xs-6" style={{width: 180}}>
                                                 <div className="item-nav-name"><span>Thời gian được thuê</span></div>
@@ -208,9 +209,12 @@ export function PageOfLover(props) {
                                                 <div className="item-nav-name"><span>Tỷ lệ hoàn thành</span></div>
                                                 <div className="item-nav-value">100&nbsp;%</div>
                                             </div>
-                                            <div className="col-md-3 col-xs-6" style={{width: 100}}>
+                                            <div className="col-md-3 col-xs-6" style={{width: 150}}>
                                                 <div className="item-nav-name"><span>Thu nhập</span></div>
-                                                <div className="item-nav-value">{profileLover.totalMoneyRented.toLocaleString()} vnd</div>
+
+                                                <div className="item-nav-value">{profileLover.totalMoneyRented} vnđ
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div>
@@ -289,6 +293,11 @@ export function PageOfLover(props) {
                                                     {profileLover.serviceLovers?.map((item) => {
                                                         return (
                                                             <div style={{fontSize: 15, marginTop: 5}}>
+                                                                <img src={item.avatarService} alt="" style={{
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    borderRadius: "50%"
+                                                                }}/>
                                                                 {item.name}
                                                             </div>
                                                         )
@@ -298,6 +307,11 @@ export function PageOfLover(props) {
                                                     {profileLover.vipServices?.map((item) => {
                                                         return (
                                                             <div style={{fontSize: 15, marginTop: 5}}>
+                                                                <img src={item.avatarService} alt="" style={{
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    borderRadius: "50%"
+                                                                }}/>
                                                                 {item.name}
                                                             </div>
                                                         )
@@ -307,6 +321,11 @@ export function PageOfLover(props) {
                                                     {profileLover.freeServices?.map((item) => {
                                                         return (
                                                             <div style={{fontSize: 15, marginTop: 5}}>
+                                                                <img src={item.avatarService} alt="" style={{
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    borderRadius: "50%"
+                                                                }}/>
                                                                 {item.name}
                                                             </div>
                                                         )
@@ -399,12 +418,14 @@ export function PageOfLover(props) {
                                                         <div className="total-amount col-xs-4">297,651,000 đ
                                                         </div>
                                                     </div>
-                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>ĐÁNH GIÁ</div>
-                                                    <div className="text-center review-duo-player row">
-                                                        <div className="col-md-12">
-                                                            <Comment id={id}/>
+                                                    <br/>
+                                                    <div style={{fontSize: 20, fontWeight: "bold"}}>ĐÁNH GIÁ
+                                                    </div>
+                                                    <div style={{textAlign: "left"}}>
+                                                        <div className="title-player-profile row">
                                                         </div>
                                                     </div>
+                                                    <Comment id={id}/>
                                                 </div>
                                             </div>
                                         </div>

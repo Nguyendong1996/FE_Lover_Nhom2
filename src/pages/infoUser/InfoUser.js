@@ -187,7 +187,7 @@ export function InfoUser() {
                                                                 {
                                                                     chosen === 9 ? <span onClick={()=>setChosen(9)}>
                                                                     <i className="fas fa-list"></i>
-                                                                    đánh giá ({bills.length})
+                                                                    Đánh giá ({bills.length})
                                                                 </span> : <span style={{color: "#354052"}}
                                                                                 onClick={()=>{setChosen(9)}}>
                                                                     <i className="fas fa-list"></i>
