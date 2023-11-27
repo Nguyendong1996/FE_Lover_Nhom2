@@ -9,6 +9,7 @@ import "./HomeLover.css"
 import {confirmAlert} from "react-confirm-alert";
 import {deleteNotificationById} from "../../services/inforUserService";
 import {toast} from "react-toastify";
+
 export function ListBillOfProfileLover() {
     const token = localStorage.getItem("token")
     let id = localStorage.getItem("idAccount")
@@ -76,17 +77,17 @@ export function ListBillOfProfileLover() {
                             <div className="custom-confirm-alert-buttons">
                                 <button className="custom-confirm-alert-button" onClick={() => {
                                     acceptBillByIdAccountLover1(bill.id, token)
-                                            .then((res) => {
-                                                console.log(res)
-                                                handleChangeCheck(check)
-                                                if (res === 1) {
-                                                    return toast.error("Bạn đang có 1 đơn chưa hoàn thành!")
-                                                }
-                                                if (res === 2) {
-                                                    return toast.error("Đơn này đã được người thuê huỷ trước đó!")
-                                                }
-                                                toast.success(res)
-                                            })
+                                        .then((res) => {
+                                            console.log(res)
+                                            handleChangeCheck(check)
+                                            if (res === 1) {
+                                                return toast.error("Bạn đang có 1 đơn chưa hoàn thành!")
+                                            }
+                                            if (res === 2) {
+                                                return toast.error("Đơn này đã được người thuê huỷ trước đó!")
+                                            }
+                                            toast.success(res)
+                                        })
                                     onClose();
                                 }}>
                                     Có
@@ -113,7 +114,8 @@ export function ListBillOfProfileLover() {
                         <div className="custom-confirm-alert">
                             <span></span>
                             <h3 className="custom-confirm-alert-title">XÁC NHẬN</h3>
-                            <p className="custom-confirm-alert-message">Bạn có chắc chắn đơn này đã hoàn thành không?</p>
+                            <p className="custom-confirm-alert-message">Bạn có chắc chắn đơn này đã hoàn thành
+                                không?</p>
                             <div className="custom-confirm-alert-buttons">
                                 <button className="custom-confirm-alert-button" onClick={() => {
                                     doneBillByLover1(bill.id, id, token)
@@ -141,95 +143,86 @@ export function ListBillOfProfileLover() {
 
     return (
         <>
-            <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                <div className="aside">
-                    <div className="row">
-                        <div className="col-md-6 col-sm-12 col-xs-12 personalinfo" style={{width: "auto"}}>
-                            <div id={"div-container-info-user"}>
-                                <table className="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Người đặt</th>
-                                        <th>Thời gian đặt</th>
-                                        <th>Đặt lúc</th>
-                                        <th>Danh sách dịch vụ Vip được yêu cầu</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Trạng thái</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {bills.map((item, index) => (
-                                        <tr key={index}>
-                                            <td>{index + 1}</td>
-                                            <td>{item.accountUser?.nickname}</td>
-                                            <td>{item.time} giờ</td>
-                                            <td>{item.createdAt}</td>
-                                            <td>
-                                                {item.vipServices?.map((item2, serviceIndex) => (
-                                                    <span key={serviceIndex}>
-                                {item2.name} ({item2.price} vnđ/giờ)
-                                <br />
+            <div>
+                <table className="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td style={{fontWeight: "bold"}}>#</td>
+                        <td style={{fontWeight: "bold", width: 90}}>Người đặt</td>
+                        <td style={{fontWeight: "bold", width: 90}}>Thời gian</td>
+                        <td style={{fontWeight: "bold", width: 90}}>Đặt lúc</td>
+                        <td style={{fontWeight: "bold", width: 320}}>Danh sách dịch vụ VIP</td>
+                        <td style={{fontWeight: "bold", width: 90}}>Tổng tiền</td>
+                        <td style={{fontWeight: "bold"}}>Trạng thái</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {bills.map((item, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{item.accountUser?.nickname}</td>
+                            <td>{item.time} giờ</td>
+                            <td>{item.createdAt.slice(0, 10)} <br/> {item.createdAt.slice(11, 19)}</td>
+                            <td style={{textAlign:"left"}}>
+                                {item.vipServices?.map((item2, serviceIndex) => (
+                                    <span key={serviceIndex}>
+                                <span style={{fontWeight: "bold"}}>{item2.name}</span>(+{item2.price} vnđ/giờ)
+                                <br/>
                             </span>
-                                                ))}
-                                            </td>
-                                            <td>{item.totalMoney} vnđ</td>
-                                            <td>{item.statusBill?.name}</td>
-                                            {item.statusBill?.id === 3 && (
-                                                <>
-                                                    <td></td>
-                                                    <td></td>
-                                                </>
-                                            )}
-                                            {item.statusBill?.id === 1 && (
-                                                <td>
-                                                    <button
-                                                        className="btn btn-primary"
-                                                        onClick={() => {
-                                                            acceptBill(item);
-                                                        }}
-                                                    >
-                                                        Xác nhận
-                                                    </button>
-                                                </td>
-                                            )}
-                                            {item.statusBill?.id === 2 && <></>}
-                                            {item.statusBill?.id === 1 && (
-                                                <td>
-                                                    <button
-                                                        className="btn btn-danger"
-                                                        onClick={() => {
-                                                            rejectBill(item);
-                                                        }}
-                                                    >
-                                                        Từ chối
-                                                    </button>
-                                                </td>
-                                            )}
-                                            {item.statusBill?.id === 2 && (
-                                                <td colSpan={2} className="btn-cell">
-                                                    <button
-                                                        className="btn btn-success"
-                                                        id={"btn-submit-2"}
-                                                        onClick={() => {
-                                                            doneBill(item);
-                                                        }}
-                                                    >
-                                                        Hoàn thành
-                                                    </button>
-                                                </td>
-                                            )}
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                ))}
+                            </td>
+                            <td>{item.totalMoney} vnđ</td>
+                            <td>{item.statusBill?.name}</td>
+                            {item.statusBill?.id === 3 && (
+                                <>
+                                    <td></td>
+                                    <td></td>
+                                </>
+                            )}
+                            {item.statusBill?.id === 1 && (
+                                <td>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            acceptBill(item);
+                                        }}
+                                    >
+                                        Xác nhận
+                                    </button>
+                                </td>
+                            )}
+                            {item.statusBill?.id === 2 && <></>}
+                            {item.statusBill?.id === 1 && (
+                                <td>
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => {
+                                            rejectBill(item);
+                                        }}
+                                    >
+                                        Từ chối
+                                    </button>
+                                </td>
+                            )}
+                            {item.statusBill?.id === 2 && (
+                                <td colSpan={2} className="btn-cell">
+                                    <button
+                                        className="btn btn-success"
+                                        id={"btn-submit-2"}
+                                        onClick={() => {
+                                            doneBill(item);
+                                        }}
+                                    >
+                                        Hoàn thành
+                                    </button>
+                                </td>
+                            )}
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
+
         </>
     )
 }
