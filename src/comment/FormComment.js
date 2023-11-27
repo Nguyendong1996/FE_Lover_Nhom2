@@ -1,16 +1,17 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./FormComment.css"
 import {AppContext} from "../context/AppContext";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import {
     createCommentByBill,
     findAllByIdAccountReceive,
-    findCommentByIdBill,
+    findCommentByIdBill, listCommentByIdAccountSend,
     updateCommentByBill
 } from "../services/CommentService";
 import {createBill, save} from "../services/BillService";
 import {findByIdLover, updateProfileLover, updateProfileLoverByComment} from "../services/ProfileLoverService";
 import {toast} from "react-toastify";
+import * as Yup from "yup";
 
 export function FormComment(props) {
     const {showComment, setShowComment} = useContext(AppContext);
@@ -18,6 +19,11 @@ export function FormComment(props) {
     const [profileLover,setProfileLover] = useState({})
     const [comments,setComment] = useState([]);
     const [commentDTO,setCommentDTO] = useState({})
+    const [commentAccountSend,setCommentAccountSend] = useState([])
+    let count = 0;
+    const validationSchema = Yup.object().shape({
+        rating: Yup.string().required("Vui lòng chọn một đánh giá"),
+    });
 
     useEffect(() =>{
         findByIdLover(props.bill.accountLover?.id).then((res) =>{
@@ -31,10 +37,16 @@ export function FormComment(props) {
         }).catch(() =>{
             return {}
         })
+        listCommentByIdAccountSend(props.bill.accountUser?.id,props.bill.accountLover?.id).then((res) =>{
+            setCommentAccountSend(res)
+            console.log(res)
+        }).catch(() =>{
+            return []
+        })
         findAllByIdAccountReceive(props.bill.accountLover?.id).then((res) =>{
             setComment(res)
         }).catch(() =>{return []})
-    },[props.bill],showComment)
+    },[props.bill,showComment])
     const handleSubmit = (values) => {
         if (Object.keys(commentDTO).length === 0) {
             const comment = {
@@ -56,7 +68,7 @@ export function FormComment(props) {
             }
             const profileLovers = {
                 ...profileLover,
-                averageRateScore: (parseFloat(profileLover.averageRateScore) * comments.length + parseFloat(values.rating)) / (comments.length + 1),
+                averageRateScore: ((parseFloat(profileLover.averageRateScore) * comments.length) + parseFloat(values.rating)) / (comments.length + 1),
             }
             createCommentByBill(comment).then(() => {
                 toast.success("Cảm ơn bạn đã đánh giá chất lượng dịch vụ")
@@ -103,11 +115,55 @@ export function FormComment(props) {
                     <hr/>
                     <div style={{height: 'calc(100% - 400px)'}}> {/* Điều chỉnh chiều cao phần lịch sử tin nhắn */}
                         Đánh giá gần nhất của bạn
+                        {count <3 && ( commentAccountSend.map((comments) => {
+                            if (count >= 3) {
+                                return null; // Thoát khỏi vòng lặp khi count đạt tới 3
+                            }
+                            count ++;
+                            const rating = comments?.rating;
+                            let starsArray = []
+                            if (rating !== undefined) {
+                                starsArray = Array(rating).fill(null);
+                            }
+                            return (
+                                <div key={comments?.id} className="text-center review-duo-player row">
+                                    <div className="col-md-12">
+                                        <div className="wrapper-content-rating">
+                                            <div className="review-content">
+                                                <a
+                                                    target="_blank"
+                                                    href="https://playerduo.net/page600ce889399d5e2bc1ed8e5d"
+                                                >
+                                                    <p className="name-player-review color-vip-1">
+                                                        {comments?.accountSend?.nickname}
+                                                    </p>
+                                                    ({comments?.createdAt.slice(11,19)} ngày {comments?.createdAt.slice(0,10)}):
+                                                </a>
+                                            </div>
+                                            <div className="review-rating">
+                                                <div className="rateting-style">
+                                                    {starsArray.map((star, index) => (
+                                                        <i key={index} className="fas fa-star"></i>
+                                                    ))}
+                                                    &nbsp;
+                                                </div>
+                                                <span className="time-rent-review">
+                        (<span>Thuê</span>&nbsp;{comments?.bill?.time}h)
+                      </span>
+                                            </div>
+                                            <p className="content-player-review" style={{fontWeight:"bold"}}>{comments?.content}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        ) )}
                     </div>
                     <hr/>
                     <Formik initialValues={{ content: commentDTO?.content || "", rating: commentDTO?.rating || "" }}
                             enableReinitialize={true}
-                            onSubmit={handleSubmit}>
+                            onSubmit={handleSubmit}
+                            validationSchema={validationSchema}
+                    >
                         <Form>
                             <div className="star-rating">
                                 <div className="star-rating">
@@ -122,6 +178,7 @@ export function FormComment(props) {
                                     <Field type="radio" id="star1" name="rating" value="1"/>
                                     <label htmlFor="star1"></label></div>
                             </div>
+                            <ErrorMessage name="rating" component="div" className="error-message" />
                             <hr/>
                             <div style={{marginLeft: 0}}>
                                 <div style={{marginLeft: 0}}>Nội dung đánh giá</div>

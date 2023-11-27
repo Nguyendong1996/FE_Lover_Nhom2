@@ -58,3 +58,15 @@ export const updateCommentByBill = (comment) => {
             });
     });
 };
+export const listCommentByIdAccountSend = (idUser,idLover) => {
+    return new Promise((resolve) => {
+        axios.get("http://localhost:8080/api/comments/findAllCommentByIdSend/"+idUser +"/" +idLover)
+            .then(response => {
+                // Xử lý kết quả thành công
+                resolve(response.data);
+            })
+            .catch(error => {
+                // Xử lý lỗi
+            });
+    });
+};
