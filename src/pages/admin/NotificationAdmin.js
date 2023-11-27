@@ -4,6 +4,7 @@ import React, {useContext, useEffect, useState} from "react";
 import "./HomeAdmin.css"
 import {acceptUserToLover, findNotificationByIdAccount} from "../../services/AdminService";
 import {AppContext} from "../../context/AppContext";
+import {toast} from "react-toastify";
 
 export function NotificationAdmin() {
     const idAccount = localStorage.getItem("idAccount")
@@ -26,7 +27,7 @@ export function NotificationAdmin() {
         console.log(accountUser)
         acceptUserToLover(accountUser.id, token)
             .then((res) => {
-                alert(res)
+                toast.success(res)
                 setCheck(!check)
             })
     }
