@@ -210,7 +210,7 @@ export function PageOfLover(props) {
                                             </div>
                                             <div className="col-md-3 col-xs-6" style={{width: 100}}>
                                                 <div className="item-nav-name"><span>Thu nhập</span></div>
-                                                <div className="item-nav-value">{profileLover.totalMoneyRented}</div>
+                                                <div className="item-nav-value">{profileLover.totalMoneyRented.toLocaleString()} vnd</div>
                                             </div>
                                         </div>
                                         <div>
