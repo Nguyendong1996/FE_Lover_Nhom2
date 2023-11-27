@@ -29,3 +29,20 @@ export const findAllByIdAccountReceive = (id,token) =>{
         )
     })
 }
+export const findCommentByIdBill = (id,token) =>{
+    return new Promise((resolve) => {
+        resolve(
+            axios.get("http://localhost:8080/api/comments/findByBillId/"+id,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    return res.data;
+                }).catch(() => {
+                return []
+            })
+        )
+    })
+}

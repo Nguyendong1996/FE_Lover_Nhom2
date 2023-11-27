@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import "./FormComment.css"
 import {AppContext} from "../context/AppContext";
 import {Field, Form, Formik} from "formik";
-import {createCommentByBill, findAllByIdAccountReceive} from "../services/CommentService";
+import {createCommentByBill, findAllByIdAccountReceive, findCommentByIdBill} from "../services/CommentService";
 import {createBill, save} from "../services/BillService";
 import {findByIdLover, updateProfileLover, updateProfileLoverByComment} from "../services/ProfileLoverService";
 import {toast} from "react-toastify";
@@ -12,10 +12,17 @@ export function FormComment(props) {
     const token = localStorage.getItem("token")
     const [profileLover,setProfileLover] = useState({})
     const [comments,setComment] = useState([]);
+    const [commentDTO,setCommentDTO] = useState({})
 
     useEffect(() =>{
         findByIdLover(props.bill.accountLover?.id).then((res) =>{
             setProfileLover(res)
+        }).catch(() =>{
+            return {}
+        })
+        findCommentByIdBill(props.bill.id,token).then((res) =>{
+            setCommentDTO(res)
+            console.log(res)
         }).catch(() =>{
             return {}
         })
@@ -24,34 +31,45 @@ export function FormComment(props) {
         }).catch(() =>{return []})
     },[props.bill],showComment)
     const handleSubmit = (values) => {
-        const comment = {
-            accountSend:{
-                id:props.bill.accountUser.id,
-            },
-            accountReceive:{
-                id:props.bill.accountLover.id,
-            },
-            content:values.content,
-            bill:{
-                id:props.bill.id,
-            },
-            rating:values.rating
+        if (Object.keys(commentDTO).length === 0) {
+            const comment = {
+                accountSend: {
+                    id: props.bill.accountUser.id,
+                },
+                accountReceive: {
+                    id: props.bill.accountLover.id,
+                },
+                content: values.content,
+                bill: {
+                    id: props.bill.id,
+                },
+                rating: values.rating
+            }
+            const bills = {
+                ...props.bill,
+                assessment: true,
+            }
+            const profileLovers = {
+                ...profileLover,
+                averageRateScore: (parseFloat(profileLover.averageRateScore) * comments.length + parseFloat(values.rating)) / (comments.length + 1),
+            }
+            createCommentByBill(comment).then(() => {
+                toast.success("Cảm ơn bạn đã đánh giá chất lượng dịch vụ")
+            })
+            save(bills, token).then(() => {
+            })
+            updateProfileLoverByComment(profileLovers).then()
+            setShowComment(!showComment)
+        }else {
+            const comment =  {
+                ...commentDTO,
+                content: values.content,
+                rating: values.rating,
+            }
+            createCommentByBill(comment).then(() => {
+                toast.success(" bạn đã sửa đánh giá chất lượng dịch vụ thành công")
+            })
         }
-       const bills ={
-            ... props.bill,
-           assessment:true,
-        }
-        const profileLovers = {
-            ...profileLover,
-            averageRateScore:(parseFloat(profileLover.averageRateScore)*comments.length + parseFloat(values.rating))/(comments.length+1),
-        }
-        createCommentByBill(comment).then(() =>{
-            toast.success("Cảm ơn bạn đã đánh giá chất lượng dịch vụ")
-        })
-        save(bills,token).then(() =>{
-        })
-        updateProfileLoverByComment(profileLovers).then()
-setShowComment(!showComment)
     };
     return (
         <>
@@ -76,7 +94,9 @@ setShowComment(!showComment)
                         Đánh giá gần nhất của bạn
                     </div>
                     <hr/>
-                    <Formik initialValues={{rating: 0, content: ""}} onSubmit={handleSubmit}>
+                    <Formik initialValues={{ content: commentDTO?.content || "", rating: commentDTO?.rating || "" }}
+                            enableReinitialize={true}
+                            onSubmit={handleSubmit}>
                         <Form>
                             <div className="star-rating">
                                 <div className="star-rating">
