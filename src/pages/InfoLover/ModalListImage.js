@@ -44,7 +44,6 @@ export function ModalListImage(props) {
     }
 
 
-
     function showDemo() {
         let imgFeature = document.querySelector(".image-main")
         let listImg = document.querySelectorAll(".list-img img")
@@ -76,7 +75,7 @@ export function ModalListImage(props) {
             updateImageByIndex(currentIndex)
         })
         nextBtn.addEventListener("click", e => {
-            if (currentIndex === listImg.length -1) {
+            if (currentIndex === listImg.length - 1) {
                 currentIndex = 0
             } else {
                 currentIndex++
@@ -84,7 +83,6 @@ export function ModalListImage(props) {
             updateImageByIndex(currentIndex)
         })
     }
-
 
 
     // xử lí ảnh

@@ -24,14 +24,14 @@ export function HistoryBillProfileLover() {
     return (
         <>
             <div style={{}}>
-                <table className={"table table-striped"}>
+                <table className={"table table-striped"} style={{width:"auto"}}>
                     <tbody>
                     <tr>
                         <th>#</th>
-                        <th>Người đặt</th>
+                        <th style={{width:125}}>Người đặt</th>
                         <th>Thời gian đặt</th>
-                        <th style={{textAlign: 'center'}}>Đặt lúc</th>
-                        <th style={{width: 400, textAlign: 'center'}}>Danh sách dịch vụ VIP</th>
+                        <th style={{textAlign: 'center', width:120}}>Đặt lúc</th>
+                        <th style={{width: 390, textAlign: 'center'}}>Danh sách dịch vụ VIP</th>
                         <th>Tổng tiền</th>
                         <th style={{width: 200, textAlign: "center"}}>Trạng thái</th>
                     </tr>
@@ -42,7 +42,7 @@ export function HistoryBillProfileLover() {
                                     <td>{index + 1}</td>
                                     <td>{item.accountUser?.nickname}</td>
                                     <td>{item.time} giờ</td>
-                                    <td>{item.createdAt}</td>
+                                    <td>{item.createdAt.slice(0,10)} <br/> {item.createdAt.slice(11,19)}</td>
                                     <td style={{textAlign: 'left'}}>{item.vipServices?.map((item2) => {
                                         return (
                                             <>
