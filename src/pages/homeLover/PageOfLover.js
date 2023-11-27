@@ -298,7 +298,7 @@ export function PageOfLover(props) {
                                                                     height: 30,
                                                                     borderRadius: "50%"
                                                                 }}/>
-                                                                {item.name}
+                                                                -{item.name}
                                                             </div>
                                                         )
                                                     })}
@@ -312,7 +312,7 @@ export function PageOfLover(props) {
                                                                     height: 30,
                                                                     borderRadius: "50%"
                                                                 }}/>
-                                                                {item.name}
+                                                                -{item.name}
                                                             </div>
                                                         )
                                                     })}
@@ -326,7 +326,7 @@ export function PageOfLover(props) {
                                                                     height: 30,
                                                                     borderRadius: "50%"
                                                                 }}/>
-                                                                {item.name}
+                                                                -{item.name}
                                                             </div>
                                                         )
                                                     })}

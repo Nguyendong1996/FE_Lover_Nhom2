@@ -235,6 +235,9 @@ export function InfoLover() {
     const {showChat, setShowChat} = useContext(AppContext);
 
     function chat() {
+        if (idAccount === null) {
+            return toast.error("Bạn chưa đăng nhập!")
+        }
         setShowChat(true)
         axios.get("http://localhost:8080/createFirstMessage/" + idAccount + "/" + profileLover.account.id).then(() => {
         })
@@ -432,7 +435,7 @@ export function InfoLover() {
                                 <div className="nav-player-profile row">
                                     <div className="col-md-3 col-xs-6">
                                         <div className="item-nav-name"><span> Đánh giá trung bình</span></div>
-                                        <div className="item-nav-value"> <span>{profileLover.averageRateScore} <i
+                                        <div className="item-nav-value"> <span>{profileLover.averageRateScore?.toFixed(2)} <i
                                             className="fas fa-star"></i></span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
@@ -527,7 +530,7 @@ export function InfoLover() {
                                                             <img className={"info-info-image"}
                                                                  src={item.avatarService} alt=""
                                                                  style={{width: "30px", height: "30px"}}/>
-                                                            <span>{item.name}
+                                                            <span> -{item.name}
                                             </span>
                                                         </div>
                                                     </>
@@ -544,7 +547,7 @@ export function InfoLover() {
                                                             <img className={"info-info-image"}
                                                                  src={item.avatarService} alt=""
                                                                  style={{width: "30px", height: "30px"}}/>
-                                                            <span>{item.name}</span>
+                                                            <span> -{item.name}</span>
                                                         </div>
                                                     </>
                                                 )
@@ -560,7 +563,7 @@ export function InfoLover() {
                                                             <img className={"info-info-image"}
                                                                  src={item.avatarService} alt=""
                                                                  style={{width: "30px", height: "30px"}}/>
-                                                            <span>{item.name}
+                                                            <span> -{item.name}
                                                                 + {item.price} /h</span>
                                                         </div>
                                                     </>

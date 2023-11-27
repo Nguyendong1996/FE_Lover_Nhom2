@@ -61,23 +61,28 @@ const Home = () => {
         filter.arrangeCost = arrangeCost
         filter.idCountry = idCountry;
     }
+
     function changeGender(e) {
         setIdGender(e.target.value)
         setVisibleProducts(4)
     }
+
     function changeStatus(e) {
         setIdStatusLover(e.target.value)
         setVisibleProducts(4)
     }
+
     function changeCost(e) {
         setArrangeCost(e.target.value)
         setVisibleProducts(4)
     }
+
     function changeCountry(e) {
         setIdCountry(parseInt(e.target.value));
         setIdCity(0)
         setVisibleProducts(4)
     }
+
     function changeCity(e) {
         setIdCity(parseInt(e.target.value))
         setVisibleProducts(4)
@@ -100,10 +105,10 @@ const Home = () => {
             setCountries(res)
         });
     }, [])
-    useEffect(()=>{
+    useEffect(() => {
         getFilter()
         console.log(filter)
-    },[searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
+    }, [searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
     useEffect(() => {
         findAllCityByIdCountry(idCountry).then((res) => {
             setCities(res)
@@ -111,7 +116,7 @@ const Home = () => {
     }, [idCountry])
 
     useEffect(() => {
-        findAllByFilter(filter).then((res)=>{
+        findAllByFilter(filter).then((res) => {
             setLovers(res)
             console.log(res)
         })
@@ -146,7 +151,7 @@ const Home = () => {
                             </div>
                             <br/>
                             <div className="filter-player  hidden" style={{marginLeft: 55}}>
-                                <select className="form-control gender " style={{width: 80}}
+                                <select className="form-control gender " style={{width: 90}}
                                         onChange={(e) => changeGender(e)}>
                                     <option value={0} selected="selected">Giới tính</option>
                                     {genders.map((item) => {
@@ -223,6 +228,13 @@ const Home = () => {
                                         <option value={0}>Thành phố</option>
                                     )}
                                 </select>
+                                <a href="http://localhost:3000/"> <button className={"btn"} style={{
+                                    width: 120,
+                                    height: 32,
+                                    marginLeft: 30,
+                                    borderRadius:15,
+                                    backgroundColor:"#f0564a",
+                                }}><i className="fas fa-sync false" style={{fontWeight:"bold"}}></i></button></a>
                             </div>
                             <div className="list-player">
                                 <header className={"title-header vip"}>
@@ -259,7 +271,7 @@ const Home = () => {
                                                             <div className="div--flex">
                                                                 <div className="rate">
                                                                     <i className="fas fa-star"/>
-                                                                    <p><i>{item.averageRateScore}́</i></p>
+                                                                    <p><i>{item.averageRateScore?.toFixed(2)}́</i></p>
                                                                 </div>
                                                                 <div className="rate">
                                                                     <i className="fas fa-clock"/>
@@ -280,7 +292,8 @@ const Home = () => {
                                 </div>
                                 <div style={{textAlign: "center"}}>
                                     {visibleProducts < lovers.length && (
-                                        <button className={"btn btn-secondary"} onClick={loadMoreProducts} id={"button-load-more-home"}>
+                                        <button className={"btn btn-secondary"} onClick={loadMoreProducts}
+                                                id={"button-load-more-home"}>
                                             Xem thêm...
                                         </button>
                                     )}

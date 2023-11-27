@@ -31,10 +31,8 @@ export function Comment(props) {
                                                 <p className="name-player-review color-vip-1">
                                                     {comments.accountSend?.nickname}
                                                 </p>
+                                                 ({comments.bill?.createdAt.slice(11,19)} ngày {comments.bill?.createdAt.slice(0,10)}):
                                             </a>
-                                            <p className="time-player-review">
-                                                <span>{comments.bill?.createdAt}</span>
-                                            </p>
                                         </div>
                                         <div className="review-rating">
                                             <div className="rateting-style">
@@ -47,7 +45,7 @@ export function Comment(props) {
                         (<span>Thuê</span>&nbsp;{comments.bill?.time}h)
                       </span>
                                         </div>
-                                        <p className="content-player-review">{comments.content}</p>
+                                        <p className="content-player-review" style={{fontWeight:"bold"}}>{comments.content}</p>
                                     </div>
                                 </div>
                             </div>
