@@ -50,7 +50,8 @@ export function InfoLover() {
     const {check, setCheck} = useContext(AppContext);
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [idAccountProfileLover, setIdAccountProfileLover] = useState(2)
+    const [idAccountProfileLover, setIdAccountProfileLover] = useState(0)
+    const [comment, setComment] = useState([]);
 
     function openModal() {
         setIsOpen(true);
@@ -109,17 +110,6 @@ export function InfoLover() {
                 setIdAccountProfileLover(res.account?.id)
                 console.log(idAccountProfileLover)
             })
-    }, [id, idAccountProfileLover])
-
-    useEffect(() => {
-        findImagesByIdLover(id)
-            .then((res) => {
-                setImages(res)
-            })
-    }, [id])
-    const [comment, setComment] = useState([]);
-
-    useEffect(() => {
         findAllByIdAccountReceive(idAccountProfileLover, token)
             .then((res) => {
                 setComment(res);
@@ -128,8 +118,14 @@ export function InfoLover() {
             .catch(() => {
                 return [];
             });
-    }, [idAccountProfileLover, id]);
+    }, [id, idAccountProfileLover,comment])
 
+    useEffect(() => {
+        findImagesByIdLover(id)
+            .then((res) => {
+                setImages(res)
+            })
+    }, [id])
 
     function changeTime(time) {
         setMoneyTime(time * profileLover.price)
