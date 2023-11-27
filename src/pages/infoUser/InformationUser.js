@@ -33,6 +33,7 @@ export function InformationUser() {
         findByIdAccount(id, token)
             .then((res) => {
                 setInfoUser(res)
+                console.log(res)
             })
     }, [id])
     //tìm bills theo idAccount:
@@ -119,7 +120,7 @@ export function InformationUser() {
                             <div className="border"><p>TỔNG TIỀN ĐÃ NẠP</p><span>0đ</span></div>
                         </div>
                         <div className="col-sm-4 col-xs-12">
-                            <div className="border"><p>TỔNG TIỀN ĐÃ DONATE</p><span>{infoUser.totalSpending} VNĐ </span></div>
+                            <div className="border"><p>TỔNG TIỀN ĐÃ DONATE</p><span>{infoUser.totalSpending?.toLocaleString()} VNĐ </span></div>
                         </div>
                         <div className="col-sm-4 col-xs-12">
                             <div className="border"><p>SỐ GIỜ ĐÃ THUÊ</p><span>{infoUser.totalViews} Giờ</span></div>
