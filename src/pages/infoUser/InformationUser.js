@@ -116,13 +116,13 @@ export function InformationUser() {
                 <div className="aside">
                     <div className="row flowaccount">
                         <div className="col-sm-4 col-xs-12">
-                            <div className="border"><p>TỔNG TIỀN ĐÃ NẠP</p><span>0đ </span></div>
+                            <div className="border"><p>TỔNG TIỀN ĐÃ NẠP</p><span>0đ</span></div>
                         </div>
                         <div className="col-sm-4 col-xs-12">
-                            <div className="border"><p>TỔNG TIỀN ĐÃ DONATE</p><span>0đ </span></div>
+                            <div className="border"><p>TỔNG TIỀN ĐÃ DONATE</p><span>{infoUser.totalSpending} VNĐ </span></div>
                         </div>
                         <div className="col-sm-4 col-xs-12">
-                            <div className="border"><p>SỐ GIỜ ĐÃ THUÊ</p><span>0 Giờ</span></div>
+                            <div className="border"><p>SỐ GIỜ ĐÃ THUÊ</p><span>{infoUser.totalViews} Giờ</span></div>
                         </div>
                     </div>
                     <div className="row">
