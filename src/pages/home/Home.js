@@ -9,6 +9,7 @@ import {findAllGender, findAllCountry, findAllCityByIdCountry} from "../../servi
 import {findAllVipService} from "../../services/VipService"
 import {findAllFree} from "../../services/FreeService"
 import {findAllStatusLover, findAllByFilter} from "../../services/HomeService"
+import {findAllByIdAccountReceive} from "../../services/CommentService";
 
 const Home = () => {
     const [lovers, setLovers] = useState([])
@@ -115,6 +116,7 @@ const Home = () => {
             console.log(res)
         })
     }, [searchValue, idBaseService, idGender, idVipService, idFreeService, idStatusLover, idCity, arrangeCost, idCountry])
+
     return (
         <>
             <div id="root" style={{marginTop: 70}}>
@@ -257,11 +259,15 @@ const Home = () => {
                                                             <div className="div--flex">
                                                                 <div className="rate">
                                                                     <i className="fas fa-star"/>
-                                                                    <p><i>Điểm đánh giá</i></p>
+                                                                    <p><i>{item.averageRateScore}́</i></p>
                                                                 </div>
                                                                 <div className="rate">
-                                                                    <i className="fas fa-comment"/>
-                                                                    <p><i>Bình luận</i></p>
+                                                                    <i className="fas fa-clock"/>
+                                                                    <p><i>{item.totalHourRented} giờ</i></p>
+                                                                </div>
+                                                                <div className="rate">
+                                                                    <i className="fas fa-list"/>
+                                                                    <p><i>{item.totalViews} lượt thuê</i></p>
                                                                 </div>
                                                             </div>
                                                         </div>

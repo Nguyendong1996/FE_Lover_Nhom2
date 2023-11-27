@@ -65,7 +65,7 @@ export function NotificationHomeLover() {
                                         return (
                                             <tr>
                                                 <td>{index + 1}.</td>
-                                                <td style={{width: 750}}>{item.content}</td>
+                                                <td style={{width: 750, textAlign:"left"}}>{item.content}</td>
                                                 <td style={{width: 200}}>{item.timeSend}</td>
                                                 <td>
                                                     <button className={"btn btn-primary"} id={"btn-1"}

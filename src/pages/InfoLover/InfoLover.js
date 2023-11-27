@@ -12,6 +12,7 @@ import {findAllByIdAccountReceive} from "../../services/CommentService";
 import {Link} from "react-router-dom";
 import {ChatRoom} from "../../message/ChatRoom";
 import axios from "axios";
+
 const customStyles = {
     content: {
         top: '50%',
@@ -49,7 +50,7 @@ export function InfoLover() {
     const {check, setCheck} = useContext(AppContext);
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [idAccountProfileLover,setIdAccountProfileLover] = useState(2)
+    const [idAccountProfileLover, setIdAccountProfileLover] = useState(2)
 
     function openModal() {
         setIsOpen(true);
@@ -108,7 +109,7 @@ export function InfoLover() {
                 setIdAccountProfileLover(res.account?.id)
                 console.log(idAccountProfileLover)
             })
-    }, [id,idAccountProfileLover])
+    }, [id, idAccountProfileLover])
 
     useEffect(() => {
         findImagesByIdLover(id)
@@ -116,10 +117,10 @@ export function InfoLover() {
                 setImages(res)
             })
     }, [id])
-    const [comment,setComment] =useState([]);
+    const [comment, setComment] = useState([]);
 
     useEffect(() => {
-        findAllByIdAccountReceive(idAccountProfileLover,token)
+        findAllByIdAccountReceive(idAccountProfileLover, token)
             .then((res) => {
                 setComment(res);
                 console.log(res);
@@ -307,10 +308,8 @@ export function InfoLover() {
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
                             <div className="right-player-profile" style={{marginTop: "80px"}}><p
                                 className="price-player-profile">{profileLover.price} vnđ/giờ</p>
-                                <div className="rateting-style"><i className="fas fa-star"></i><i
-                                    className="fas fa-star"></i><i
-                                    className="fas fa-star"></i><i className="fas fa-star"></i><i
-                                    className="fas fa-star-half-alt"></i>&nbsp;<span>352 <span>Đánh giá</span></span>
+                                <div className="rateting-style">
+                                    <i className={"fas fa-comment"}></i><span> {comment.length}<span> đánh giá</span></span>
                                 </div>
                                 <div className="text-center">
                                     {(parseInt(idAccount) === profileLover.account?.id)
@@ -446,12 +445,12 @@ export function InfoLover() {
                                             <span> {profileLover.totalHourRented} giờ</span></div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Tỷ lệ hoàn thành</span></div>
-                                        <div className="item-nav-value">100&nbsp;%</div>
+                                        <div className="item-nav-name"><span>Số lượt thuê</span></div>
+                                        <div className="item-nav-value">{profileLover.totalViews} lượt</div>
                                     </div>
                                     <div className="col-md-3 col-xs-6">
-                                        <div className="item-nav-name"><span>Tình trạng thiết bị</span></div>
-                                        <div className="item-nav-value"><i className="fas fa-microphone"></i></div>
+                                        <div className="item-nav-name"><span>Tỉ lệ hoàn thành</span></div>
+                                        <div className="item-nav-value">100%</div>
                                     </div>
                                 </div>
                                 <div>
@@ -924,10 +923,9 @@ export function InfoLover() {
                                             </div>
                                             <div>
                                                 <div className="title-player-profile row">
-                                                    <div className="col-xs-6"><span>Đánh giá</span>
-                                                    </div>
+                                                    <div className="col-xs-6"><span>Đánh giá</span></div>
                                                 </div>
-                                                <Comment id ={idAccountProfileLover}/>
+                                                <Comment id={idAccountProfileLover}/>
                                             </div>
                                         </div>
                                     </div>
