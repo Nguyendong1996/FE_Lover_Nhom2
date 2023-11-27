@@ -24,20 +24,17 @@ export function HistoryBillProfileLover() {
     return (
         <>
             <div style={{}}>
-                <p style={{textAlign: "center", fontWeight: "bold", fontSize: 20}}></p>
                 <table className={"table table-striped"}>
-                    <thead>
+                    <tbody>
                     <tr>
                         <th>#</th>
                         <th>Người đặt</th>
                         <th>Thời gian đặt</th>
                         <th style={{textAlign: 'center'}}>Đặt lúc</th>
-                        <th style={{width: 350, textAlign: 'center'}}>Danh sách dịch vụ Vip được yêu cầu</th>
+                        <th style={{width: 400, textAlign: 'center'}}>Danh sách dịch vụ VIP</th>
                         <th>Tổng tiền</th>
                         <th style={{width: 200, textAlign: "center"}}>Trạng thái</th>
                     </tr>
-                    </thead>
-                    <tbody>
                     {bills.map((item, index) => {
                         return (
                             <>
@@ -46,10 +43,10 @@ export function HistoryBillProfileLover() {
                                     <td>{item.accountUser?.nickname}</td>
                                     <td>{item.time} giờ</td>
                                     <td>{item.createdAt}</td>
-                                    <td style={{textAlign: 'center'}}>{item.vipServices?.map((item2) => {
+                                    <td style={{textAlign: 'left'}}>{item.vipServices?.map((item2) => {
                                         return (
                                             <>
-                                                {item2.name} ({item2.price} vnđ/giờ)
+                                                <span style={{fontWeight:"bold"}}>{item2.name}</span> (+{item2.price} vnđ/giờ)
                                                 <br/>
                                             </>
                                         )

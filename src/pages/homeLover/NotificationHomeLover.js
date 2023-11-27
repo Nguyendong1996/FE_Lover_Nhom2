@@ -66,7 +66,7 @@ export function NotificationHomeLover() {
                                             <tr>
                                                 <td>{index + 1}.</td>
                                                 <td style={{width: 750, textAlign:"left"}}>{item.content}</td>
-                                                <td style={{width: 200}}>{item.timeSend}</td>
+                                                <td style={{width: 200}}>{item.timeSend.slice(0,10)} <br/> {item.timeSend.slice(11,19)}</td>
                                                 <td>
                                                     <button className={"btn btn-primary"} id={"btn-1"}
                                                     onClick={()=>deleteNotification(item.id)}>Xoá</button>
