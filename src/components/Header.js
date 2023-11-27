@@ -10,10 +10,11 @@ import Modal from 'react-modal';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {findByIdAccount} from "../services/inforUserService";
+import axios from "axios";
 
 const customStyles = {
     content: {
-        top: '50%',
+        top: '55%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -39,7 +40,8 @@ const Header = () => {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin")
     const token = localStorage.getItem("token")
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen1, setIsOpen1] = React.useState(false);
+    const [modalIsOpen2, setIsOpen2] = React.useState(false);
     const initialChosen = localStorage.getItem('chosen') || 1;
     const [chosen, setChosen] = useState(Number(initialChosen));
     const [image, setImage] = useState(String);
@@ -70,8 +72,12 @@ const Header = () => {
     }
 
 
-    function openModal() {
-        setIsOpen(true);
+    function openModal1() {
+        setIsOpen1(true);
+    }
+
+    function openModal2() {
+        setIsOpen2(true);
     }
 
     function afterOpenModal() {
@@ -80,10 +86,23 @@ const Header = () => {
         subtitle.style.fontSize = '30px';
     }
 
-    function closeModal() {
-        setIsOpen(false);
+    function closeModal1() {
+        setIsOpen1(false);
     }
 
+    function closeModal2() {
+        setIsOpen2(false);
+    }
+
+    //top lover
+    const [top4Lovers, setTop4Lovers] = useState([])
+    const [top1Lover, setTop1Lover] = useState({})
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/profileLover/findTop5Lover").then((res) => {
+            setTop4Lovers(res.data.slice(1,5))
+            setTop1Lover(res.data[0])
+        })
+    }, [])
     return (
         <>
             <ToastContainer/>
@@ -218,7 +237,7 @@ const Header = () => {
                                     }}
                                     onClick={(event) => {
                                         handleItemClick(4);
-                                        openModal();
+                                        openModal1();
                                         event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
                                     }}
                                 >
@@ -234,7 +253,7 @@ const Header = () => {
                                     }}
                                     onClick={(event) => {
                                         handleItemClick(5);
-                                        openModal();
+                                        openModal2();
                                         event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ 'a'
                                     }}
                                 >
@@ -257,79 +276,107 @@ const Header = () => {
                                    className="dropdown-toggle"
                                    aria-haspopup="true" aria-expanded="false"
                                    href="#">
-                                    <img src={image} className="avt-img" alt="PD" style={{width:50, height:50}}/></a>
+                                    <img src={image} className="avt-img" alt="PD" style={{width: 50, height: 50}}/></a>
                             </li>
                             <li className={"item-icon balance"}><ButtonLogin isLogin={isLogin}/></li>
                         </ul>
 
                         {/*start modal TOP LOVER*/}
                         <Modal
-                            isOpen={modalIsOpen}
+                            isOpen={modalIsOpen1}
                             onAfterOpen={afterOpenModal}
-                            onRequestClose={closeModal}
+                            onRequestClose={closeModal1}
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
+                            <div style={{width: 600, height: 450}}>
+                                <h3 ref={(_subtitle) => (subtitle = _subtitle)}
+                                    style={{textAlign: "center", fontWeight: "bold", color: "black"}}>
+                                    <span style={{display: "block"}}>TOP LOVER</span>
 
-                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}
-                                style={{textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px"}}>
-                                <span style={{display: "block"}}>TOP LOVER</span>
-                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{
-                                    display: "block",
-                                    marginLeft: "auto",
-                                    marginRight: "auto",
-                                    marginTop: "10px",
-                                    maxWidth: "50px"
-                                }}/>
-                            </h2>
-
-                            <table style={{width: "100%", borderCollapse: "collapse"}}>
-                                <tbody>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Tên lover:</td>
-
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Thời gian muốn thuê:</td>
-                                    <td style={{padding: "10px"}}>
-
-                                    </td>
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
-                                    <td style={{padding: "10px"}}>
-
-                                    </td>
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2} style={{padding: "10px"}}>
-                                        <button type="button" style={{
-                                            backgroundColor: "#f0564a",
-                                            borderRadius: "3px",
-                                            color: "#ffffff",
-                                            border: "none"
-                                        }}>Thanh toán
-                                        </button>
-                                    </td>
-                                    <td style={{padding: "10px"}}>
-                                        <button onClick={closeModal}
-                                                style={{borderRadius: "3px", border: "none"}}>Đóng
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                </h3>
+                                <div style={{fontWeight: "bold", textAlign: "center"}}>CÓ THỜI GIAN ĐƯỢC THUÊ CAO
+                                    NHẤT
+                                </div>
+                                <div>
+                                    <div style={{display:"flex", justifyContent:"center", marginTop:30}}>
+                                        <div style={{position: "relative"}}>
+                                            <img src={top1Lover.avatarImage} alt=""
+                                                 style={{width: 62, height: 60, borderRadius: "50%"}}/>
+                                            <img
+                                                src="https://files.playerduo.net/production/static-files/no1_top_list.png"
+                                                alt=""
+                                                style={{
+                                                    width: 150,
+                                                    height: 100,
+                                                    position: "absolute",
+                                                    left: -46,
+                                                    top: -20
+                                                }}/>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {top1Lover.account?.nickname}
+                                    </div>c
+                                    <div style={{display:"flex", justifyContent:"center", marginTop:20}}>
+                                        <table>
+                                            <tbody>
+                                            {top4Lovers.map((item, index) => {
+                                                return (
+                                                    <tr>
+                                                        <td style={{height:100}}>
+                                                            <img
+                                                                src="https://cdn-icons-png.flaticon.com/512/1486/1486474.png"
+                                                                alt="" style={{width: 50, height: 50}}/>
+                                                            <i style={{
+                                                                fontWeight: "bold",
+                                                                fontSize: 20,
+                                                                color: "blue"
+                                                            }}>{index + 1}</i>
+                                                        </td>
+                                                        <td style={{fontWeight: "bold"}}>
+                                                        <span style={{
+                                                            fontWeight: "bold",
+                                                            fontSize: 20,
+                                                            color: "#f0564a"
+                                                        }}>{item.account?.nickname}</span>
+                                                        </td>
+                                                        <td>
+                                                            <div style={{position: "relative"}}>
+                                                                <img src={item.avatarImage} alt=""
+                                                                     style={{width: 62, height: 60, borderRadius: "50%"}}/>
+                                                                <img
+                                                                    src="https://files.playerduo.net/production/static-files/no1_top_list.png"
+                                                                    alt=""
+                                                                    style={{
+                                                                        width: 150,
+                                                                        height: 100,
+                                                                        position: "absolute",
+                                                                        left: -46,
+                                                                        top: -20
+                                                                    }}/>
+                                                            </div>
+                                                        </td>
+                                                        <td>{item.createdAt?.slice(0, 10)}</td>
+                                                        <td>{item.totalViews}</td>
+                                                        <td>{item.totalHourRented}</td>
+                                                    </tr>
+                                                )
+                                            })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </Modal>
                         {/*end modal*/}
 
 
                         {/*start modal TOP USER*/}
                         <Modal
-                            isOpen={modalIsOpen}
+                            isOpen={modalIsOpen2}
                             onAfterOpen={afterOpenModal}
-                            onRequestClose={closeModal}
+                            onRequestClose={closeModal2}
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
@@ -377,7 +424,7 @@ const Header = () => {
                                         </button>
                                     </td>
                                     <td style={{padding: "10px"}}>
-                                        <button onClick={closeModal}
+                                        <button onClick={closeModal2}
                                                 style={{borderRadius: "3px", border: "none"}}>Đóng
                                         </button>
                                     </td>
