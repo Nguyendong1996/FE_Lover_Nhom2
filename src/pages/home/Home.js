@@ -255,7 +255,7 @@ const Home = () => {
                                                                  style={{height: "100%", width: "100%"}}/>
                                                         </Link>
                                                         <a target="_blank" className="player-price"
-                                                           href={"/"}>{item.price} đ/h</a>
+                                                           href={"/"}>{item.price?.toLocaleString()} đ/h</a>
                                                     </div>
                                                     <a target="_blank" className="player-information" href={"/"}>
                                                         <h3 className="player-name">

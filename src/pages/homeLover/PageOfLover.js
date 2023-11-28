@@ -185,7 +185,7 @@ export function PageOfLover(props) {
                                             color: "#f0564a",
                                             fontWeight: "bold",
                                             fontSize: 20
-                                        }}>GIÁ: {profileLover.price} vnđ/giờ</span></div>
+                                        }}>GIÁ: {profileLover.price?.toLocaleString()} vnđ/giờ</span></div>
                                     </div>
                                 </div>
                             </div>

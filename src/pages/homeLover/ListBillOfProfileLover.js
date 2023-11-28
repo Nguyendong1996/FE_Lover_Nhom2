@@ -148,10 +148,10 @@ export function ListBillOfProfileLover() {
                     <tbody>
                     <tr>
                         <td style={{fontWeight: "bold"}}>#</td>
-                        <td style={{fontWeight: "bold", width: 90}}>Người đặt</td>
+                        <td style={{fontWeight: "bold", width: 120}}>Người đặt</td>
                         <td style={{fontWeight: "bold", width: 90}}>Thời gian</td>
                         <td style={{fontWeight: "bold", width: 90}}>Đặt lúc</td>
-                        <td style={{fontWeight: "bold", width: 320}}>Danh sách dịch vụ VIP</td>
+                        <td style={{fontWeight: "bold", width: 290}}>Danh sách dịch vụ VIP</td>
                         <td style={{fontWeight: "bold", width: 90}}>Tổng tiền</td>
                         <td style={{fontWeight: "bold"}}>Trạng thái</td>
                         <td></td>

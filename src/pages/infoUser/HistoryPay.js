@@ -57,9 +57,9 @@ export function HistoryPay() {
                     <tbody>
                     <tr>
                         <td>#</td>
-                        <td style={{width: 100, fontWeight:"bold"}}>Tên lover</td>
+                        <td style={{width: 120, fontWeight:"bold"}}>Tên lover</td>
                         <td style={{width: 140, fontWeight:"bold"}}>Thời gian tạo bill</td>
-                        <td style={{width: 400, fontWeight:"bold"}}>Dịch vụ vip</td>
+                        <td style={{width: 380, fontWeight:"bold"}}>Dịch vụ vip</td>
                         <td style={{width: 130, fontWeight:"bold"}}>Thời gian thuê</td>
                         <td style={{width: 100, fontWeight:"bold"}}>Tổng tiền</td>
                         <td style={{width: 100, fontWeight:"bold"}}>Trạng thái</td>

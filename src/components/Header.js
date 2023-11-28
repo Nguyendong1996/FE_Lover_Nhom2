@@ -103,6 +103,16 @@ const Header = () => {
             setTop1Lover(res.data[0])
         })
     }, [])
+
+    // top user
+    const [top4Users, setTop4Users] = useState([])
+    const [top1User, setTop1User] = useState({})
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/profileUser/findTop5User").then((res) => {
+            setTop4Users(res.data.slice(1, 5))
+            setTop1User(res.data[0])
+        })
+    }, [])
     return (
         <>
             <ToastContainer/>
@@ -395,57 +405,100 @@ const Header = () => {
                             style={customStyles}
                             contentLabel="Example Modal"
                         >
+                            <div style={{ width: 600, height: 450 }}>
+                                <h3
+                                    ref={(_subtitle) => (subtitle = _subtitle)}
+                                    style={{ textAlign: "center", fontWeight: "bold", color: "black" }}
+                                >
+                                    <span style={{ display: "block" }}>BẢNG XẾP HẠNG USER</span>
+                                </h3>
+                                <div>
+                                    <div style={{ display: "flex", justifyContent: "center", marginTop: 30, textAlign: "center" }}>
+                                        <div style={{
+                                            position: "relative",
+                                            width: 180,
+                                            height: 140,
+                                            margin: "auto",
+                                            padding: "10px", // Tăng padding để tạo khoảng trắng xung quanh
+                                            borderRadius: "10px", // Bo tròn góc
+                                        }}>
+                                            <img
+                                                src={top1User.avatarImage}
+                                                alt=""
+                                                style={{ width: 80, height: 80, borderRadius: "50%" }}
+                                            />
+                                            <img
+                                                src="https://files.playerduo.net/production/static-files/no1_top_list.png"
+                                                alt=""
+                                                style={{
+                                                    width: 180,
+                                                    height: 120,
+                                                    position: "absolute",
+                                                    left: -1,
+                                                    top: -10,
+                                                }}
+                                            />
 
-                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}
-                                style={{textAlign: "center", fontWeight: "bold", color: "black", marginBottom: "20px"}}>
-                                <span style={{display: "block"}}>TOP USER</span>
-                                <img alt="logo playerduo" src="../resources/raw/logo.png" style={{
-                                    display: "block",
-                                    marginLeft: "auto",
-                                    marginRight: "auto",
-                                    marginTop: "10px",
-                                    maxWidth: "50px"
-                                }}/>
-                            </h2>
+                                            <div style={{ textAlign: "center" ,marginTop : '5px'}}>
+                                                <div style={{
+                                                    fontWeight: "bold",
+                                                    color: "red", // Thay đổi màu sắc
+                                                    marginTop: 10, // Tăng khoảng cách với phần trên
+                                                    fontSize: "20px"
+                                                }}>
+                                                    {top1User.account?.nickname}
+                                                </div>
+                                                <div style={{
+                                                    fontWeight: "bold",
+                                                    color: "orange", // Thay đổi màu sắc
+                                                }}>{top1User.totalSpending?.toLocaleString()} VNĐ</div>
+                                            </div>
+                                        </div>
 
-                            <table style={{width: "100%", borderCollapse: "collapse"}}>
-                                <tbody>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Tên lover:</td>
+                                    </div>
+                                    {/*{top1Lover.account?.nickname}*/}
 
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Thời gian muốn thuê:</td>
-                                    <td style={{padding: "10px"}}>
+                                    <div style={{ display: "flex", justifyContent: "center", marginTop: 20, flexWrap: "wrap" }}>
+                                        {top4Users.map((item, index) => (
+                                            <div key={index} style={{ border: "1px solid #ddd", borderRadius: "8px", margin: "10px", padding: "10px", width: "calc(25% - 20px)", boxSizing: "border-box" }}>
+                                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
+                                                    <img
+                                                        src="https://cdn-icons-png.flaticon.com/512/1486/1486474.png"
+                                                        alt=""
+                                                        style={{ width: 30, height: 30, marginRight: 10 }}
+                                                    />
+                                                    <i style={{ fontWeight: "bold", fontSize: 20 }}>{index + 2}</i>
+                                                </div>
 
-                                    </td>
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                    <td style={{padding: "10px"}}>Chọn dịch vụ VIP:</td>
-                                    <td style={{padding: "10px"}}>
-
-                                    </td>
-                                </tr>
-                                <tr style={{borderBottom: "1px solid #ccc"}}>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2} style={{padding: "10px"}}>
-                                        <button type="button" style={{
-                                            backgroundColor: "#f0564a",
-                                            borderRadius: "3px",
-                                            color: "#ffffff",
-                                            border: "none"
-                                        }}>Thanh toán
-                                        </button>
-                                    </td>
-                                    <td style={{padding: "10px"}}>
-                                        <button onClick={closeModal2}
-                                                style={{borderRadius: "3px", border: "none"}}>Đóng
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                                <div  key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 10 }}>
+                                                    <div style={{ position: "relative" }}>
+                                                        <img
+                                                            src={item.avatarImage}
+                                                            alt=""
+                                                            style={{ width: 62, height: 60, borderRadius: "50%" }}
+                                                        />
+                                                        <img
+                                                            src={`https://playerduo.net/rank/${index + 2}.png`}
+                                                            alt=""
+                                                            style={{
+                                                                width:80,
+                                                                height: 80,
+                                                                position: "absolute",
+                                                                left: -10,
+                                                                top: -12,
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div style={{ marginTop: '20px', textAlign: "center" }}>
+                                                        <div style={{ fontWeight: "bold" }}>{item.account?.nickname}</div>
+                                                        <div>{item.totalSpending?.toLocaleString()} VNĐ</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </Modal>
                         {/*end modal*/}
                     </div>
