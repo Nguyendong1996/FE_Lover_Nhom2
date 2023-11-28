@@ -11,6 +11,7 @@ import {findImagesByIdLover} from "../../services/ImageService";
 import {findAllByIdAccountReceive} from "../../services/CommentService";
 import {Comment} from "../InfoLover/Comment";
 import {toast, ToastContainer} from 'react-toastify';
+import axios from "axios";
 
 export function PageOfLover(props) {
     const [profileLover, setProfileLover] = useState({})
@@ -124,7 +125,24 @@ export function PageOfLover(props) {
                 setImages(res)
             })
     }, [props.idLover])
+    // sửa giá
+    const [showEditPrice2, setShowEditPrice2] = useState(false)
 
+    function editPrice() {
+        let price = document.getElementById("price-edit-1").value;
+        if (price <= 0) {
+            return toast.error("Giá bạn đưa ra phải lớn hơn 0 VNĐ!")
+        }
+        if (profileLover.statusLover.id === 2) {
+            return toast.error("Bạn đang trong quá trình cung cấp dịch vụ, không được đổi giá!")
+        }
+        axios.get("http://localhost:8080/api/profileLover/editPrice/" + price + "/" + id)
+            .then(()=>{
+                toast.success("Cập nhật giá thành công!")
+                setShowEditPrice2(false)
+                setCheck(!check)
+            })
+    }
 
     if (loading) {
         return (
@@ -137,8 +155,24 @@ export function PageOfLover(props) {
             </>
         )
     }
+
+
     return (
         <>
+            {showEditPrice2 &&
+                <div className="message__popup  false" style={{
+                    border: 'none',
+                    marginRight: 700,
+                    marginBottom: 20,
+                    width: 300,
+                    backgroundColor: "white"
+                }}>
+
+                    <input type="number" placeholder={"Nhập giá (vnđ)"} id={"price-edit-1"}/>
+                    <button onClick={editPrice}>Sửa</button>
+                    <button onClick={() => setShowEditPrice2(false)} style={{marginLeft: 10}}>X</button>
+                </div>
+            }
             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div className="aside">
                     <div className="row">
@@ -185,7 +219,11 @@ export function PageOfLover(props) {
                                             color: "#f0564a",
                                             fontWeight: "bold",
                                             fontSize: 20
-                                        }}>GIÁ: {profileLover.price?.toLocaleString()} vnđ/giờ</span></div>
+                                        }}>GIÁ: {profileLover.price?.toLocaleString()} vnđ/giờ</span> <span style={{
+                                            textDecoration: "underline",
+                                            color: "red",
+                                            cursor: "pointer"
+                                        }} onClick={() => setShowEditPrice2(true)}>(Sửa)</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +250,8 @@ export function PageOfLover(props) {
                                             <div className="col-md-3 col-xs-6" style={{width: 150}}>
                                                 <div className="item-nav-name"><span>Thu nhập</span></div>
 
-                                                <div className="item-nav-value">{profileLover.totalMoneyRented?.toLocaleString()} vnđ
+                                                <div
+                                                    className="item-nav-value">{profileLover.totalMoneyRented?.toLocaleString()} vnđ
                                                 </div>
 
                                             </div>
