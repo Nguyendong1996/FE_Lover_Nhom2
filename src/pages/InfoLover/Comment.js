@@ -35,7 +35,7 @@ export function Comment(props) {
                                                 <p className="name-player-review color-vip-1">
                                                     {comments?.accountSend?.nickname}
                                                 </p>
-                                                 ({comments?.createdAt.slice(11,19)} ngày {comments?.createdAt.slice(0,10)}):
+                                                 ({comments.createdAt?.slice(11,19)} ngày {comments.createdAt?.slice(0,10)}):
                                             </a>
                                         </div>
                                         <div className="review-rating">
