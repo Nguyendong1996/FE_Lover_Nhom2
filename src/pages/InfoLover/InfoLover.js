@@ -306,7 +306,7 @@ export function InfoLover() {
                         </div>
                         <div className="player-profile-right-wrap col-md-3 col-md-push-6">
                             <div className="right-player-profile" style={{marginTop: "80px"}}><p
-                                className="price-player-profile">{profileLover.price} vnđ/giờ</p>
+                                className="price-player-profile">{profileLover.price?.toLocaleString()} vnđ/giờ</p>
                                 <div className="rateting-style">
                                     <i className={"fas fa-comment"}></i><span> {comment.length}<span> đánh giá</span></span>
                                 </div>

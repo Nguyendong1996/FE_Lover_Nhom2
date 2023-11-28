@@ -64,9 +64,9 @@ export function ListBillProfileUser() {
                     <tbody>
                     <tr>
                         <th>#</th>
-                        <th style={{width:100}}>Tên lover</th>
+                        <th style={{width:130}}>Tên lover</th>
                         <th>Thời gian tạo</th>
-                        <th style={{width:400}}>Dịch vụ VIP</th>
+                        <th style={{width:370}}>Dịch vụ VIP</th>
                         <th>Thời gian</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
