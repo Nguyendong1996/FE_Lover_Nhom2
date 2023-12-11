@@ -25,6 +25,7 @@ function App() {
                 <Route path={""} element={<Home/>}></Route>
 
                 <Route path="/homeProfileLover" element={<HomeLover/>}></Route>
+                <Route path="/homeProfileLover" element={<HomeLover/>}></Route>
                 <Route path={'/info-lover/:id'} element={<InfoLover/>}></Route>
                 <Route path={"/login"} element={<FormLogin/>}></Route>
                 <Route path={"/register"} element={<FormRegister/>}></Route>
